@@ -1,0 +1,46 @@
+[
+  {
+    "id": 1,
+    "title": "Quantum Interface",
+    "category": "Web Experience",
+    "tech": "React, GSAP, Three.js",
+    "description": "A fully immersive 3D web experience designed for a forward-thinking tech company.",
+    "colSpan": "col-span-1 md:col-span-2 row-span-2",
+    "img": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1000&auto=format&fit=crop",
+    "longDescription": "This is a detailed description of the Quantum Interface project. You can replace this text with your own case study. Explain the problem, the solution, and the technologies used in depth.",
+    "link": "#"
+  },
+  {
+    "id": 2,
+    "title": "Neon Nexus",
+    "category": "UI/UX",
+    "tech": "Next.js, Framer Motion",
+    "description": "Cyberpunk inspired dashboard for crypto analytics.",
+    "colSpan": "col-span-1",
+    "img": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000&auto=format&fit=crop",
+    "longDescription": "This is a detailed description of the Neon Nexus project. You can replace this text with your own case study. Explain the problem, the solution, and the technologies used in depth.",
+    "link": "#"
+  },
+  {
+    "id": 3,
+    "title": "Void Commerce",
+    "category": "E-Commerce",
+    "tech": "Shopify, React",
+    "description": "Minimalist, high-performance storefront.",
+    "colSpan": "col-span-1",
+    "img": "https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?q=80&w=1000&auto=format&fit=crop",
+    "longDescription": "This is a detailed description of the Void Commerce project. You can replace this text with your own case study. Explain the problem, the solution, and the technologies used in depth.",
+    "link": "#"
+  },
+  {
+    "id": 4,
+    "title": "Aura Brand",
+    "category": "Interactive",
+    "tech": "WebGL",
+    "description": "Brand landing page driven by fluid simulations.",
+    "colSpan": "col-span-1 md:col-span-2",
+    "img": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop",
+    "longDescription": "This is a detailed description of the Aura Brand project. You can replace this text with your own case study. Explain the problem, the solution, and the technologies used in depth.",
+    "link": "#"
+  }
+]
