@@ -33,7 +33,7 @@ export default function Services() {
   const { openModal } = useProjectModal();
 
   return (
-    <section id="services" className="relative py-32 bg-black min-h-screen flex items-center">
+    <section id="services" className="relative pt-36 pb-32 bg-black min-h-screen flex items-start md:items-center">
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         
         <div className="text-center mb-20">
@@ -84,11 +84,11 @@ export default function Services() {
           >
             <motion.div
               layoutId={`card-${selectedService}`}
-              className="bg-[#0a0a0f] border border-neon-blue/30 rounded-3xl p-10 md:p-20 w-full max-w-4xl relative shadow-[0_0_50px_rgba(51,187,255,0.1)]"
+              className="bg-[#0a0a0f] border border-neon-blue/30 rounded-3xl p-8 sm:p-10 md:p-20 w-full max-w-4xl max-h-[90vh] overflow-y-auto relative shadow-[0_0_50px_rgba(51,187,255,0.1)]"
             >
               <button 
                 onClick={() => setSelectedService(null)}
-                className="interactive absolute top-8 right-8 text-white/50 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-full"
+                className="interactive absolute top-4 right-4 md:top-8 md:right-8 text-white/50 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-full bg-black/50 backdrop-blur-md z-50"
               >
                 <X size={24} />
               </button>

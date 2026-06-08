@@ -51,9 +51,9 @@ export default function InteractiveLogo({ className = "", imageClass = "w-16 h-1
           style={{ transform: "translateZ(30px)" }}
           className={`relative flex items-center justify-center ${imageClass} group-hover:drop-shadow-[0_0_25px_rgba(51,187,255,0.6)] transition-all duration-300`}
         >
-          <img 
-            src="/logo.png" 
-            alt="Aevinite Logo" 
+          <img
+            src="/aevinite-logo.png"
+            alt="Aevinite Logo"
             className="w-full h-full object-contain"
           />
           
