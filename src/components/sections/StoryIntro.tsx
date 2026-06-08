@@ -1,66 +1,121 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef, useState } from "react";
+import { motion, useScroll, useMotionValueEvent, useTransform, AnimatePresence } from "framer-motion";
+
+const steps = [
+  { n: "01", title: "We Identify", desc: "We identify bottlenecks, inefficiencies and missed opportunities." },
+  { n: "02", title: "We Build",    desc: "We create systems designed around real business needs." },
+  { n: "03", title: "We Automate", desc: "We eliminate repetitive work through intelligent automation." },
+  { n: "04", title: "We Scale",    desc: "We help businesses grow with systems built to last." },
+];
+
+// Thresholds at which each arrow+description reveals
+const thresholds = [0.14, 0.36, 0.58, 0.8];
+
+function Arrow() {
+  return (
+    <svg width="30" height="18" viewBox="0 0 34 20" fill="none" className="drop-shadow-[0_0_8px_rgba(51,187,255,0.9)]">
+      <path d="M2 10 H25"     stroke="#33bbff" strokeWidth="2.5" strokeLinecap="round" />
+      <path d="M21 4 L28 10 L21 16" stroke="#33bbff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
 
 export default function StoryIntro() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const textRef = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    
-    if (!textRef.current) return;
-    
-    const lines = textRef.current.querySelectorAll('.reveal-text');
-    
-    gsap.fromTo(lines, 
-      { opacity: 0, y: 50 },
-      {
-        opacity: 1,
-        y: 0,
-        stagger: 0.3,
-        duration: 1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top center",
-          end: "center center",
-          scrub: 1,
-        }
-      }
-    );
+  // Main scroll: drives arrow/description reveals over 440vh
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
+  const [revealed, setRevealed] = useState(0);
 
-    return () => {
-      ScrollTrigger.getAll().forEach(t => t.kill());
-    };
-  }, []);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"]
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    setRevealed(thresholds.filter((t) => v >= t).length);
   });
 
-  const scale = useTransform(scrollYProgress, [0, 0.5], [0.8, 1]);
+  // Section-level fade: content fades in at start, fades out at end of pin
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.06, 0.88, 1], [0, 1, 1, 0]);
+  const contentY       = useTransform(scrollYProgress, [0, 0.06, 0.88, 1], [36, 0, 0, -28]);
 
   return (
-    <section ref={sectionRef} className="relative py-32 md:py-64 w-full flex items-center justify-center overflow-hidden bg-black">
-      {/* Background Grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#00f0ff1a_1px,transparent_1px),linear-gradient(to_bottom,#00f0ff1a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20" />
-      
-      <motion.div 
-        className="container mx-auto px-6 relative z-10 flex justify-center text-center"
-        style={{ scale }}
-      >
-        <div ref={textRef} className="flex flex-col gap-4 md:gap-8 text-4xl md:text-7xl font-bold tracking-tight text-white uppercase">
-          <div className="reveal-text text-glow">We Design</div>
-          <div className="reveal-text text-glow">We Build</div>
-          <div className="reveal-text text-glow">We Animate</div>
-          <div className="reveal-text text-glow text-neon-blue">We Innovate</div>
-        </div>
-      </motion.div>
+    <section ref={ref} className="relative bg-black" style={{ height: "440vh" }}>
+      <div className="sticky top-0 h-screen flex items-center overflow-hidden">
+        {/* Subtle grid backdrop */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#00f0ff1a_1px,transparent_1px),linear-gradient(to_bottom,#00f0ff1a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20" />
+
+        {/* Entire content block fades in on entry, out on exit */}
+        <motion.div
+          style={{ opacity: contentOpacity, y: contentY }}
+          className="container mx-auto px-6 md:px-12 relative z-10 max-w-6xl"
+        >
+          <div className="flex flex-col gap-5 md:gap-8">
+            {steps.map((s, i) => {
+              const isRevealed = i < revealed;
+              return (
+                <motion.div
+                  key={s.n}
+                  initial={{ opacity: 0, y: 32 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: false, margin: "-10% 0px" }}
+                  transition={{ duration: 0.6, ease: "easeOut", delay: i * 0.1 }}
+                  className="grid grid-cols-1 md:grid-cols-12 gap-y-2 md:gap-5 items-center"
+                >
+                  {/* Gutter: arrow + number */}
+                  <div className="md:col-span-2 flex items-center gap-3 h-7">
+                    <div className="w-8 shrink-0">
+                      <AnimatePresence>
+                        {isRevealed && (
+                          <motion.div
+                            initial={{ opacity: 0, x: -12 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -12 }}
+                            transition={{ duration: 0.35, ease: "easeOut" }}
+                          >
+                            <Arrow />
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                    <span className={`font-mono text-xs tracking-widest transition-colors duration-500 ${isRevealed ? "text-neon-cyan" : "text-white/30"}`}>
+                      {s.n}
+                    </span>
+                  </div>
+
+                  {/* Heading — reduced from text-7xl → text-6xl */}
+                  <h3 className="md:col-span-6 text-3xl md:text-4xl lg:text-[3.5rem] font-bold uppercase tracking-tight text-white text-glow leading-none">
+                    {s.title}
+                  </h3>
+
+                  {/* Description */}
+                  <div className="md:col-span-4">
+                    <AnimatePresence>
+                      {isRevealed && (
+                        <motion.div
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: 20 }}
+                          transition={{ duration: 0.45, ease: "easeOut" }}
+                          className="flex items-center gap-4"
+                        >
+                          <motion.span
+                            initial={{ scaleX: 0 }}
+                            animate={{ scaleX: 1 }}
+                            transition={{ duration: 0.35, ease: "easeOut" }}
+                            className="hidden md:block h-px w-7 bg-neon-blue box-glow origin-left shrink-0"
+                          />
+                          <p className="text-white/60 font-light text-sm md:text-base leading-relaxed">
+                            {s.desc}
+                          </p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </motion.div>
+      </div>
     </section>
   );
 }

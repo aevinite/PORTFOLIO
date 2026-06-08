@@ -1,46 +1,70 @@
 [
   {
-    "id": 1,
-    "title": "Quantum Interface",
-    "category": "Web Experience",
-    "tech": "React, GSAP, Three.js",
-    "description": "A fully immersive 3D web experience designed for a forward-thinking tech company.",
+    "id": "little-french-house",
+    "title": "Little French House",
+    "category": "3D Web Experience",
+    "tech": "Next.js, Supabase, Tailwind, model-viewer, WebGL, AR",
+    "description": "An interactive \"4D\" menu where every signature dish becomes a real, explorable 3D model — rotate it, zoom in, and preview it in AR before you order.",
+    "longDescription": "Little French House reimagines the restaurant menu as a living, interactive experience. Instead of flat photos, every signature dish is rendered as a true 3D model that guests can rotate, zoom, and even place into their own space with AR — turning \"what does it look like?\" into \"I'll have that.\"\n\nIt's built on Next.js with a Supabase backend handling menu data, media and real-time updates, and styled with Tailwind CSS so the interface stays fast and fluid even while streaming high-fidelity 3D assets through model-viewer and WebGL. Each dish carries annotated ingredients, nutrition and pricing.\n\nNote: the live link is a demo build that showcases the concept and the underlying 3D / AR pipeline.",
+    "demoUrl": "https://www.infiniteif.com/menu",
     "colSpan": "col-span-1 md:col-span-2 row-span-2",
-    "img": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1000&auto=format&fit=crop",
-    "longDescription": "This is a detailed description of the Quantum Interface project. You can replace this text with your own case study. Explain the problem, the solution, and the technologies used in depth.",
-    "link": "#"
+    "interval": 4000,
+    "images": [
+      "/projects/infiniteif/menu-home.webp",
+      "/projects/infiniteif/3d-waffle-1.webp",
+      "/projects/infiniteif/item-detail.webp",
+      "/projects/infiniteif/3d-waffle-3.webp"
+    ]
   },
   {
-    "id": 2,
-    "title": "Neon Nexus",
-    "category": "UI/UX",
-    "tech": "Next.js, Framer Motion",
-    "description": "Cyberpunk inspired dashboard for crypto analytics.",
+    "id": "laxmi-hospital",
+    "title": "Laxmi Multispeciality Hospital",
+    "category": "Healthcare Website",
+    "tech": "Next.js, Supabase, Tailwind, SEO",
+    "description": "A polished, trust-first website for a multispeciality hospital — clear services, doctor profiles, OPD timings and frictionless appointment booking.",
+    "longDescription": "Laxmi Multispeciality Hospital needed a digital front door that feels as reassuring as the care it provides. The site leads with clarity: departments and specialities, doctor profiles, transparent OPD timings, and an always-visible path to book an appointment.\n\nEngineered on Next.js with Supabase powering appointment requests and content, and styled with Tailwind CSS, it loads fast on every device and is structured for strong local SEO — so patients searching for care actually find it.\n\nReplace this with specifics from the engagement: the patient-facing goals, the booking flow, and the measurable results.",
+    "demoUrl": "https://www.laxmimultispecialityhospital.in/",
     "colSpan": "col-span-1",
-    "img": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000&auto=format&fit=crop",
-    "longDescription": "This is a detailed description of the Neon Nexus project. You can replace this text with your own case study. Explain the problem, the solution, and the technologies used in depth.",
-    "link": "#"
+    "interval": 4000,
+    "images": [
+      "/projects/laxmi/1-hero.webp",
+      "/projects/laxmi/2-section.webp",
+      "/projects/laxmi/3-section.webp"
+    ]
   },
   {
-    "id": 3,
-    "title": "Void Commerce",
-    "category": "E-Commerce",
-    "tech": "Shopify, React",
-    "description": "Minimalist, high-performance storefront.",
-    "colSpan": "col-span-1",
-    "img": "https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?q=80&w=1000&auto=format&fit=crop",
-    "longDescription": "This is a detailed description of the Void Commerce project. You can replace this text with your own case study. Explain the problem, the solution, and the technologies used in depth.",
-    "link": "#"
-  },
-  {
-    "id": 4,
-    "title": "Aura Brand",
-    "category": "Interactive",
-    "tech": "WebGL",
-    "description": "Brand landing page driven by fluid simulations.",
+    "id": "hackjudge",
+    "title": "HackJudge",
+    "category": "Hackathon Platform",
+    "tech": "Next.js, Supabase, Tailwind",
+    "description": "An end-to-end hackathon management and judging platform — run events, manage teams and judges, score submissions and publish live leaderboards.",
+    "longDescription": "HackJudge is a complete operating system for running hackathons. Organisers create and schedule events, manage users and roles, onboard judges, register teams and collect project submissions — all from a single admin dashboard. Judges score against custom criteria, and results roll up into a controllable, publishable leaderboard.\n\nThe platform runs on Next.js, with Supabase handling authentication, the Postgres database and file / banner storage, and Tailwind CSS for a fast, consistent dark UI. Role-based access keeps admins, judges and participants each in their own tailored view.\n\nReplace this with the story: the problem it solves for organisers, the judging model, and how far it scales.",
+    "demoUrl": "https://hacathon-1301.vercel.app/",
     "colSpan": "col-span-1 md:col-span-2",
-    "img": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop",
-    "longDescription": "This is a detailed description of the Aura Brand project. You can replace this text with your own case study. Explain the problem, the solution, and the technologies used in depth.",
-    "link": "#"
+    "interval": 4000,
+    "images": [
+      "/projects/hackathon/1-landing.webp",
+      "/projects/hackathon/3-users.webp",
+      "/projects/hackathon/2-leaderboard.webp",
+      "/projects/hackathon/4-create.webp"
+    ]
+  },
+  {
+    "id": "coming-soon",
+    "title": "Something New",
+    "category": "In Progress",
+    "comingSoon": true,
+    "tech": "Next.js, Supabase, Tailwind",
+    "description": "Our next experience is in the works.",
+    "longDescription": "",
+    "demoUrl": "#",
+    "colSpan": "col-span-1",
+    "interval": 2500,
+    "images": [
+      "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop"
+    ]
   }
 ]

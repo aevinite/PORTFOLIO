@@ -25,7 +25,21 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
   overflow-x: hidden;
-  cursor: none; /* We will use a custom cursor */
+  /* Prevent text selection / highlight-copy across the site */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Re-enable selection where the user actually needs to type/edit text */
+input,
+textarea,
+[contenteditable="true"] {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
 }
 
 /* Custom Selection */
@@ -63,6 +77,11 @@ body {
 
 .box-glow {
   box-shadow: 0 0 15px rgba(51, 187, 255, 0.2), inset 0 0 15px rgba(51, 187, 255, 0.1);
+}
+
+/* Offset anchor scroll so fixed navbar doesn't cover section headings */
+section[id] {
+  scroll-margin-top: 5rem;
 }
 
 /* Lenis smooth scrolling requires html to not have smooth behavior */

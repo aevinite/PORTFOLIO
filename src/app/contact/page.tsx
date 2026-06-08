@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import SmoothScroll from "@/components/SmoothScroll";
-import CustomCursor from "@/components/CustomCursor";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ParticleBackground from "@/components/ParticleBackground";
@@ -36,7 +35,6 @@ export default function ContactPage() {
 
   return (
     <>
-      <CustomCursor />
       <SmoothScroll>
         <ParticleBackground />
         <Navbar />

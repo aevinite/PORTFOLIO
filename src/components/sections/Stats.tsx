@@ -32,9 +32,9 @@ function Counter({ from, to, duration = 2, suffix = "" }: { from: number; to: nu
 
 export default function Stats() {
   const stats = [
-    { value: 20, suffix: "+", label: "Projects" },
+    { value: 12, suffix: "+", label: "Projects" },
     { value: 10, suffix: "+", label: "Clients" },
-    { value: 3, suffix: "+", label: "Years" },
+    { value: 2, suffix: "+", label: "Years" },
     { value: 100, suffix: "%", label: "Creative" }
   ];
 
