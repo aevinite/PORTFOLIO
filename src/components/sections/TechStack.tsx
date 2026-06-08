@@ -26,7 +26,7 @@ const items = tech.map((t, i) => {
     x: Math.cos(angle) * radius,
     y: Math.sin(angle) * radius,
     floatDur: 3 + ((i * 0.6) % 2),
-    delay: i * 0.1,
+    delay: i * 0.16,
   };
 });
 
@@ -47,14 +47,14 @@ export default function TechStack() {
             <div className="w-4 h-4 bg-neon-cyan rounded-full" />
           </div>
 
-          {/* Orbiting tech — forms at the center, springs outward, then floats */}
+          {/* Orbiting tech — forms at the center and slowly drifts outward, then floats */}
           {items.map((item) => (
             <div key={item.name} className="absolute">
               <motion.div
-                initial={{ x: 0, y: 0, opacity: 0 }}
-                whileInView={{ x: item.x, y: item.y, opacity: 1 }}
+                initial={{ x: 0, y: 0, opacity: 0, scale: 0.6 }}
+                whileInView={{ x: item.x, y: item.y, opacity: 1, scale: 1 }}
                 viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 1, type: "spring", bounce: 0.3, delay: item.delay }}
+                transition={{ duration: 2.6, ease: "easeInOut", delay: item.delay }}
               >
                 <motion.div
                   animate={{ y: [0, -15, 0] }}
