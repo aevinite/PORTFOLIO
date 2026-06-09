@@ -8,6 +8,11 @@ import ParticleBackground from "@/components/ParticleBackground";
 import { Mail, Phone, ArrowRight } from "lucide-react";
 import { useState } from "react";
 
+// Web3Forms access key — get a free one at https://web3forms.com (enter
+// aevinite@gmail.com and it emails you the key). It's a PUBLIC key by design,
+// safe to live in client code. Submissions are emailed to that address.
+const WEB3FORMS_ACCESS_KEY = "abb7fb0c-1997-4cd7-bd4a-a2784c9589a7";
+
 export default function ContactPage() {
   const [formState, setFormState] = useState({
     name: "",
@@ -17,20 +22,43 @@ export default function ContactPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [error, setError] = useState("");
+  const [honeypot, setHoneypot] = useState(""); // spam trap — humans never fill this
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    // Bots fill the hidden field; pretend success and send nothing.
+    if (honeypot) { setIsSuccess(true); return; }
     setIsSubmitting(true);
-    
-    // Simulate network request
-    setTimeout(() => {
+    setError("");
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          from_name: "AEVINITE Website",
+          subject: `New inquiry: ${formState.subject}`,
+          name: formState.name,
+          email: formState.email,
+          message: formState.message,
+        }),
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        setIsSuccess(true);
+        setFormState({ name: "", email: "", subject: "", message: "" });
+        setTimeout(() => setIsSuccess(false), 5000);
+      } else {
+        setError(data.message || "Something went wrong. Please email us directly.");
+      }
+    } catch {
+      setError("Network error. Please check your connection or email us directly.");
+    } finally {
       setIsSubmitting(false);
-      setIsSuccess(true);
-      setFormState({ name: "", email: "", subject: "", message: "" });
-      
-      // Reset success message after 5 seconds
-      setTimeout(() => setIsSuccess(false), 5000);
-    }, 1500);
+    }
   };
 
   return (
@@ -92,6 +120,17 @@ export default function ContactPage() {
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-neon-blue/10 via-transparent to-transparent opacity-50" />
                 
                 <form onSubmit={handleSubmit} className="relative z-10 flex flex-col gap-6">
+                  {/* Honeypot — hidden from people, irresistible to bots */}
+                  <input
+                    type="text"
+                    name="botcheck"
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    className="hidden"
+                  />
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="flex flex-col gap-2">
                       <label htmlFor="name" className="text-xs uppercase tracking-widest text-white/50 font-bold">Name</label>
@@ -158,6 +197,12 @@ export default function ContactPage() {
                       {!isSubmitting && !isSuccess && <ArrowRight size={16} />}
                     </span>
                   </button>
+
+                  {error && (
+                    <p className="text-red-400 text-sm text-center" role="alert">
+                      {error}
+                    </p>
+                  )}
                 </form>
               </motion.div>
 
