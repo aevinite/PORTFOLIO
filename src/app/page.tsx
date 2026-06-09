@@ -9,7 +9,6 @@ import StoryIntro from "@/components/sections/StoryIntro";
 import About from "@/components/sections/About";
 import Services from "@/components/sections/ServicesC";
 import ProjectShowcase from "@/components/sections/ProjectShowcase";
-import HorizontalScroll from "@/components/sections/HorizontalScroll";
 import TechStack from "@/components/sections/TechStack";
 import Stats from "@/components/sections/Stats";
 import CallToAction from "@/components/sections/CallToAction";
@@ -25,7 +24,6 @@ export default function Home() {
         <About />
         <Services />
         <ProjectShowcase />
-        <HorizontalScroll />
         <TechStack />
         <Stats />
         <CallToAction />
