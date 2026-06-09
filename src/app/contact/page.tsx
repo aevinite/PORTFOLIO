@@ -7,11 +7,9 @@ import Footer from "@/components/Footer";
 import ParticleBackground from "@/components/ParticleBackground";
 import { Mail, Phone, ArrowRight } from "lucide-react";
 import { useState } from "react";
-
-// Web3Forms access key — get a free one at https://web3forms.com (enter
-// aevinite@gmail.com and it emails you the key). It's a PUBLIC key by design,
-// safe to live in client code. Submissions are emailed to that address.
-const WEB3FORMS_ACCESS_KEY = "abb7fb0c-1997-4cd7-bd4a-a2784c9589a7";
+import PhoneField from "@/components/PhoneField";
+import { submitToWeb3Forms, dialCode, DEFAULT_COUNTRY } from "@/lib/contact";
+import type { CountryCode } from "libphonenumber-js";
 
 export default function ContactPage() {
   const [formState, setFormState] = useState({
@@ -20,44 +18,61 @@ export default function ContactPage() {
     subject: "",
     message: ""
   });
+  const [country, setCountry] = useState<CountryCode>(DEFAULT_COUNTRY);
+  const [phone, setPhone] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState("");
   const [honeypot, setHoneypot] = useState(""); // spam trap — humans never fill this
 
+  // At least one way to reach them. (No format verification — data taken as given.)
+  const hasContact = formState.email.trim().length > 0 || phone.trim().length > 0;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Bots fill the hidden field; pretend success and send nothing.
-    if (honeypot) { setIsSuccess(true); return; }
+    if (honeypot) { setIsSuccess(true); return; } // bot trap
+    if (!hasContact) {
+      setError("Please add an email or phone number so we can reach you.");
+      return;
+    }
     setIsSubmitting(true);
     setError("");
 
-    try {
-      const res = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          access_key: WEB3FORMS_ACCESS_KEY,
-          from_name: "AEVINITE Website",
-          subject: `New inquiry: ${formState.subject}`,
-          name: formState.name,
-          email: formState.email,
-          message: formState.message,
-        }),
-      });
-      const data = await res.json();
+    const phoneFull = phone.trim() ? `+${dialCode(country)} ${phone.trim()}` : "";
 
-      if (data.success) {
-        setIsSuccess(true);
-        setFormState({ name: "", email: "", subject: "", message: "" });
-        setTimeout(() => setIsSuccess(false), 5000);
-      } else {
-        setError(data.message || "Something went wrong. Please email us directly.");
-      }
-    } catch {
-      setError("Network error. Please check your connection or email us directly.");
-    } finally {
-      setIsSubmitting(false);
+    // Structured, labelled body so the email is easy to read.
+    const message = [
+      "📩 NEW CONTACT MESSAGE",
+      "Source: Contact page",
+      "────────────────────",
+      `Name:    ${formState.name}`,
+      `Email:   ${formState.email.trim() || "—"}`,
+      `Phone:   ${phoneFull || "—"}`,
+      `Subject: ${formState.subject.trim() || "—"}`,
+      "",
+      "Message:",
+      formState.message.trim(),
+    ].join("\n");
+
+    const fields: Record<string, string> = {
+      from_name: "AEVINITE — Contact",
+      subject: `📩 Contact: ${formState.subject.trim() || formState.name}`,
+      name: formState.name,
+      message,
+    };
+    if (formState.email.trim()) fields.email = formState.email.trim(); // reply-to
+    if (phoneFull) fields.phone = phoneFull;
+
+    const res = await submitToWeb3Forms(fields);
+    setIsSubmitting(false);
+
+    if (res.success) {
+      setIsSuccess(true);
+      setFormState({ name: "", email: "", subject: "", message: "" });
+      setPhone("");
+      setTimeout(() => setIsSuccess(false), 5000);
+    } else {
+      setError(res.message || "Something went wrong. Please email us directly.");
     }
   };
 
@@ -146,10 +161,9 @@ export default function ContactPage() {
                     </div>
                     <div className="flex flex-col gap-2">
                       <label htmlFor="email" className="text-xs uppercase tracking-widest text-white/50 font-bold">Email</label>
-                      <input 
-                        type="email" 
+                      <input
+                        type="email"
                         id="email"
-                        required
                         value={formState.email}
                         onChange={(e) => setFormState({...formState, email: e.target.value})}
                         className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-neon-blue focus:bg-white/10 transition-all"
@@ -157,6 +171,16 @@ export default function ContactPage() {
                       />
                     </div>
                   </div>
+
+                  <PhoneField
+                    label="Phone"
+                    variant="boxed"
+                    country={country}
+                    setCountry={setCountry}
+                    phone={phone}
+                    setPhone={setPhone}
+                  />
+                  <p className="-mt-3 text-xs text-white/35">Add at least an email or a phone number so we can reach you.</p>
 
                   <div className="flex flex-col gap-2">
                     <label htmlFor="subject" className="text-xs uppercase tracking-widest text-white/50 font-bold">Subject</label>

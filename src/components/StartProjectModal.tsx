@@ -4,6 +4,9 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useProjectModal } from "@/context/ProjectModalContext";
 import { X, ArrowRight } from "lucide-react";
+import PhoneField from "@/components/PhoneField";
+import { submitToWeb3Forms, dialCode, DEFAULT_COUNTRY } from "@/lib/contact";
+import type { CountryCode } from "libphonenumber-js";
 
 const goals = [
   "Grow my business",
@@ -238,9 +241,12 @@ export default function StartProjectModal() {
   const [name, setName] = useState("");
   const [business, setBusiness] = useState("");
   const [email, setEmail] = useState("");
+  const [country, setCountry] = useState<CountryCode>(DEFAULT_COUNTRY);
   const [phone, setPhone] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
   const [extra, setExtra] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const reset = () => {
     setTimeout(() => {
@@ -248,7 +254,9 @@ export default function StartProjectModal() {
       setGoal(null); setGoalDesc(""); setGoalError(false); setGoalErrorCount(0);
       setArea(null); setAreaDesc(""); setAreaError(false); setAreaErrorCount(0);
       setDesc("");
-      setName(""); setBusiness(""); setEmail(""); setPhone(""); setWhatsapp(""); setExtra("");
+      setName(""); setBusiness(""); setEmail(""); setCountry(DEFAULT_COUNTRY);
+      setPhone(""); setWhatsapp(""); setExtra("");
+      setSubmitting(false); setSubmitError("");
     }, 420);
   };
 
@@ -279,7 +287,54 @@ export default function StartProjectModal() {
   };
 
   const step3CanNext = desc.trim().length > 0;
-  const step4CanNext = name.trim().length > 0 && email.includes("@");
+  // Name + at least one way to reach them (email OR phone). No format checks.
+  const step4CanNext =
+    name.trim().length > 0 && (email.trim().length > 0 || phone.trim().length > 0);
+
+  const handleSend = async () => {
+    if (!step4CanNext || submitting) return;
+    setSubmitting(true);
+    setSubmitError("");
+
+    const phoneFull = phone.trim() ? `+${dialCode(country)} ${phone.trim()}` : "";
+
+    // Structured, labelled body so the email is easy to read.
+    const message = [
+      "🚀 NEW PROJECT INQUIRY",
+      "Source: Start a Project",
+      "════════════════════",
+      `Goal:        ${goal ?? "—"}${goalDesc.trim() ? ` — ${goalDesc.trim()}` : ""}`,
+      `Help area:   ${area ?? "—"}${areaDesc.trim() ? ` — ${areaDesc.trim()}` : ""}`,
+      "",
+      "Project details:",
+      desc.trim() || "—",
+      "────────────────────",
+      `Name:        ${name.trim()}`,
+      `Business:    ${business.trim() || "—"}`,
+      `Email:       ${email.trim() || "—"}`,
+      `Phone:       ${phoneFull || "—"}`,
+      `WhatsApp:    ${whatsapp.trim() || "—"}`,
+      `Additional:  ${extra.trim() || "—"}`,
+    ].join("\n");
+
+    const fields: Record<string, string> = {
+      from_name: "AEVINITE — Start a Project",
+      subject: `🚀 Project inquiry: ${goal ?? ""} — ${name.trim()}`,
+      name: name.trim(),
+      message,
+    };
+    if (email.trim()) fields.email = email.trim(); // reply-to
+    if (phoneFull) fields.phone = phoneFull;
+
+    const res = await submitToWeb3Forms(fields);
+    setSubmitting(false);
+
+    if (res.success) {
+      setStep(5);
+    } else {
+      setSubmitError(res.message || "Couldn't send. Please try again or email us directly.");
+    }
+  };
 
   const fillPct = `${(Math.min(step, STEPS) / STEPS) * 100}%`;
 
@@ -441,16 +496,42 @@ export default function StartProjectModal() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5">
                       <Field label="Full Name *" value={name} onChange={setName} placeholder="John Smith" autoFocus />
                       <Field label="Business Name" value={business} onChange={setBusiness} placeholder="Optional" />
-                      <Field label="Email Address *" type="email" value={email} onChange={setEmail} placeholder="you@company.com" />
-                      <Field label="Phone Number" type="tel" value={phone} onChange={setPhone} placeholder="+1 555 000 0000" />
+                      <Field label="Email Address" type="email" value={email} onChange={setEmail} placeholder="you@company.com" />
+                      <PhoneField
+                        label="Phone Number"
+                        variant="underline"
+                        country={country}
+                        setCountry={setCountry}
+                        phone={phone}
+                        setPhone={setPhone}
+                      />
                       <Field label="WhatsApp Number" type="tel" value={whatsapp} onChange={setWhatsapp} placeholder="If different from phone" />
                       <Field label="Additional Info" value={extra} onChange={setExtra} placeholder="Optional" />
                     </div>
+
+                    <p className="mt-4 text-[10px] font-mono tracking-wide text-white/30">
+                      Add at least an email or phone so we can reach you.
+                    </p>
+
+                    <AnimatePresence>
+                      {submitError && (
+                        <motion.p
+                          initial={{ opacity: 0, y: -5 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -5 }}
+                          className="mt-2 text-[10px] font-mono tracking-wide"
+                          style={{ color: "rgba(251,191,36,0.7)" }}
+                        >
+                          {submitError}
+                        </motion.p>
+                      )}
+                    </AnimatePresence>
+
                     <NavRow
-                      canNext={step4CanNext}
-                      onNext={() => setStep(5)}
+                      canNext={step4CanNext && !submitting}
+                      onNext={handleSend}
                       onBack={() => setStep(3)}
-                      label="Send"
+                      label={submitting ? "Sending…" : "Send"}
                       accent
                     />
                   </motion.div>
