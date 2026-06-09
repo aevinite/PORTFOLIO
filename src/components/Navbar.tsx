@@ -2,26 +2,15 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import InteractiveLogo from "./InteractiveLogo";
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   return (
     <motion.nav
-      className={`fixed top-0 left-0 right-0 z-[90] transition-all duration-300 ${
-        scrolled ? "py-1 glass-panel border-b-0" : "py-1.5 bg-transparent"
-      }`}
+      className="fixed top-0 left-0 right-0 z-[90] py-1.5 bg-transparent"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut", delay: 0.5 }}
