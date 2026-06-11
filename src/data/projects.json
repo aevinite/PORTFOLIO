@@ -2,18 +2,18 @@
   {
     "id": "little-french-house",
     "title": "Little French House",
-    "category": "3D Web Experience",
-    "tech": "Next.js, Supabase, Tailwind, model-viewer, WebGL, AR",
-    "description": "An interactive \"4D\" menu where every signature dish becomes a real, explorable 3D model — rotate it, zoom in, and preview it in AR before you order.",
-    "longDescription": "Little French House reimagines the restaurant menu as a living, interactive experience. Instead of flat photos, every signature dish is rendered as a true 3D model that guests can rotate, zoom, and even place into their own space with AR — turning \"what does it look like?\" into \"I'll have that.\"\n\nIt's built on Next.js with a Supabase backend handling menu data, media and real-time updates, and styled with Tailwind CSS so the interface stays fast and fluid even while streaming high-fidelity 3D assets through model-viewer and WebGL. Each dish carries annotated ingredients, nutrition and pricing.\n\nNote: the live link is a demo build that showcases the concept and the underlying 3D / AR pipeline.",
+    "category": "Smart Restaurant Menu",
+    "tech": "Next.js, Supabase, Tailwind",
+    "description": "A fast, beautiful digital menu for an all-day café & bakery — live categories, search, dietary filters and rich item pages with nutrition and pricing.",
+    "longDescription": "Little French House replaces the printed menu with a digital one that actually helps guests order. Dishes are organised into live categories — coffee, croissants, desserts and more — with instant search, veg / non-veg filters and quick sorting by popularity or price.\n\nEvery item opens into its own detail page: photography, ratings, calories, protein, carbs and price at a glance, with a one-tap add-to-order flow. The interface switches between list and grid views and stays smooth on any phone held at the table.\n\nIt's built on Next.js with a Supabase backend handling menu data, media and real-time updates, and styled with Tailwind CSS so the experience stays fast even on slow café Wi-Fi.",
     "demoUrl": "https://www.infiniteif.com/menu",
     "colSpan": "col-span-1 md:col-span-2 row-span-2",
     "interval": 4000,
     "images": [
       "/projects/infiniteif/menu-home.webp",
-      "/projects/infiniteif/3d-waffle-1.webp",
-      "/projects/infiniteif/item-detail.webp",
-      "/projects/infiniteif/3d-waffle-3.webp"
+      "/projects/infiniteif/menu-grid.webp",
+      "/projects/infiniteif/menu-desserts.webp",
+      "/projects/infiniteif/item-detail.webp"
     ]
   },
   {
@@ -33,6 +33,21 @@
     ]
   },
   {
+    "id": "dish-explorer-4d",
+    "title": "4D Dish Explorer",
+    "category": "3D Web Experience",
+    "tech": "Next.js, Three.js, model-viewer, WebGL, AR",
+    "description": "An interactive \"4D\" dish viewer where every signature dish becomes a real, explorable 3D model — rotate it, zoom in, and preview it in AR before you order.",
+    "longDescription": "The 4D Dish Explorer turns \"what does it look like?\" into \"I'll have that.\" Instead of flat photos, every signature dish is rendered as a true 3D model that guests can rotate, zoom, and even place into their own space with AR.\n\nEach dish is annotated in 3D — ingredients like the Belgian waffle, saffron-infused ice cream or buttery croissant are pinned directly onto the model with tasting notes, alongside calories, protein, carbs and price. One tap adds it to the order; one more opens the AR view.\n\nHigh-fidelity 3D assets stream through model-viewer and WebGL on a Next.js foundation, so the experience loads fast and runs smoothly on ordinary phones — no app install required.",
+    "demoUrl": "https://3-d-full.vercel.app/",
+    "colSpan": "col-span-1 md:col-span-2",
+    "interval": 4000,
+    "images": [
+      "/projects/3d-full/3d-waffle.webp",
+      "/projects/3d-full/3d-croissant.webp"
+    ]
+  },
+  {
     "id": "hackjudge",
     "title": "HackJudge",
     "category": "Hackathon Platform",
@@ -47,6 +62,21 @@
       "/projects/hackathon/3-users.webp",
       "/projects/hackathon/2-leaderboard.webp",
       "/projects/hackathon/4-create.webp"
+    ]
+  },
+  {
+    "id": "sweet-bites",
+    "title": "Sweet Bites — Neon Bakery",
+    "category": "3D Scroll Experience",
+    "tech": "Next.js, Three.js, GSAP, WebGL",
+    "description": "A cinematic scroll-driven 3D showcase — a neon bakery kiosk you orbit, zoom and explore as the story unfolds section by section.",
+    "longDescription": "Sweet Bites is a pocket-sized bakery glowing at the edge of the night market — and the entire website is built around its 3D model. As you scroll, the camera glides around the kiosk: leaning into the order window, framing the cupcake neon sign, then pulling back until the shop becomes a beacon in a sleeping street.\n\nEvery section pairs a camera move with a beat of storytelling — counter light and sugar, a sign you can taste, the glow of the night market, built for the midnight rush. Scroll is the only control; the experience does the rest.\n\nIt's a demonstration of what we do for product brands: take one hero object, model it in loving detail, and choreograph motion and copy around it so visitors don't just see the product — they feel it.",
+    "demoUrl": "https://3-d-demo-webiste.vercel.app/",
+    "colSpan": "col-span-1 md:col-span-2",
+    "interval": 4000,
+    "video": "/projects/sweet-bites/scroll-demo.mp4",
+    "images": [
+      "/projects/sweet-bites/poster.webp"
     ]
   },
   {

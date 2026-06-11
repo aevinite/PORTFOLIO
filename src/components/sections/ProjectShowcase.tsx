@@ -18,6 +18,8 @@ type Project = {
   colSpan: string;
   interval?: number;
   images: string[];
+  /** Optional looping preview video; shown instead of the image slider. */
+  video?: string;
   comingSoon?: boolean;
 };
 
@@ -93,15 +95,28 @@ export default function ProjectShowcase() {
                   }}
                 >
                   {isCenter ? (
-                    /* Center card auto-slides every 3s, zooms OUT to reveal the full image */
-                    <AutoSlideImage
-                      images={p.images}
-                      interval={3000}
-                      showArrows={false}
-                      showDots={false}
-                      align="center"
-                      zoom="out"
-                    />
+                    p.video ? (
+                      /* Live preview video — muted + looping so it autoplays everywhere */
+                      <video
+                        src={p.video}
+                        poster={p.images[0]}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    ) : (
+                      /* Center card auto-slides every 3s, zooms OUT to reveal the full image */
+                      <AutoSlideImage
+                        images={p.images}
+                        interval={3000}
+                        showArrows={false}
+                        showDots={false}
+                        align="center"
+                        zoom="out"
+                      />
+                    )
                   ) : (
                     <div
                       className="absolute inset-0 bg-cover bg-center"
@@ -223,12 +238,25 @@ export default function ProjectShowcase() {
                     transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
                     className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 mt-10 shadow-[0_30px_80px_rgba(0,0,0,0.6)]"
                   >
-                    <AutoSlideImage
-                      images={selected.images}
-                      interval={selected.interval ?? 4000}
-                      align="center"
-                      zoom="out"
-                    />
+                    {selected.video ? (
+                      <video
+                        src={selected.video}
+                        poster={selected.images[0]}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        controls
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    ) : (
+                      <AutoSlideImage
+                        images={selected.images}
+                        interval={selected.interval ?? 4000}
+                        align="center"
+                        zoom="out"
+                      />
+                    )}
                   </motion.div>
 
                   {/* Content grid */}
