@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, ExternalLink, ArrowLeft } from "lucide-react";
+import { ExternalLink, ArrowLeft } from "lucide-react";
 import AutoSlideImage from "@/components/showcase/AutoSlideImage";
 import projectsData from "@/data/projects.json";
 
@@ -30,6 +30,22 @@ export default function ProjectShowcase() {
   const [selected, setSelected] = useState<Project | null>(null);
   const n = projects.length;
   const go = (d: number) => setActive((p) => (p + d + n) % n);
+
+  // swipe to browse projects; a real swipe must not fire the card's click
+  const swipe = useRef({ x: 0, y: 0, swiped: false });
+  const onPointerDown = (e: React.PointerEvent) => {
+    swipe.current = { x: e.clientX, y: e.clientY, swiped: false };
+  };
+  const onPointerUp = (e: React.PointerEvent) => {
+    const dx = e.clientX - swipe.current.x;
+    const dy = e.clientY - swipe.current.y;
+    if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+      swipe.current.swiped = true;
+      go(dx < 0 ? 1 : -1);
+      // suppress only the click that immediately follows this swipe
+      setTimeout(() => { swipe.current.swiped = false; }, 180);
+    }
+  };
 
   return (
     <section id="projects" className="relative py-32 bg-black overflow-hidden">
@@ -61,7 +77,9 @@ export default function ProjectShowcase() {
         <div className="relative">
           <div
             className="relative h-[260px] md:h-[420px] flex items-center justify-center"
-            style={{ perspective: 1700 }}
+            style={{ perspective: 1700, touchAction: "pan-y" }}
+            onPointerDown={onPointerDown}
+            onPointerUp={onPointerUp}
           >
             {projects.map((p, i) => {
               let offset = i - active;
@@ -74,6 +92,7 @@ export default function ProjectShowcase() {
                 <motion.div
                   key={p.id}
                   onClick={() => {
+                    if (swipe.current.swiped) return; // drag, not a click
                     if (!isCenter) { setActive(i); return; }
                     if (p.comingSoon) return; // hype card has no detail
                     setSelected(p);
@@ -162,21 +181,17 @@ export default function ProjectShowcase() {
             })}
           </div>
 
-          {/* Deck navigation arrows */}
+          {/* Edge click-zones — tap either side of the deck to browse (no arrow buttons) */}
           <button
-            onClick={() => go(-1)}
+            onClick={() => { if (!swipe.current.swiped) go(-1); }}
             aria-label="Previous project"
-            className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 z-50 w-11 h-11 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md border border-white/15 text-white hover:bg-neon-blue/30 hover:border-neon-blue/50 transition-all"
-          >
-            <ChevronLeft size={22} />
-          </button>
+            className="interactive absolute left-0 top-0 z-40 h-full w-[14%] cursor-pointer bg-transparent"
+          />
           <button
-            onClick={() => go(1)}
+            onClick={() => { if (!swipe.current.swiped) go(1); }}
             aria-label="Next project"
-            className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 z-50 w-11 h-11 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md border border-white/15 text-white hover:bg-neon-blue/30 hover:border-neon-blue/50 transition-all"
-          >
-            <ChevronRight size={22} />
-          </button>
+            className="interactive absolute right-0 top-0 z-40 h-full w-[14%] cursor-pointer bg-transparent"
+          />
 
           {/* No progress dots at the bottom — removed per request */}
         </div>

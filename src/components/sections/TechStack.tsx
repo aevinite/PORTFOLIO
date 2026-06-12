@@ -72,7 +72,8 @@ export default function TechStack() {
         <h2 className="text-sm font-bold text-neon-blue tracking-[0.3em] uppercase mb-4 text-glow">Powered By</h2>
       </div>
 
-      <div className="relative w-full max-w-5xl h-[520px] flex items-center justify-center">
+      {/* Scaled down on phones so the orbiting badges never leave the screen */}
+      <div className="relative w-full max-w-5xl h-[330px] sm:h-[420px] md:h-[520px] flex items-center justify-center scale-[0.58] sm:scale-75 md:scale-100">
         {/* Core center */}
         <div className="absolute w-24 h-24 rounded-full border border-neon-blue/50 flex items-center justify-center animate-pulse shadow-[0_0_50px_rgba(51,187,255,0.2)]">
           <div className="w-4 h-4 bg-neon-cyan rounded-full" />
