@@ -195,8 +195,8 @@ export default function ServicesC() {
           </motion.h2>
         </div>
 
-        {/* Marquee */}
-        <div className="overflow-hidden mb-10 border-y border-white/[0.06] py-4">
+        {/* Marquee — the live ticker; kept bright so it reads at a glance */}
+        <div className="overflow-hidden mb-10 border-y border-neon-blue/15 py-5 bg-white/[0.02]">
           <motion.div
             animate={{ x: ["0%", "-50%"] }}
             transition={{ duration: 22, ease: "linear", repeat: Infinity }}
@@ -205,10 +205,11 @@ export default function ServicesC() {
             {marqueeItems.map((s, i) => (
               <span
                 key={i}
-                className="flex items-center gap-6 font-bold text-[11px] uppercase tracking-[0.35em] text-white/18"
+                className="flex items-center gap-6 font-bold text-[13px] md:text-base uppercase tracking-[0.35em] text-white/75"
+                style={{ textShadow: "0 0 16px rgba(51,187,255,0.35)" }}
               >
                 {s.title}
-                <span className="text-neon-blue/35 text-base">·</span>
+                <span className="text-neon-blue/80 text-lg">·</span>
               </span>
             ))}
           </motion.div>

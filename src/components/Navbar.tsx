@@ -66,7 +66,7 @@ export default function Navbar() {
             className="fixed inset-0 z-[95] bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center min-h-screen"
           >
             <div className="flex flex-col items-center gap-8">
-              {["Projects", "Services", "Process"].map((item, i) => (
+              {["Projects", "Services", "About"].map((item, i) => (
                 <motion.div
                   key={item}
                   initial={{ opacity: 0, y: 20 }}
