@@ -195,8 +195,17 @@ export default function ServicesC() {
           </motion.h2>
         </div>
 
-        {/* Marquee — the live ticker; kept bright so it reads at a glance */}
-        <div className="overflow-hidden mb-10 border-y border-neon-blue/15 py-5 bg-white/[0.02]">
+        {/* Marquee — the live ticker; neon-outlined strip so it pops */}
+        <div
+          className="relative overflow-hidden mb-10 border-y border-neon-blue/50 py-5 bg-neon-blue/[0.05] rounded-sm"
+          style={{
+            boxShadow:
+              "0 0 22px rgba(51,187,255,0.22), 0 0 60px rgba(51,187,255,0.10), inset 0 0 26px rgba(51,187,255,0.10)",
+          }}
+        >
+          {/* soft edge fades so names glide in/out of the glow */}
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-black to-transparent z-10" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-black to-transparent z-10" />
           <motion.div
             animate={{ x: ["0%", "-50%"] }}
             transition={{ duration: 22, ease: "linear", repeat: Infinity }}
@@ -205,11 +214,19 @@ export default function ServicesC() {
             {marqueeItems.map((s, i) => (
               <span
                 key={i}
-                className="flex items-center gap-6 font-bold text-[13px] md:text-base uppercase tracking-[0.35em] text-white/75"
-                style={{ textShadow: "0 0 16px rgba(51,187,255,0.35)" }}
+                className="flex items-center gap-6 font-bold text-[13px] md:text-base uppercase tracking-[0.35em] text-white"
+                style={{
+                  textShadow:
+                    "0 0 10px rgba(51,187,255,0.85), 0 0 26px rgba(51,187,255,0.45), 0 0 50px rgba(51,187,255,0.25)",
+                }}
               >
                 {s.title}
-                <span className="text-neon-blue/80 text-lg">·</span>
+                <span
+                  className="text-neon-cyan text-lg"
+                  style={{ textShadow: "0 0 12px rgba(51,255,234,0.9)" }}
+                >
+                  ·
+                </span>
               </span>
             ))}
           </motion.div>
