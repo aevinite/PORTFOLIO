@@ -39,7 +39,7 @@
     "tech": "Next.js, Three.js, model-viewer, WebGL, AR",
     "description": "An interactive \"4D\" dish viewer where every signature dish becomes a real, explorable 3D model — rotate it, zoom in, and preview it in AR before you order.",
     "longDescription": "The 4D Dish Explorer turns \"what does it look like?\" into \"I'll have that.\" Instead of flat photos, every signature dish is rendered as a true 3D model that guests can rotate, zoom, and even place into their own space with AR.\n\nEach dish is annotated in 3D — ingredients like the Belgian waffle, saffron-infused ice cream or buttery croissant are pinned directly onto the model with tasting notes, alongside calories, protein, carbs and price. One tap adds it to the order; one more opens the AR view.\n\nHigh-fidelity 3D assets stream through model-viewer and WebGL on a Next.js foundation, so the experience loads fast and runs smoothly on ordinary phones — no app install required.",
-    "demoUrl": "https://3-d-full.vercel.app/",
+    "demoUrl": "https://aevidine-demo.vercel.app/menu",
     "colSpan": "col-span-1 md:col-span-2",
     "interval": 4000,
     "images": [
