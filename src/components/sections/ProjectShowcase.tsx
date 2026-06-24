@@ -126,10 +126,10 @@ export default function ProjectShowcase() {
                         className="absolute inset-0 w-full h-full object-cover"
                       />
                     ) : (
-                      /* Center card auto-slides every 3s, zooms OUT to reveal the full image */
+                      /* Center card auto-slides every 2.5s, zooms OUT to reveal the full image */
                       <AutoSlideImage
                         images={p.images}
-                        interval={3000}
+                        interval={2500}
                         showArrows={false}
                         showDots={false}
                         align="center"
@@ -267,7 +267,7 @@ export default function ProjectShowcase() {
                     ) : (
                       <AutoSlideImage
                         images={selected.images}
-                        interval={selected.interval ?? 4000}
+                        interval={4000}
                         align="center"
                         zoom="out"
                       />
