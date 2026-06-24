@@ -7,7 +7,8 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 /**
  * Reusable auto-rotating image slider.
  * - Crossfades through `images` every `interval` ms, with a subtle Ken Burns zoom.
- * - Desktop hover pauses rotation and reveals prev/next arrows.
+ * - Rotation runs continuously (never pauses) so it keeps shifting even under the cursor.
+ * - Desktop hover reveals prev/next arrows.
  * - Dots are clickable; controls stop their click from bubbling to a parent card.
  */
 export default function AutoSlideImage({
@@ -27,7 +28,6 @@ export default function AutoSlideImage({
   zoom?: "in" | "out";
 }) {
   const [idx, setIdx] = useState(0);
-  const [paused, setPaused] = useState(false);
 
   const go = useCallback(
     (n: number) => setIdx((p) => (p + n + images.length) % images.length),
@@ -35,17 +35,13 @@ export default function AutoSlideImage({
   );
 
   useEffect(() => {
-    if (paused || images.length < 2) return;
+    if (images.length < 2) return;
     const id = setInterval(() => setIdx((p) => (p + 1) % images.length), interval);
     return () => clearInterval(id);
-  }, [paused, images.length, interval]);
+  }, [images.length, interval]);
 
   return (
-    <div
-      className="group/slider absolute inset-0 overflow-hidden"
-      onPointerEnter={(e) => { if (e.pointerType === "mouse") setPaused(true); }}
-      onPointerLeave={(e) => { if (e.pointerType === "mouse") setPaused(false); }}
-    >
+    <div className="group/slider absolute inset-0 overflow-hidden">
       {images.map((src, i) => {
         // zoom "out" starts magnified and settles to scale 1 (full image visible).
         // zoom "in" is the classic Ken Burns push-in.
