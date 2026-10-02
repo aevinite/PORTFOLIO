@@ -314,7 +314,7 @@ export default function ProjectShowcase() {
                         </a>
                       ) : (
                         <button className="w-full px-6 py-4 bg-white/10 text-white/40 font-bold uppercase tracking-widest text-sm rounded-full cursor-not-allowed">
-                          Coming Soon
+                          {selected.comingSoon ? "Coming Soon" : "Private client project"}
                         </button>
                       )}
                     </aside>

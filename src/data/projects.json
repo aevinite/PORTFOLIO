@@ -2,18 +2,18 @@
   {
     "id": "aevidine",
     "title": "Aevidine",
-    "category": "Smart Restaurant Menu",
-    "tech": "Next.js, Supabase, Tailwind",
-    "description": "A fast, beautiful digital menu for an all-day café & bakery — live categories, search, dietary filters and rich item pages with nutrition and pricing.",
-    "longDescription": "Aevidine replaces the printed menu with a digital one that actually helps guests order. Dishes are organised into live categories — coffee, croissants, desserts and more — with instant search, veg / non-veg filters and quick sorting by popularity or price.\n\nEvery item opens into its own detail page: photography, ratings, calories, protein, carbs and price at a glance, with a one-tap add-to-order flow. The interface switches between list and grid views and stays smooth on any phone held at the table.\n\nIt's built on Next.js with a Supabase backend handling menu data, media and real-time updates, and styled with Tailwind CSS so the experience stays fast even on slow café Wi-Fi.",
-    "demoUrl": "https://www.infiniteif.com/menu",
+    "category": "Restaurant Platform",
+    "tech": "Next.js, Supabase, Tailwind, Realtime",
+    "description": "A complete restaurant platform: a guest menu people order from at the table, plus the screens the kitchen, waiters, managers and owner work from.",
+    "longDescription": "Aevidine is the software a restaurant runs on. Guests scan the QR code on their table and get a fast menu with live categories, search, veg / non-veg filters and a page for every dish with photos, ratings, nutrition and price. They order straight from their phone.\n\nBehind the menu are the panels the team uses. The kitchen sees each order the moment it is placed, waiters and managers run tables and bills, and the owner sees how the day is going. Every screen updates in real time and keeps working on a weak connection.\n\nIt is built on Next.js and Supabase as one system that serves many restaurants, each with its own branding. Aevidine is ready for its first restaurants.",
+    "demoUrl": "https://3-d-backup.vercel.app/r/aevidine/menu",
     "colSpan": "col-span-1 md:col-span-2 row-span-2",
     "interval": 4000,
     "images": [
-      "/projects/infiniteif/menu-home.webp",
-      "/projects/infiniteif/menu-grid.webp",
-      "/projects/infiniteif/menu-desserts.webp",
-      "/projects/infiniteif/item-detail.webp"
+      "/projects/aevidine/1-home.webp",
+      "/projects/aevidine/2-grid.webp",
+      "/projects/aevidine/3-desserts.webp",
+      "/projects/aevidine/4-dish.webp"
     ]
   },
   {
@@ -22,7 +22,7 @@
     "category": "Healthcare Website",
     "tech": "Next.js, Supabase, Tailwind, SEO",
     "description": "A polished, trust-first website for a multispeciality hospital — clear services, doctor profiles, OPD timings and frictionless appointment booking.",
-    "longDescription": "A multispeciality hospital needed a digital front door that feels as reassuring as the care it provides. The site leads with clarity: departments and specialities, doctor profiles, transparent OPD timings, and an always-visible path to book an appointment.\n\nEngineered on Next.js with Supabase powering appointment requests and content, and styled with Tailwind CSS, it loads fast on every device and is structured for strong local SEO — so patients searching for care actually find it.\n\nReplace this with specifics from the engagement: the patient-facing goals, the booking flow, and the measurable results.",
+    "longDescription": "A multispeciality hospital needed a digital front door that feels as reassuring as the care it provides. The site leads with clarity: departments and specialities, doctor profiles, transparent OPD timings, and an always-visible path to book an appointment.\n\nEngineered on Next.js with Supabase powering appointment requests and content, and styled with Tailwind CSS, it loads fast on every device and is structured for strong local SEO — so patients searching for care actually find it.",
     "demoUrl": "",
     "colSpan": "col-span-1",
     "interval": 4000,
@@ -39,7 +39,7 @@
     "tech": "Next.js, Three.js, model-viewer, WebGL, AR",
     "description": "An interactive \"4D\" dish viewer where every signature dish becomes a real, explorable 3D model — rotate it, zoom in, and preview it in AR before you order.",
     "longDescription": "The 4D Dish Explorer turns \"what does it look like?\" into \"I'll have that.\" Instead of flat photos, every signature dish is rendered as a true 3D model that guests can rotate, zoom, and even place into their own space with AR.\n\nEach dish is annotated in 3D — ingredients like the Belgian waffle, saffron-infused ice cream or buttery croissant are pinned directly onto the model with tasting notes, alongside calories, protein, carbs and price. One tap adds it to the order; one more opens the AR view.\n\nHigh-fidelity 3D assets stream through model-viewer and WebGL on a Next.js foundation, so the experience loads fast and runs smoothly on ordinary phones — no app install required.",
-    "demoUrl": "https://aevidine-demo.vercel.app/menu",
+    "demoUrl": "https://3-d-backup.vercel.app/r/aevidine/menu",
     "colSpan": "col-span-1 md:col-span-2",
     "interval": 4000,
     "images": [
@@ -53,7 +53,7 @@
     "category": "Hackathon Platform",
     "tech": "Next.js, Supabase, Tailwind",
     "description": "An end-to-end hackathon management and judging platform — run events, manage teams and judges, score submissions and publish live leaderboards.",
-    "longDescription": "HackJudge is a complete operating system for running hackathons. Organisers create and schedule events, manage users and roles, onboard judges, register teams and collect project submissions — all from a single admin dashboard. Judges score against custom criteria, and results roll up into a controllable, publishable leaderboard.\n\nThe platform runs on Next.js, with Supabase handling authentication, the Postgres database and file / banner storage, and Tailwind CSS for a fast, consistent dark UI. Role-based access keeps admins, judges and participants each in their own tailored view.\n\nReplace this with the story: the problem it solves for organisers, the judging model, and how far it scales.",
+    "longDescription": "HackJudge is a complete operating system for running hackathons. Organisers create and schedule events, manage users and roles, onboard judges, register teams and collect project submissions — all from a single admin dashboard. Judges score against custom criteria, and results roll up into a controllable, publishable leaderboard.\n\nThe platform runs on Next.js, with Supabase handling authentication, the Postgres database and file / banner storage, and Tailwind CSS for a fast, consistent dark UI. Role-based access keeps admins, judges and participants each in their own tailored view.",
     "demoUrl": "https://hacathon-1301.vercel.app/",
     "colSpan": "col-span-1 md:col-span-2",
     "interval": 4000,
