@@ -97,6 +97,8 @@ export default function Hero() {
           className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-[0.2em] text-white text-glow"
         >
           AEVINITE
+          {/* Read by Google and screen readers, not shown: the page's main heading says what we do. */}
+          <span className="sr-only"> — custom software, SaaS and automation company in Ahmedabad</span>
         </motion.h1>
 
         {/* Supporting subtitle — kept after the wordmark */}
