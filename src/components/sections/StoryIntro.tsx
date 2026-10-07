@@ -81,10 +81,11 @@ export default function StoryIntro() {
                     </span>
                   </div>
 
-                  {/* Heading — reduced from text-7xl → text-6xl */}
-                  <h3 className="md:col-span-6 text-3xl md:text-4xl lg:text-[3.5rem] font-bold uppercase tracking-tight text-white text-glow leading-none">
+                  {/* Heading — reduced from text-7xl → text-6xl. h2, not h3: these follow the page's
+                      h1 directly, and a skipped level confuses screen readers and search (Lighthouse). */}
+                  <h2 className="md:col-span-6 text-3xl md:text-4xl lg:text-[3.5rem] font-bold uppercase tracking-tight text-white text-glow leading-none">
                     {s.title}
-                  </h3>
+                  </h2>
 
                   {/* Description */}
                   <div className="md:col-span-4">

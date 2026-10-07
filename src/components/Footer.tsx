@@ -58,7 +58,8 @@ export default function Footer() {
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-none bg-gradient-to-br from-white via-[#5aa9ff] to-[#1f6fb2] bg-clip-text text-transparent">
             AEVINITE
           </h2>
-          <p className="text-white/45 text-sm md:text-base leading-relaxed">
+          {/* /55 not /45: /45 on black measured 4.42:1, just under the 4.5:1 readability floor. */}
+          <p className="text-white/55 text-sm md:text-base leading-relaxed">
             Derived from <span className="text-white/70">Aevum</span> — a dimension of
             existence with a beginning but no end. It also echoes <span className="text-white/70">Infinite</span>.
           </p>
@@ -66,7 +67,8 @@ export default function Footer() {
 
         <div className="flex flex-col md:flex-row gap-12 md:gap-24">
           <div className="flex flex-col gap-4">
-            <h4 className="text-white uppercase tracking-widest text-sm font-bold">Links</h4>
+            {/* h3 under the footer's h2 — h4 skipped a level. */}
+            <h3 className="text-white uppercase tracking-widest text-sm font-bold">Links</h3>
             <div className="flex flex-col gap-2">
               {["Home", "Projects", "Services", "Contact"].map((link) => (
                 <Link
@@ -81,7 +83,7 @@ export default function Footer() {
           </div>
 
           <div className="flex flex-col gap-4">
-            <h4 className="text-white uppercase tracking-widest text-sm font-bold">Socials</h4>
+            <h3 className="text-white uppercase tracking-widest text-sm font-bold">Socials</h3>
             <div className="flex gap-4">
               {/* Instagram — brand color visible, gradient fill on hover */}
               <a
@@ -117,14 +119,15 @@ export default function Footer() {
               </a>
             </div>
             <div className="mt-1 space-y-0.5">
-              <p className="text-white/30 text-xs font-mono">aevinite@gmail.com</p>
-              <p className="text-white/30 text-xs font-mono">WhatsApp: +91 94099 01526</p>
+              {/* /50 not /30: /30 on black measured 2.44:1; /50 clears the 4.5:1 floor. */}
+              <p className="text-white/50 text-xs font-mono">aevinite@gmail.com</p>
+              <p className="text-white/50 text-xs font-mono">WhatsApp: +91 94099 01526</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto max-w-7xl mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 relative z-10 text-xs font-mono text-white/30">
+      <div className="container mx-auto max-w-7xl mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 relative z-10 text-xs font-mono text-white/50">
         <p>&copy; {new Date().getFullYear()} AEVINITE. All rights reserved.</p>
         <p>Crafted in the future.</p>
       </div>

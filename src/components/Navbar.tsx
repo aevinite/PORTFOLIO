@@ -39,6 +39,9 @@ export default function Navbar() {
         <button 
           className="interactive md:hidden flex flex-col gap-1.5 p-2 relative z-[100]"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          // Three drawn bars have no text, so a screen reader would only say "button".
+          aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={isMobileMenuOpen}
         >
           <motion.div 
             animate={isMobileMenuOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}

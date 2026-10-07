@@ -7,12 +7,21 @@ import * as THREE from "three";
 function Particles({ count = 2000 }) {
   const pointsRef = useRef<THREE.Points>(null!);
 
+  // A seeded generator (mulberry32) instead of Math.random: the starfield looks just as random,
+  // but rendering stays pure (React 19's purity rule) and every visit draws the same sky.
   const particlesPosition = useMemo(() => {
+    let seed = 0xae71;
+    const random = () => {
+      seed = (seed + 0x6d2b79f5) | 0;
+      let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
     const positions = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
-      positions[i * 3] = (Math.random() - 0.5) * 20;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 20;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 20;
+      positions[i * 3] = (random() - 0.5) * 20;
+      positions[i * 3 + 1] = (random() - 0.5) * 20;
+      positions[i * 3 + 2] = (random() - 0.5) * 20;
     }
     return positions;
   }, [count]);

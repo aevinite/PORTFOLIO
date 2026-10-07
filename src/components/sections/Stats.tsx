@@ -1,33 +1,40 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 
+const noSubscribe = () => () => {};
+
+// The server HTML carries the real number ("12+"), so Google and anyone without JavaScript read
+// the truth — it used to ship "0+". `hydrated` is false on the server and during hydration, then
+// flips before the first paint, so the browser shows `from` and the count-up runs when the
+// stat scrolls into view, exactly as before.
 function Counter({ from, to, duration = 2, suffix = "" }: { from: number; to: number; duration?: number; suffix?: string }) {
   const [count, setCount] = useState(from);
+  const hydrated = useSyncExternalStore(noSubscribe, () => true, () => false);
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   useEffect(() => {
     if (isInView) {
       let startTime: number | null = null;
-      
+
       const animate = (timestamp: number) => {
         if (!startTime) startTime = timestamp;
         const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
-        
+
         setCount(Math.floor(progress * (to - from) + from));
-        
+
         if (progress < 1) {
           window.requestAnimationFrame(animate);
         }
       };
-      
+
       window.requestAnimationFrame(animate);
     }
   }, [isInView, from, to, duration]);
 
-  return <span ref={ref}>{count}{suffix}</span>;
+  return <span ref={ref}>{hydrated ? count : to}{suffix}</span>;
 }
 
 export default function Stats() {

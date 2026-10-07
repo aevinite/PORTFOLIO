@@ -2,6 +2,7 @@
 
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import React from "react";
+import Image from "next/image";
 
 interface InteractiveLogoProps {
   className?: string;
@@ -51,9 +52,17 @@ export default function InteractiveLogo({ className = "", imageClass = "w-16 h-1
           style={{ transform: "translateZ(30px)" }}
           className={`relative flex items-center justify-center ${imageClass} group-hover:drop-shadow-[0_0_25px_rgba(51,187,255,0.6)] transition-all duration-300`}
         >
-          <img
+          {/* next/image, not <img>: the file is a 1024px, 293 KB PNG shown at 80px, so Next now
+              serves a right-sized copy. width/height reserve the space (no layout jump); the
+              classes still set the shown size; eager because it is in the header of every page
+              (Next 16 retired `priority`; its docs recommend loading="eager"). */}
+          <Image
             src="/aevinite-logo.png"
             alt="Aevinite Logo"
+            width={1024}
+            height={1024}
+            sizes="80px"
+            loading="eager"
             className="w-full h-full object-contain"
           />
           

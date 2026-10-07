@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useAnimationControls } from "framer-motion";
 import { useProjectModal } from "@/context/ProjectModalContext";
 import { X, ArrowRight } from "lucide-react";
 import PhoneField from "@/components/PhoneField";
@@ -78,15 +78,15 @@ function DescField({
   errorMessage: string;
   onType: () => void;
 }) {
-  const [shakeX, setShakeX] = useState<number[]>([0]);
+  // Each failed submit shakes the box once. Driven through framer's controls rather than a
+  // state flip inside an effect (which React 19's linter rejects as a cascading render).
+  const shake = useAnimationControls();
 
   useEffect(() => {
     if (errorCount > 0) {
-      setShakeX([0, -10, 10, -7, 7, -4, 4, 0]);
-      const t = setTimeout(() => setShakeX([0]), 400);
-      return () => clearTimeout(t);
+      shake.start({ x: [0, -10, 10, -7, 7, -4, 4, 0], transition: { duration: 0.35, ease: "easeOut" } });
     }
-  }, [errorCount]);
+  }, [errorCount, shake]);
 
   return (
     <AnimatePresence>
@@ -109,13 +109,14 @@ function DescField({
           </p>
 
           <motion.textarea
-            animate={{ x: shakeX }}
-            transition={{ duration: 0.35, ease: "easeOut" }}
+            animate={shake}
             value={value}
             onChange={(e) => { onChange(e.target.value); onType(); }}
             placeholder={placeholder}
             rows={3}
-            className="w-full text-white/85 text-[13px] p-3.5 rounded-xl resize-none leading-relaxed placeholder:text-white/18 focus:outline-none transition-all duration-200"
+            // transition-colors, not transition-all: a CSS transition on `transform` re-eased every
+            // frame framer wrote and flattened the error shake to almost nothing (measured 2026-10-08).
+            className="w-full text-white/85 text-[13px] p-3.5 rounded-xl resize-none leading-relaxed placeholder:text-white/18 focus:outline-none transition-colors duration-200"
             style={{
               background: error ? "rgba(251,191,36,0.03)" : "rgba(255,255,255,0.025)",
               border: `1px solid ${error ? "rgba(251,191,36,0.3)" : "rgba(255,255,255,0.07)"}`,

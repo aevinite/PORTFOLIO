@@ -95,10 +95,10 @@ export default function ContactPage() {
                 className="flex flex-col justify-center"
               >
                 <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-                  Let's create the <span className="text-neon-blue text-glow">future.</span>
+                  Let&apos;s create the <span className="text-neon-blue text-glow">future.</span>
                 </h1>
                 <p className="text-xl text-white/60 mb-12 max-w-lg font-light leading-relaxed">
-                  Whether you have a specific project in mind or just want to explore possibilities, we're ready to bring your vision to life.
+                  Whether you have a specific project in mind or just want to explore possibilities, we&apos;re ready to bring your vision to life.
                 </p>
                 
                 <div className="flex flex-col gap-8">
@@ -107,7 +107,8 @@ export default function ContactPage() {
                       <Mail size={20} />
                     </div>
                     <div>
-                      <h3 className="text-white uppercase tracking-widest text-sm font-bold mb-1">Email Us</h3>
+                      {/* h2 (not h3): it sits straight under the page's h1 — no skipped level. */}
+                      <h2 className="text-white uppercase tracking-widest text-sm font-bold mb-1">Email Us</h2>
                       <p className="text-white/60 group-hover:text-white transition-colors">aevinite@gmail.com</p>
                     </div>
                   </div>
@@ -117,7 +118,7 @@ export default function ContactPage() {
                       <Phone size={20} />
                     </div>
                     <div>
-                      <h3 className="text-white uppercase tracking-widest text-sm font-bold mb-1">Call Us</h3>
+                      <h2 className="text-white uppercase tracking-widest text-sm font-bold mb-1">Call Us</h2>
                       <a href="tel:+919409901526" className="interactive text-white/60 group-hover:text-white transition-colors">+91 94099 01526</a>
                     </div>
                   </div>
