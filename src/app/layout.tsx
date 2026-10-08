@@ -77,7 +77,7 @@ const JSON_LD = {
       slogan: "Software that runs real businesses",
       description: DESCRIPTION,
       email: "aevinite@gmail.com",
-      telephone: "+91-94099-01526",
+      telephone: "+91-90997-23703",
       address: {
         "@type": "PostalAddress",
         addressLocality: "Ahmedabad",
@@ -99,7 +99,7 @@ const JSON_LD = {
         "@type": "ContactPoint",
         contactType: "sales",
         email: "aevinite@gmail.com",
-        telephone: "+91-94099-01526",
+        telephone: "+91-90997-23703",
         areaServed: "IN",
         availableLanguage: ["English", "Hindi", "Gujarati"],
       },

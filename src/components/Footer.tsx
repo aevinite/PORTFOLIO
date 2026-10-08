@@ -43,9 +43,9 @@ const WhatsAppIcon = ({ size = 24 }) => (
 const GMAIL_COMPOSE =
   "https://mail.google.com/mail/?view=cm&fs=1&to=aevinite@gmail.com&su=Project%20Inquiry";
 
-// WhatsApp Business — wa.me needs international format (no +). 9409901526 -> +91.
+// WhatsApp Business — wa.me needs international format (no +). 9099723703 -> +91.
 const WHATSAPP_LINK =
-  "https://wa.me/919409901526?text=Hi%20AEVINITE%2C%20I%27d%20like%20to%20discuss%20a%20project.";
+  "https://wa.me/919099723703?text=Hi%20AEVINITE%2C%20I%27d%20like%20to%20discuss%20a%20project.";
 
 export default function Footer() {
   return (
@@ -121,7 +121,7 @@ export default function Footer() {
             <div className="mt-1 space-y-0.5">
               {/* /50 not /30: /30 on black measured 2.44:1; /50 clears the 4.5:1 floor. */}
               <p className="text-white/50 text-xs font-mono">aevinite@gmail.com</p>
-              <p className="text-white/50 text-xs font-mono">WhatsApp: +91 94099 01526</p>
+              <p className="text-white/50 text-xs font-mono">WhatsApp: +91 90997 23703</p>
             </div>
           </div>
         </div>
