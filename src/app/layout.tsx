@@ -49,6 +49,20 @@ export const metadata: Metadata = {
   publisher: "Aevinite",
   category: "technology",
   alternates: { canonical: "/" },
+  // Let Google show the full snippet and a large image preview for the brand result.
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-snippet": -1, "max-image-preview": "large" },
+  },
+  // Search Console / Bing Webmaster ownership tags. Set the codes as Vercel env vars
+  // (GOOGLE_SITE_VERIFICATION, BING_SITE_VERIFICATION); unset ones emit nothing.
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION,
+    other: process.env.BING_SITE_VERIFICATION
+      ? { "msvalidate.01": process.env.BING_SITE_VERIFICATION }
+      : undefined,
+  },
   openGraph: {
     type: "website",
     url: SITE_URL,
@@ -72,8 +86,10 @@ const JSON_LD = {
       "@type": "Organization",
       "@id": `${SITE_URL}/#organization`,
       name: "Aevinite",
+      alternateName: ["AEVINITE", "aevinite.com"],
       url: SITE_URL,
-      logo: `${SITE_URL}/logo.png`,
+      logo: { "@type": "ImageObject", url: `${SITE_URL}/logo.png` },
+      image: `${SITE_URL}/opengraph-image.jpg`,
       slogan: "Software that runs real businesses",
       description: DESCRIPTION,
       email: "aevinite@gmail.com",
@@ -94,7 +110,7 @@ const JSON_LD = {
         "3D web experiences",
         "Restaurant technology",
       ],
-      sameAs: ["https://instagram.com/aevinite"],
+      sameAs: ["https://www.instagram.com/aevinite/", "https://github.com/aevinite"],
       contactPoint: {
         "@type": "ContactPoint",
         contactType: "sales",
@@ -108,7 +124,9 @@ const JSON_LD = {
       "@type": "WebSite",
       "@id": `${SITE_URL}/#website`,
       url: SITE_URL,
+      // Google's "site name" shown above the result reads name + alternateName from here.
       name: "Aevinite",
+      alternateName: ["AEVINITE", "aevinite.com"],
       inLanguage: "en-IN",
       publisher: { "@id": `${SITE_URL}/#organization` },
     },
