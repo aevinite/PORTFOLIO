@@ -11,7 +11,8 @@ const CARD_ALT =
   "Aevinite: Software that runs real businesses. SaaS products, business software and automation.";
 
 export const metadata: Metadata = {
-  title: "Contact Us",
+  // Absolute: the "%s | Aevinite" template made a 21-character title, too thin for a search result.
+  title: { absolute: "Contact Aevinite | Software Company in Ahmedabad" },
   description: DESCRIPTION,
   alternates: { canonical: "/contact" },
   // A page's openGraph REPLACES the layout's (no deep merge), so the shared fields are repeated.

@@ -16,7 +16,7 @@ export default function Navbar() {
       transition={{ duration: 0.8, ease: "easeOut", delay: 0.5 }}
     >
       <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
-        <Link href="/" className="interactive group flex items-center gap-3">
+        <Link href="/" aria-label="Aevinite home" className="interactive group flex items-center gap-3">
           <InteractiveLogo imageClass="w-20 h-20 drop-shadow-[0_0_10px_rgba(51,187,255,0.3)]" />
         </Link>
 
@@ -24,8 +24,8 @@ export default function Navbar() {
           {["Projects", "Services", "About"].map((item) => (
             <Link
               key={item}
-              href={`/#${item.toLowerCase()}`}
-              className="interactive text-sm uppercase tracking-widest text-white/70 hover:text-white hover:text-glow transition-all duration-300"
+              href={item === "About" ? "/about" : `/#${item.toLowerCase()}`}
+              className="interactive py-2 text-sm uppercase tracking-widest text-white/70 hover:text-white hover:text-glow transition-all duration-300"
             >
               {item}
             </Link>
@@ -77,7 +77,7 @@ export default function Navbar() {
                   transition={{ delay: 0.2 + i * 0.1 }}
                 >
                   <Link
-                    href={`/#${item.toLowerCase()}`}
+                    href={item === "About" ? "/about" : `/#${item.toLowerCase()}`}
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="text-3xl uppercase tracking-widest text-white/70 hover:text-white hover:text-glow transition-all duration-300"
                   >

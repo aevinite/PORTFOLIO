@@ -4,18 +4,23 @@ import { ProjectModalProvider } from "@/context/ProjectModalContext";
 import StartProjectModal from "@/components/StartProjectModal";
 
 import { SITE_URL } from "@/lib/site";
+import { COMPANY, FOUNDERS } from "@/lib/company";
 
 // Search title (Google result + browser tab): what we are + where, brand first. ~55 chars.
 const SEARCH_TITLE = "Aevinite | Custom Software & SaaS Company in Ahmedabad";
 // Share title (WhatsApp / LinkedIn / X cards) keeps the tagline the preview image also says.
 const SHARE_TITLE = "Aevinite | Software that runs real businesses";
+// Names the founders: "who founded Aevinite" is the question people and AI assistants ask most.
 const DESCRIPTION =
-  "Aevinite is a software company in Ahmedabad building custom business software, SaaS products, websites, 3D web experiences and AI automation.";
+  "Aevinite is an Ahmedabad software company founded by Rishi Nakrani and Jenish Patel, building custom software, SaaS, websites, 3D web and AI automation.";
 
 // Google ignores the keywords tag for ranking (since 2009); it's kept as an honest list of
 // what we do. What actually ranks is the title, description, page text and the JSON-LD below.
 const KEYWORDS = [
   "Aevinite",
+  "Aevinite founders",
+  "Rishi Nakrani",
+  "Jenish Patel",
   "software company in Ahmedabad",
   "software development company Ahmedabad",
   "custom software development",
@@ -92,8 +97,15 @@ const JSON_LD = {
       image: `${SITE_URL}/opengraph-image.jpg`,
       slogan: "Software that runs real businesses",
       description: DESCRIPTION,
-      email: "aevinite@gmail.com",
-      telephone: "+91-90997-23703",
+      foundingDate: COMPANY.foundingDate,
+      foundingLocation: {
+        "@type": "Place",
+        name: `${COMPANY.city}, ${COMPANY.region}, ${COMPANY.country}`,
+      },
+      founder: FOUNDERS.map((f) => ({ "@id": `${SITE_URL}/about#${f.id}` })),
+      numberOfEmployees: { "@type": "QuantitativeValue", minValue: 2, maxValue: 10 },
+      email: COMPANY.email,
+      telephone: COMPANY.phoneE164,
       address: {
         "@type": "PostalAddress",
         addressLocality: "Ahmedabad",
@@ -110,12 +122,12 @@ const JSON_LD = {
         "3D web experiences",
         "Restaurant technology",
       ],
-      sameAs: ["https://www.instagram.com/aevinite/", "https://github.com/aevinite"],
+      sameAs: [COMPANY.linkedin, COMPANY.instagram, COMPANY.github],
       contactPoint: {
         "@type": "ContactPoint",
         contactType: "sales",
-        email: "aevinite@gmail.com",
-        telephone: "+91-90997-23703",
+        email: COMPANY.email,
+        telephone: COMPANY.phoneE164,
         areaServed: "IN",
         availableLanguage: ["English", "Hindi", "Gujarati"],
       },
@@ -130,6 +142,19 @@ const JSON_LD = {
       inLanguage: "en-IN",
       publisher: { "@id": `${SITE_URL}/#organization` },
     },
+    // The founders as people of their own, so "Rishi Nakrani" and "Jenish Patel" are tied to
+    // Aevinite and to their LinkedIn / Instagram (sameAs) wherever they are searched.
+    ...FOUNDERS.map((f) => ({
+      "@type": "Person",
+      "@id": `${SITE_URL}/about#${f.id}`,
+      name: f.name,
+      jobTitle: f.role,
+      description: f.bio,
+      url: `${SITE_URL}/about#${f.id}`,
+      worksFor: { "@id": `${SITE_URL}/#organization` },
+      homeLocation: { "@type": "Place", name: `${COMPANY.city}, ${COMPANY.region}, ${COMPANY.country}` },
+      sameAs: [f.linkedin, f.instagram],
+    })),
   ],
 };
 

@@ -1,11 +1,25 @@
 # Aevinite
 
-> Aevinite is a software company in Ahmedabad, Gujarat, India. It builds custom business software, SaaS products, websites and apps, 3D web experiences and AI automation for businesses that want to run better. Tagline: "Software that runs real businesses."
+> Aevinite is a software company based in Ahmedabad, Gujarat, India, founded on 28 July 2024 by Rishi Nakrani (Founder) and Jenish Patel (Co-Founder). It started under the name Infinite and was renamed Aevinite on 16 June 2026. Aevinite builds custom business software, SaaS products, websites and apps, 3D web experiences and AI automation. Tagline: "The beginning with no end." Website: https://www.aevinite.com
+
+## Key facts
+
+- Name: Aevinite (formerly Infinite)
+- Founded: 28 July 2024, Ahmedabad, Gujarat, India
+- Founder: Rishi Nakrani (https://www.linkedin.com/in/rishinakrani/)
+- Co-Founder: Jenish Patel (https://www.linkedin.com/in/jenish-patel-a5608a398/)
+- Renamed from Infinite to Aevinite: 16 June 2026
+- Headquarters: Ahmedabad, Gujarat, India
+- Industry: Software development
+- Team size: 2-10
+- Name meaning: derived from Aevum, a dimension of existence with a beginning but no end; it also echoes Infinite, the original name.
+- Not to be confused with: aerinite (a mineral), Aevi (payments), Aevex (aerospace), aeVidi.
 
 ## What Aevinite does
 
 - Web and app development: websites, web apps and mobile-friendly interfaces.
 - Custom systems: business software built around how a company actually works.
+- SaaS products for businesses, such as restaurant software.
 - Process automation and AI integration: removing repetitive work and adding AI where it helps.
 - Cloud platforms and growth infrastructure for products that need to scale.
 - 3D and interactive web experiences.
@@ -18,10 +32,16 @@
 - HackJudge: a hackathon management and judging platform for events, teams, judges and scoring.
 - Sweet Bites (Neon Bakery): a scroll-driven 3D showcase.
 
+## Pages
+
+- [Home](https://www.aevinite.com/): services, selected work and how Aevinite works.
+- [About](https://www.aevinite.com/about): founders, company story and frequently asked questions.
+- [Contact](https://www.aevinite.com/contact): contact form, email and phone.
+
 ## Contact
 
-- Website: https://www.aevinite.com
-- Contact page: https://www.aevinite.com/contact
-- Email: aevinite@gmail.com
+- Email: rishi@aevinite.com
 - Phone and WhatsApp: +91 90997 23703
-- Instagram: https://instagram.com/aevinite
+- LinkedIn: https://www.linkedin.com/company/aevinite/
+- Instagram: https://www.instagram.com/aevinite/
+- GitHub: https://github.com/aevinite

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
 const capabilities = [
@@ -77,6 +78,15 @@ export default function About() {
               AEVINITE helps businesses identify bottlenecks, build smarter solutions,
               automate repetitive work, and create systems that scale with growth.
             </motion.p>
+
+            {/* Plain (not animated-in) so the founders' names are in the HTML at full strength. */}
+            <p className="text-white/60 text-sm md:text-base leading-relaxed mt-6 max-w-md">
+              Founded in Ahmedabad in 2024 by <span className="text-white">Rishi Nakrani</span> and{" "}
+              <span className="text-white">Jenish Patel</span>.{" "}
+              <Link href="/about" className="interactive inline-block py-1 text-neon-blue hover:underline underline-offset-4">
+                Meet the founders &rarr;
+              </Link>
+            </p>
           </div>
 
           {/* RIGHT — capability list */}

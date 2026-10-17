@@ -109,7 +109,7 @@ export default function ContactPage() {
                     <div>
                       {/* h2 (not h3): it sits straight under the page's h1 — no skipped level. */}
                       <h2 className="text-white uppercase tracking-widest text-sm font-bold mb-1">Email Us</h2>
-                      <p className="text-white/60 group-hover:text-white transition-colors">aevinite@gmail.com</p>
+                      <a href="mailto:rishi@aevinite.com" className="interactive inline-block py-1 text-white/60 group-hover:text-white transition-colors">rishi@aevinite.com</a>
                     </div>
                   </div>
                   
@@ -119,7 +119,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h2 className="text-white uppercase tracking-widest text-sm font-bold mb-1">Call Us</h2>
-                      <a href="tel:+919099723703" className="interactive text-white/60 group-hover:text-white transition-colors">+91 90997 23703</a>
+                      <a href="tel:+919099723703" className="interactive inline-block py-1 text-white/60 group-hover:text-white transition-colors">+91 90997 23703</a>
                     </div>
                   </div>
                 </div>

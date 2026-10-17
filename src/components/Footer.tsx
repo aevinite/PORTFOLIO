@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { COMPANY, FOUNDERS } from "@/lib/company";
 
 const InstagramIcon = ({ size = 24 }) => (
   <svg
@@ -41,7 +42,7 @@ const WhatsAppIcon = ({ size = 24 }) => (
 // Opens Gmail's compose window directly (not the OS default mail app / Outlook),
 // with the recipient pre-filled.
 const GMAIL_COMPOSE =
-  "https://mail.google.com/mail/?view=cm&fs=1&to=aevinite@gmail.com&su=Project%20Inquiry";
+  "https://mail.google.com/mail/?view=cm&fs=1&to=rishi@aevinite.com&su=Project%20Inquiry";
 
 // WhatsApp Business — wa.me needs international format (no +). 9099723703 -> +91.
 const WHATSAPP_LINK =
@@ -69,12 +70,12 @@ export default function Footer() {
           <div className="flex flex-col gap-4">
             {/* h3 under the footer's h2 — h4 skipped a level. */}
             <h3 className="text-white uppercase tracking-widest text-sm font-bold">Links</h3>
-            <div className="flex flex-col gap-2">
-              {["Home", "Projects", "Services", "Contact"].map((link) => (
+            <div className="flex flex-col gap-1">
+              {["Home", "Projects", "Services", "About", "Contact"].map((link) => (
                 <Link
                   key={link}
-                  href={link === "Contact" ? "/contact" : link === "Home" ? "/" : `/#${link.toLowerCase()}`}
-                  className="interactive text-white/50 hover:text-neon-blue transition-colors text-sm"
+                  href={link === "Contact" ? "/contact" : link === "About" ? "/about" : link === "Home" ? "/" : `/#${link.toLowerCase()}`}
+                  className="interactive inline-block py-1 text-white/50 hover:text-neon-blue transition-colors text-sm"
                 >
                   {link}
                 </Link>
@@ -87,7 +88,7 @@ export default function Footer() {
             <div className="flex gap-4">
               {/* Instagram — brand color visible, gradient fill on hover */}
               <a
-                href="https://instagram.com/aevinite"
+                href={COMPANY.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
@@ -120,7 +121,7 @@ export default function Footer() {
             </div>
             <div className="mt-1 space-y-0.5">
               {/* /50 not /30: /30 on black measured 2.44:1; /50 clears the 4.5:1 floor. */}
-              <p className="text-white/50 text-xs font-mono">aevinite@gmail.com</p>
+              <p className="text-white/50 text-xs font-mono">{COMPANY.email}</p>
               <p className="text-white/50 text-xs font-mono">WhatsApp: +91 90997 23703</p>
             </div>
           </div>
@@ -129,7 +130,18 @@ export default function Footer() {
 
       <div className="container mx-auto max-w-7xl mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 relative z-10 text-xs font-mono text-white/50">
         <p>&copy; {new Date().getFullYear()} AEVINITE. All rights reserved.</p>
-        <p>Crafted in the future.</p>
+        {/* Sitewide, in plain text: who founded the company — the answer Google and AI assistants look for. */}
+        <p className="text-center md:text-right">
+          Founded in {COMPANY.city}, 2024, by{" "}
+          {FOUNDERS.map((f, i) => (
+            <span key={f.id}>
+              {i > 0 && " & "}
+              <Link href={`/about#${f.id}`} className="interactive inline-block py-1 hover:text-neon-blue transition-colors">
+                {f.name}
+              </Link>
+            </span>
+          ))}
+        </p>
       </div>
     </footer>
   );
