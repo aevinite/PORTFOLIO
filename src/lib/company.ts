@@ -20,6 +20,7 @@ export const COMPANY = {
   instagram: "https://www.instagram.com/aevinite/",
   linkedin: "https://www.linkedin.com/company/aevinite/",
   github: "https://github.com/aevinite",
+  crunchbase: "https://www.crunchbase.com/organization/aevinite",
 } as const;
 
 export type Founder = {
@@ -29,6 +30,7 @@ export type Founder = {
   bio: string;
   linkedin: string;
   instagram: string;
+  crunchbase: string;
 };
 
 export const FOUNDERS: Founder[] = [
@@ -39,6 +41,7 @@ export const FOUNDERS: Founder[] = [
     bio: "Rishi started the company as Infinite in Ahmedabad on 28 July 2024 and led its rename to Aevinite in June 2026. He leads Aevinite and is the first point of contact for new clients.",
     linkedin: "https://www.linkedin.com/in/rishinakrani/",
     instagram: "https://www.instagram.com/rishi._.nakrani/",
+    crunchbase: "https://www.crunchbase.com/person/rishi-nakrani",
   },
   {
     id: "jenish-patel",
@@ -47,6 +50,7 @@ export const FOUNDERS: Founder[] = [
     bio: "Jenish co-founded Aevinite and works alongside Rishi building the software, SaaS products and web experiences the company delivers to its clients.",
     linkedin: "https://www.linkedin.com/in/jenish-patel-a5608a398/",
     instagram: "https://www.instagram.com/jenish.16/",
+    crunchbase: "https://www.crunchbase.com/person/jenish-patel-6ea2",
   },
 ];
 

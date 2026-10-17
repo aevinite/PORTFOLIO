@@ -122,7 +122,7 @@ const JSON_LD = {
         "3D web experiences",
         "Restaurant technology",
       ],
-      sameAs: [COMPANY.linkedin, COMPANY.instagram, COMPANY.github],
+      sameAs: [COMPANY.linkedin, COMPANY.crunchbase, COMPANY.instagram, COMPANY.github],
       contactPoint: {
         "@type": "ContactPoint",
         contactType: "sales",
@@ -153,7 +153,7 @@ const JSON_LD = {
       url: `${SITE_URL}/about#${f.id}`,
       worksFor: { "@id": `${SITE_URL}/#organization` },
       homeLocation: { "@type": "Place", name: `${COMPANY.city}, ${COMPANY.region}, ${COMPANY.country}` },
-      sameAs: [f.linkedin, f.instagram],
+      sameAs: [f.linkedin, f.crunchbase, f.instagram],
     })),
   ],
 };
