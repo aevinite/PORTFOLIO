@@ -149,6 +149,22 @@ export default function AboutPage() {
               </div>
             ))}
           </dl>
+          <p className="text-sm text-white/60 mt-6">
+            Aevinite elsewhere:{" "}
+            {[
+              ["LinkedIn", COMPANY.linkedin],
+              ["Crunchbase", COMPANY.crunchbase],
+              ["Instagram", COMPANY.instagram],
+              ["GitHub", COMPANY.github],
+            ].map(([label, href], i) => (
+              <span key={label}>
+                {i > 0 && " · "}
+                <a href={href} target="_blank" rel="noopener noreferrer" className="interactive inline-block py-1 text-white/80 hover:text-neon-blue transition-colors">
+                  {label}
+                </a>
+              </span>
+            ))}
+          </p>
         </section>
 
         {/* ── Founders ──────────────────────────────────────────── */}
@@ -194,6 +210,17 @@ export default function AboutPage() {
                     className="interactive inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/15 text-white/80 text-sm hover:border-neon-blue hover:text-neon-blue transition-colors"
                   >
                     Instagram <ArrowUpRight size={16} aria-hidden="true" />
+                    <span className="sr-only">profile of {f.name}</span>
+                  </a>
+                  {/* Visible links (not just JSON-LD sameAs) so search engines crawl each founder's
+                      Crunchbase page and tie the common name "Jenish Patel" to this person. */}
+                  <a
+                    href={f.crunchbase}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="interactive inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/15 text-white/80 text-sm hover:border-neon-blue hover:text-neon-blue transition-colors"
+                  >
+                    Crunchbase <ArrowUpRight size={16} aria-hidden="true" />
                     <span className="sr-only">profile of {f.name}</span>
                   </a>
                 </div>
