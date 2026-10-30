@@ -71,10 +71,10 @@ export default function Footer() {
             {/* h3 under the footer's h2 — h4 skipped a level. */}
             <h3 className="text-white uppercase tracking-widest text-sm font-bold">Links</h3>
             <div className="flex flex-col gap-1">
-              {["Home", "Projects", "Services", "About", "Contact"].map((link) => (
+              {["Home", "Projects", "Aevidine", "Services", "About", "Contact"].map((link) => (
                 <Link
                   key={link}
-                  href={link === "Contact" ? "/contact" : link === "About" ? "/about" : link === "Home" ? "/" : `/#${link.toLowerCase()}`}
+                  href={["Contact", "About", "Aevidine"].includes(link) ? `/${link.toLowerCase()}` : link === "Home" ? "/" : `/#${link.toLowerCase()}`}
                   className="interactive inline-block py-1 text-white/50 hover:text-neon-blue transition-colors text-sm"
                 >
                   {link}
