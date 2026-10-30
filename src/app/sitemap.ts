@@ -1,6 +1,9 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
 
+// Written once at build time — the site is plain files (next.config.ts → output: "export").
+export const dynamic = "force-static";
+
 // Served as /sitemap.xml — the list of pages we want in Google. Add a line here for every new page.
 export default function sitemap(): MetadataRoute.Sitemap {
   return [

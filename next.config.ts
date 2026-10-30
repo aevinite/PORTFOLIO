@@ -1,24 +1,19 @@
 import type { NextConfig } from "next";
 
+// aevinite.com is served as plain files from GitHub Pages (.github/workflows/pages.yml), not from
+// Vercel: the site needs no server (the contact form posts straight to Web3Forms), and on Vercel it
+// shared a free account with the restaurant app, so when that app used up the account's server
+// time (23 Oct 2026) Vercel paused aevinite.com along with it. Plain files can't be paused that way.
+//
+// Obituary: next.config's headers() (nosniff / referrer / frame) only works on a Next server, so it
+// went with Vercel. GitHub Pages sends HTTPS-only itself; it does not let a site add its own headers.
 const nextConfig: NextConfig = {
+  output: "export",
+  // No image server on a static host — next/image serves the file as it is in public/.
+  images: { unoptimized: true },
   // Pin the workspace root so Next doesn't mis-detect it from stray lockfiles.
   turbopack: {
     root: __dirname,
-  },
-  // Three standard safety headers the SEO audit (jev-seo) found missing on every page:
-  // don't guess file types, don't hand our full URLs to other sites, and don't let another
-  // site show aevinite.com inside a frame. (HTTPS-only / HSTS is already sent by Vercel.)
-  async headers() {
-    return [
-      {
-        source: "/:path*",
-        headers: [
-          { key: "X-Content-Type-Options", value: "nosniff" },
-          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-          { key: "X-Frame-Options", value: "SAMEORIGIN" },
-        ],
-      },
-    ];
   },
 };
 

@@ -1,6 +1,9 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
 
+// Written once at build time — the site is plain files (next.config.ts → output: "export").
+export const dynamic = "force-static";
+
 // AI assistants that answer questions from the web — named one by one so it is explicit that
 // ChatGPT, Claude, Perplexity, Gemini, Copilot, Apple and others may read and cite aevinite.com.
 // (Everyone is already allowed by the "*" rule; naming them guards against a future blanket block.)

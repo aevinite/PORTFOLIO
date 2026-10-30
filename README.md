@@ -34,6 +34,9 @@ ProjectShowcase, TechStack, Stats) with shared pieces in `src/components/`
 
 ## Deploy
 
-Pushing to `main` triggers a Vercel deployment. No environment variables are required.
+Pushing to `main` runs `.github/workflows/pages.yml`: it builds the site as plain files
+(`next.config.ts` → `output: "export"`, written to `out/`) and publishes them on **GitHub Pages** at
+www.aevinite.com (`public/CNAME`). No environment variables are required. The site moved off Vercel
+on 30 Oct 2026: it shared a free account with the restaurant app and was paused along with it.
 
 Company facts live in one place, `src/lib/company.ts`; the About page, the footer and the JSON-LD read from it. `public/llms.txt` repeats them by hand, so change both together.
