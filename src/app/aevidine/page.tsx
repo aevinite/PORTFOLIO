@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import SmoothScroll from "@/components/SmoothScroll";
@@ -115,6 +114,33 @@ const FAQ: { q: string; a: string }[] = [
   },
 ];
 
+// The product films (made from the real app; full 4K masters live in brag-output). Shown here while
+// there is no public live demo; each is also a VideoObject below so it can appear in video results.
+const FILMS = [
+  {
+    id: "one-platform",
+    title: "Aevidine: one platform for the whole restaurant",
+    length: "1 min 14 s",
+    duration: "PT1M14S",
+    uploadDate: "2026-10-08",
+    src: "/films/aevidine-one-platform.mp4",
+    poster: "/films/aevidine-one-platform.jpg",
+    description:
+      "From paper tickets to one system: the guest orders by QR code, the kitchen gets the KOT, every table shows its status live, and the owner sees the day.",
+  },
+  {
+    id: "guest-menu",
+    title: "Aevidine guest menu: from the QR code on the table to the kitchen",
+    length: "3 min 24 s",
+    duration: "PT3M24S",
+    uploadDate: "2026-10-03",
+    src: "/films/aevidine-guest-menu.mp4",
+    poster: "/films/aevidine-guest-menu.jpg",
+    description:
+      "The guest scans the QR sticker, browses the menu with search and filters, opens each dish with its allergens, sees it in 3D, and orders; the allergy note reaches the kitchen ticket. Six languages.",
+  },
+];
+
 const JSON_LD = {
   "@context": "https://schema.org",
   "@graph": [
@@ -135,6 +161,19 @@ const JSON_LD = {
       creator: { "@id": `${SITE_URL}/#organization` },
       publisher: { "@id": `${SITE_URL}/#organization` },
     },
+    ...FILMS.map((f) => ({
+      "@type": "VideoObject",
+      "@id": `${SITE_URL}/aevidine#film-${f.id}`,
+      name: f.title,
+      description: f.description,
+      thumbnailUrl: `${SITE_URL}${f.poster}`,
+      contentUrl: `${SITE_URL}${f.src}`,
+      uploadDate: f.uploadDate,
+      duration: f.duration,
+      inLanguage: "en",
+      publisher: { "@id": `${SITE_URL}/#organization` },
+      about: { "@id": `${SITE_URL}/aevidine#software` },
+    })),
     {
       "@type": "WebPage",
       "@id": `${SITE_URL}/aevidine#webpage`,
@@ -216,16 +255,19 @@ export default function AevidinePage() {
           </div>
 
           <figure className="mt-16 rounded-3xl overflow-hidden border border-white/10 max-w-5xl">
-            <Image
-              src="/projects/aevidine/1-home.webp"
-              width={1600}
-              height={900}
-              alt="Aevidine guest menu on a phone or computer: dish categories, search, veg and non-veg filters and dishes with prices"
-              priority
-              className="w-full h-auto block"
-            />
+            {/* preload="none": nothing downloads until someone presses play (8 MB film). */}
+            <video
+              src={FILMS[0].src}
+              poster={FILMS[0].poster}
+              controls
+              preload="none"
+              playsInline
+              className="w-full h-auto block aspect-video bg-black"
+            >
+              {FILMS[0].title}
+            </video>
             <figcaption className="text-sm text-white/55 px-6 py-4 bg-black/60">
-              The guest menu a table opens after scanning its QR code (Aevidine demo restaurant).
+              {FILMS[0].title} ({FILMS[0].length}): {FILMS[0].description} Music by Sascha Ende at ende.app (CC BY 4.0).
             </figcaption>
           </figure>
         </section>
@@ -243,6 +285,28 @@ export default function AevidinePage() {
               </article>
             ))}
           </div>
+        </section>
+
+        {/* ── Guest film ────────────────────────────────────────── */}
+        <section className="container mx-auto px-6 md:px-12 mt-28" aria-labelledby="guest-film">
+          <Eyebrow>Watch</Eyebrow>
+          <h2 id="guest-film" className="text-4xl md:text-5xl font-bold text-white">What the guest sees</h2>
+          <p className="text-white/65 leading-relaxed mt-4 max-w-3xl">{FILMS[1].description}</p>
+          <figure className="mt-10 rounded-3xl overflow-hidden border border-white/10 max-w-5xl">
+            <video
+              src={FILMS[1].src}
+              poster={FILMS[1].poster}
+              controls
+              preload="none"
+              playsInline
+              className="w-full h-auto block aspect-video bg-black"
+            >
+              {FILMS[1].title}
+            </video>
+            <figcaption className="text-sm text-white/55 px-6 py-4 bg-black/60">
+              {FILMS[1].title} ({FILMS[1].length}) · Music by Sascha Ende at ende.app (CC BY 4.0)
+            </figcaption>
+          </figure>
         </section>
 
         {/* ── Features ──────────────────────────────────────────── */}

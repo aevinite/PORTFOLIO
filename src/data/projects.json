@@ -6,7 +6,7 @@
     "tech": "Next.js, Supabase, Tailwind, Realtime",
     "description": "A complete restaurant platform: a guest menu people order from at the table, plus the screens the kitchen, waiters, managers and owner work from.",
     "longDescription": "Aevidine is the software a restaurant runs on. Guests scan the QR code on their table and get a fast menu with live categories, search, veg / non-veg filters and a page for every dish with photos, ratings, nutrition and price. They order straight from their phone.\n\nBehind the menu are the panels the team uses. The kitchen sees each order the moment it is placed, waiters and managers run tables and bills, and the owner sees how the day is going. Every screen updates in real time and keeps working on a weak connection.\n\nIt is built on Next.js and Supabase as one system that serves many restaurants, each with its own branding. Aevidine is ready for its first restaurants.",
-    "demoUrl": "https://3-d-backup.vercel.app/r/aevidine/menu",
+    "demoUrl": "/aevidine",
     "colSpan": "col-span-1 md:col-span-2 row-span-2",
     "interval": 4000,
     "images": [
@@ -14,7 +14,8 @@
       "/projects/aevidine/2-grid.webp",
       "/projects/aevidine/3-desserts.webp",
       "/projects/aevidine/4-dish.webp"
-    ]
+    ],
+    "video": "/films/aevidine-preview.mp4"
   },
   {
     "id": "hospital-website",
@@ -39,7 +40,7 @@
     "tech": "Next.js, Three.js, model-viewer, WebGL, AR",
     "description": "An interactive \"4D\" dish viewer where every signature dish becomes a real, explorable 3D model — rotate it, zoom in, and preview it in AR before you order.",
     "longDescription": "The 4D Dish Explorer turns \"what does it look like?\" into \"I'll have that.\" Instead of flat photos, every signature dish is rendered as a true 3D model that guests can rotate, zoom, and even place into their own space with AR.\n\nEach dish is annotated in 3D — ingredients like the Belgian waffle, saffron-infused ice cream or buttery croissant are pinned directly onto the model with tasting notes, alongside calories, protein, carbs and price. One tap adds it to the order; one more opens the AR view.\n\nHigh-fidelity 3D assets stream through model-viewer and WebGL on a Next.js foundation, so the experience loads fast and runs smoothly on ordinary phones — no app install required.",
-    "demoUrl": "https://3-d-backup.vercel.app/r/aevidine/menu",
+    "demoUrl": "/aevidine",
     "colSpan": "col-span-1 md:col-span-2",
     "interval": 4000,
     "images": [
