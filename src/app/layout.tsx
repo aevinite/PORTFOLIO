@@ -122,7 +122,7 @@ const JSON_LD = {
         "3D web experiences",
         "Restaurant technology",
       ],
-      sameAs: [COMPANY.linkedin, COMPANY.crunchbase, COMPANY.instagram, COMPANY.github],
+      sameAs: [COMPANY.linkedin, COMPANY.crunchbase, COMPANY.instagram, COMPANY.github, COMPANY.medium, COMPANY.facebook],
       contactPoint: {
         "@type": "ContactPoint",
         contactType: "sales",

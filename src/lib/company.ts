@@ -21,6 +21,8 @@ export const COMPANY = {
   linkedin: "https://www.linkedin.com/company/aevinite/",
   github: "https://github.com/aevinite",
   crunchbase: "https://www.crunchbase.com/organization/aevinite",
+  medium: "https://medium.com/@aevinite",
+  facebook: "https://www.facebook.com/61595132492927",
 } as const;
 
 export type Founder = {
