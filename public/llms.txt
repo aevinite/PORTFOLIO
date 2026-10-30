@@ -36,6 +36,10 @@
 
 - [Home](https://www.aevinite.com/): services, selected work and how Aevinite works.
 - [Aevidine](https://www.aevinite.com/aevidine): the restaurant software: QR ordering, KOT, billing, reports.
+- [Guides](https://www.aevinite.com/guides): plain guides for restaurant owners in India.
+  - [QR code ordering for restaurants in India](https://www.aevinite.com/guides/qr-code-ordering-for-restaurants-india): how it works and what to check.
+  - [What is a KOT (kitchen order ticket)](https://www.aevinite.com/guides/what-is-a-kot-kitchen-order-ticket): and when to move to a kitchen screen.
+  - [What a restaurant GST bill in India must show](https://www.aevinite.com/guides/restaurant-gst-bill-checklist-india): a checklist.
 - [About](https://www.aevinite.com/about): founders, company story and frequently asked questions.
 - [Contact](https://www.aevinite.com/contact): contact form, email and phone.
 

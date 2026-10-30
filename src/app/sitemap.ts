@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
+import { GUIDES, guidePath } from "@/data/guides";
 
 // Written once at build time — the site is plain files (next.config.ts → output: "export").
 export const dynamic = "force-static";
@@ -9,6 +10,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: SITE_URL, lastModified: new Date(), changeFrequency: "monthly", priority: 1 },
     { url: `${SITE_URL}/aevidine`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+    { url: `${SITE_URL}/guides`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    ...GUIDES.map((g) => ({ url: `${SITE_URL}${guidePath(g)}`, lastModified: new Date(g.published), changeFrequency: "yearly" as const, priority: 0.7 })),
     { url: `${SITE_URL}/about`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
     { url: `${SITE_URL}/contact`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.7 },
   ];
