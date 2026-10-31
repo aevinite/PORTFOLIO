@@ -4,7 +4,7 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import SmoothScroll from "@/components/SmoothScroll";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ParticleBackground from "@/components/ParticleBackground";
+import { Eyebrow } from "@/components/ui";
 import { SITE_URL } from "@/lib/site";
 import { COMPANY, FOUNDERS, FOUNDER_NAMES, FAQ } from "@/lib/company";
 
@@ -99,16 +99,6 @@ const TIMELINE = [
   },
 ];
 
-function Eyebrow({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="flex items-center gap-3 mb-6">
-      <span className="w-8 h-px bg-neon-blue/60" />
-      {/* /70 not /60: small mono text needs the stronger contrast. */}
-      <span className="text-[11px] uppercase tracking-[0.35em] text-neon-cyan/70 font-mono">{children}</span>
-    </div>
-  );
-}
-
 export default function AboutPage() {
   return (
     <SmoothScroll>
@@ -116,40 +106,39 @@ export default function AboutPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD).replace(/</g, "\\u003c") }}
       />
-      <ParticleBackground />
       <Navbar />
       <main className="relative z-10 w-full pt-32 md:pt-40 pb-24">
         {/* ── Intro ─────────────────────────────────────────────── */}
-        <section className="container mx-auto px-6 md:px-12">
-          <nav aria-label="Breadcrumb" className="text-xs font-mono uppercase tracking-widest text-white/50 mb-8">
-            <Link href="/" className="interactive inline-block py-1 hover:text-neon-blue transition-colors">Home</Link>
+        <section className="max-w-7xl mx-auto px-5 md:px-10">
+          <nav aria-label="Breadcrumb" className="text-sm text-subtle mb-10">
+            <Link href="/" className=" inline-block py-1 hover:text-accent transition-colors">Home</Link>
             <span className="mx-2">/</span>
-            <span className="text-white/70">About</span>
+            <span className="text-muted">About</span>
           </nav>
           <Eyebrow>Who we are</Eyebrow>
-          <h1 className="text-5xl md:text-7xl font-bold text-white leading-[1.05] max-w-4xl">
-            About <span className="text-neon-blue text-glow">Aevinite</span>
+          <h1 className="text-5xl md:text-7xl font-semibold tracking-tight text-ink leading-[1.05] max-w-4xl">
+            About <span className="serif-accent text-accent">Aevinite</span>
           </h1>
-          <p className="text-lg md:text-xl text-white/70 font-light leading-relaxed mt-8 max-w-3xl">
+          <p className="text-lg md:text-xl text-muted font-light leading-relaxed mt-8 max-w-3xl">
             Aevinite is a company based in {COMPANY.city}, {COMPANY.region}, {COMPANY.country}.
             It was founded on {COMPANY.foundedLabel} by{" "}
-            <a href={`#${FOUNDERS[0].id}`} className="interactive text-white hover:text-neon-blue transition-colors">{FOUNDERS[0].name}</a>{" "}
+            <a href={`#${FOUNDERS[0].id}`} className=" text-ink hover:text-accent transition-colors">{FOUNDERS[0].name}</a>{" "}
             ({FOUNDERS[0].role}) and{" "}
-            <a href={`#${FOUNDERS[1].id}`} className="interactive text-white hover:text-neon-blue transition-colors">{FOUNDERS[1].name}</a>{" "}
+            <a href={`#${FOUNDERS[1].id}`} className=" text-ink hover:text-accent transition-colors">{FOUNDERS[1].name}</a>{" "}
             ({FOUNDERS[1].role}) under the name {COMPANY.formerName}, and became Aevinite on {COMPANY.renamedLabel}.
             We help businesses grow, with websites, software and automation built around how each
             business works. Our own product, Aevidine, is restaurant software.
           </p>
 
-          <dl className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px mt-14 rounded-2xl overflow-hidden border border-white/10 bg-white/10">
+          <dl className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px mt-14 rounded-2xl overflow-hidden border border-line bg-surface-2">
             {FACTS.map((f) => (
-              <div key={f.label} className="bg-black/80 p-6">
-                <dt className="text-[11px] uppercase tracking-[0.25em] text-white/50 font-mono">{f.label}</dt>
-                <dd className="text-white text-base md:text-lg mt-2 break-words">{f.value}</dd>
+              <div key={f.label} className="bg-surface p-6">
+                <dt className="text-[11px] uppercase tracking-[0.25em] text-subtle">{f.label}</dt>
+                <dd className="text-ink text-base md:text-lg mt-2 break-words">{f.value}</dd>
               </div>
             ))}
           </dl>
-          <p className="text-sm text-white/60 mt-6">
+          <p className="text-sm text-muted mt-6">
             Aevinite elsewhere:{" "}
             {[
               ["LinkedIn", COMPANY.linkedin],
@@ -159,7 +148,7 @@ export default function AboutPage() {
             ].map(([label, href], i) => (
               <span key={label}>
                 {i > 0 && " · "}
-                <a href={href} target="_blank" rel="noopener noreferrer" className="interactive inline-block py-1 text-white/80 hover:text-neon-blue transition-colors">
+                <a href={href} target="_blank" rel="noopener noreferrer" className=" inline-block py-1 text-ink hover:text-accent transition-colors">
                   {label}
                 </a>
               </span>
@@ -168,37 +157,37 @@ export default function AboutPage() {
         </section>
 
         {/* ── Founders ──────────────────────────────────────────── */}
-        <section className="container mx-auto px-6 md:px-12 mt-28" aria-labelledby="founders">
+        <section className="max-w-7xl mx-auto px-5 md:px-10 mt-28" aria-labelledby="founders">
           <Eyebrow>Leadership</Eyebrow>
-          <h2 id="founders" className="text-4xl md:text-5xl font-bold text-white">The founders</h2>
+          <h2 id="founders" className="display text-4xl md:text-5xl text-ink">The founders</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
             {FOUNDERS.map((f) => (
               <article
                 key={f.id}
                 id={f.id}
-                className="glass-panel rounded-3xl p-8 md:p-10 scroll-mt-32 flex flex-col"
+                className="bg-surface edge shadow-card rounded-3xl p-8 md:p-10 scroll-mt-32 flex flex-col"
               >
                 <div className="flex items-center gap-5">
                   <div
                     aria-hidden="true"
-                    className="w-16 h-16 shrink-0 rounded-full border border-neon-blue/40 bg-neon-blue/10 flex items-center justify-center text-neon-blue text-xl font-bold tracking-wider"
+                    className="w-16 h-16 shrink-0 rounded-full border border-accent bg-accent-soft flex items-center justify-center text-accent text-xl font-bold tracking-wider"
                   >
                     {f.name.split(" ").map((p) => p[0]).join("")}
                   </div>
                   <div>
-                    <h3 className="text-2xl md:text-3xl font-bold text-white">{f.name}</h3>
-                    <p className="text-neon-blue text-sm uppercase tracking-widest mt-1">
+                    <h3 className="display text-2xl md:text-3xl text-ink">{f.name}</h3>
+                    <p className="text-accent text-sm uppercase tracking-widest mt-1">
                       {f.role}, Aevinite
                     </p>
                   </div>
                 </div>
-                <p className="text-white/65 leading-relaxed mt-6 flex-1">{f.bio}</p>
+                <p className="text-muted leading-relaxed mt-6 flex-1">{f.bio}</p>
                 <div className="flex flex-wrap gap-3 mt-8">
                   <a
                     href={f.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="interactive inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/15 text-white/80 text-sm hover:border-neon-blue hover:text-neon-blue transition-colors"
+                    className=" inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-line-strong text-ink text-sm hover:border-accent hover:text-accent transition-colors"
                   >
                     LinkedIn <ArrowUpRight size={16} aria-hidden="true" />
                     <span className="sr-only">profile of {f.name}</span>
@@ -207,7 +196,7 @@ export default function AboutPage() {
                     href={f.instagram}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="interactive inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/15 text-white/80 text-sm hover:border-neon-blue hover:text-neon-blue transition-colors"
+                    className=" inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-line-strong text-ink text-sm hover:border-accent hover:text-accent transition-colors"
                   >
                     Instagram <ArrowUpRight size={16} aria-hidden="true" />
                     <span className="sr-only">profile of {f.name}</span>
@@ -218,7 +207,7 @@ export default function AboutPage() {
                     href={f.crunchbase}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="interactive inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/15 text-white/80 text-sm hover:border-neon-blue hover:text-neon-blue transition-colors"
+                    className=" inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-line-strong text-ink text-sm hover:border-accent hover:text-accent transition-colors"
                   >
                     Crunchbase <ArrowUpRight size={16} aria-hidden="true" />
                     <span className="sr-only">profile of {f.name}</span>
@@ -230,55 +219,55 @@ export default function AboutPage() {
         </section>
 
         {/* ── Story ─────────────────────────────────────────────── */}
-        <section className="container mx-auto px-6 md:px-12 mt-28" aria-labelledby="story">
+        <section className="max-w-7xl mx-auto px-5 md:px-10 mt-28" aria-labelledby="story">
           <Eyebrow>Our story</Eyebrow>
-          <h2 id="story" className="text-4xl md:text-5xl font-bold text-white">From Infinite to Aevinite</h2>
-          <ol className="mt-10 border-l border-white/15 ml-2">
+          <h2 id="story" className="display text-4xl md:text-5xl text-ink">From Infinite to Aevinite</h2>
+          <ol className="mt-10 border-l border-line-strong ml-2">
             {TIMELINE.map((t) => (
               <li key={t.title} className="relative pl-8 md:pl-10 pb-12 last:pb-0">
-                <span aria-hidden="true" className="absolute -left-[7px] top-1.5 w-3 h-3 rounded-full bg-neon-blue shadow-[0_0_12px_rgba(51,187,255,0.7)]" />
-                <p className="font-mono text-xs uppercase tracking-widest text-neon-cyan/70">{t.date}</p>
-                <h3 className="text-xl md:text-2xl font-bold text-white mt-2">{t.title}</h3>
-                <p className="text-white/60 leading-relaxed mt-2 max-w-2xl">{t.text}</p>
+                <span aria-hidden="true" className="absolute -left-[7px] top-1.5 w-3 h-3 rounded-full bg-accent" />
+                <p className=" text-xs uppercase tracking-widest text-accent">{t.date}</p>
+                <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-ink mt-2">{t.title}</h3>
+                <p className="text-muted leading-relaxed mt-2 max-w-2xl">{t.text}</p>
               </li>
             ))}
           </ol>
 
-          <div className="glass-panel rounded-3xl p-8 md:p-10 mt-16 max-w-3xl">
-            <h3 className="text-xl font-bold text-white">What the name means</h3>
-            <p className="text-white/65 leading-relaxed mt-3">
-              <span className="text-white">Aevinite</span> is derived from <span className="text-white">Aevum</span>, a
+          <div className="bg-surface edge shadow-card rounded-3xl p-8 md:p-10 mt-16 max-w-3xl">
+            <h3 className="text-xl font-semibold tracking-tight text-ink">What the name means</h3>
+            <p className="text-muted leading-relaxed mt-3">
+              <span className="text-ink">Aevinite</span> is derived from <span className="text-ink">Aevum</span>, a
               dimension of existence with a beginning but no end, and it echoes{" "}
-              <span className="text-white">Infinite</span>, the name the company started with. Hence the tagline:{" "}
-              <span className="text-neon-blue">The beginning with no end.</span>
+              <span className="text-ink">Infinite</span>, the name the company started with. Hence the tagline:{" "}
+              <span className="text-accent">The beginning with no end.</span>
             </p>
           </div>
         </section>
 
         {/* ── FAQ ───────────────────────────────────────────────── */}
-        <section className="container mx-auto px-6 md:px-12 mt-28" aria-labelledby="faq">
+        <section className="max-w-7xl mx-auto px-5 md:px-10 mt-28" aria-labelledby="faq">
           <Eyebrow>Questions</Eyebrow>
-          <h2 id="faq" className="text-4xl md:text-5xl font-bold text-white">Frequently asked questions</h2>
-          <dl className="mt-10 max-w-4xl divide-y divide-white/10 border-y border-white/10">
+          <h2 id="faq" className="display text-4xl md:text-5xl text-ink">Frequently asked questions</h2>
+          <dl className="mt-10 max-w-4xl divide-y divide-line border-y border-line">
             {FAQ.map(({ q, a }) => (
               <div key={q} className="py-7">
-                <dt className="text-lg md:text-xl font-bold text-white">{q}</dt>
-                <dd className="text-white/65 leading-relaxed mt-2">{a}</dd>
+                <dt className="text-lg md:text-xl font-semibold tracking-tight text-ink">{q}</dt>
+                <dd className="text-muted leading-relaxed mt-2">{a}</dd>
               </div>
             ))}
           </dl>
         </section>
 
         {/* ── CTA ───────────────────────────────────────────────── */}
-        <section className="container mx-auto px-6 md:px-12 mt-28">
-          <div className="glass-panel rounded-3xl p-10 md:p-14 flex flex-col md:flex-row md:items-center justify-between gap-8">
+        <section className="max-w-7xl mx-auto px-5 md:px-10 mt-28">
+          <div className="bg-surface edge shadow-card rounded-3xl p-10 md:p-14 flex flex-col md:flex-row md:items-center justify-between gap-8">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white">Have a project in mind?</h2>
-              <p className="text-white/60 mt-3">Talk to the founders directly: {COMPANY.email} · {COMPANY.phoneDisplay}</p>
+              <h2 className="display text-3xl md:text-4xl text-ink">Have a project in mind?</h2>
+              <p className="text-muted mt-3">Talk to the founders directly: {COMPANY.email} · {COMPANY.phoneDisplay}</p>
             </div>
             <Link
               href="/contact"
-              className="interactive inline-flex items-center gap-2 self-start md:self-auto px-8 py-4 rounded-full border border-neon-blue/50 text-neon-blue uppercase tracking-widest text-sm hover:bg-neon-blue/10 hover:box-glow transition-all duration-300"
+              className=" inline-flex items-center gap-2 self-start md:self-auto px-8 py-4 rounded-full bg-ink text-bg dark:bg-accent dark:text-accent-ink font-medium hover:opacity-90 text-[15px] transition-all duration-200"
             >
               Contact us <ArrowRight size={18} aria-hidden="true" />
             </Link>

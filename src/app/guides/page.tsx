@@ -4,7 +4,6 @@ import { ArrowRight } from "lucide-react";
 import SmoothScroll from "@/components/SmoothScroll";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ParticleBackground from "@/components/ParticleBackground";
 import { SITE_URL } from "@/lib/site";
 import { GUIDES, guidePath } from "@/data/guides";
 
@@ -66,28 +65,27 @@ export default function GuidesPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD).replace(/</g, "\\u003c") }}
       />
-      <ParticleBackground />
       <Navbar />
       <main className="relative z-10 w-full pt-32 md:pt-40 pb-24">
-        <section className="container mx-auto px-6 md:px-12 max-w-5xl">
-          <nav aria-label="Breadcrumb" className="text-xs font-mono uppercase tracking-widest text-white/50 mb-8">
-            <Link href="/" className="interactive inline-block py-1 hover:text-neon-blue transition-colors">Home</Link>
+        <section className="max-w-7xl mx-auto px-5 md:px-10 max-w-5xl">
+          <nav aria-label="Breadcrumb" className="text-sm text-subtle mb-10">
+            <Link href="/" className=" inline-block py-1 hover:text-accent transition-colors">Home</Link>
             <span className="mx-2">/</span>
-            <span className="text-white/70">Guides</span>
+            <span className="text-muted">Guides</span>
           </nav>
-          <h1 className="text-5xl md:text-7xl font-bold text-white leading-[1.05]">Guides for restaurant owners</h1>
-          <p className="text-lg md:text-xl text-white/70 font-light leading-relaxed mt-8 max-w-3xl">{DESCRIPTION}</p>
+          <h1 className="text-5xl md:text-7xl font-semibold tracking-tight text-ink leading-[1.05]">Guides for restaurant owners</h1>
+          <p className="text-lg md:text-xl text-muted font-light leading-relaxed mt-8 max-w-3xl">{DESCRIPTION}</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-14">
             {GUIDES.map((g) => (
               <Link
                 key={g.slug}
                 href={guidePath(g)}
-                className="interactive glass-panel rounded-3xl p-8 flex flex-col hover:border-neon-blue/50 transition-colors"
+                className=" bg-surface edge shadow-card rounded-3xl p-8 flex flex-col hover:border-accent transition-colors"
               >
-                <p className="font-mono text-xs uppercase tracking-widest text-neon-cyan/70">{g.readMinutes} min read</p>
-                <h2 className="text-xl font-bold text-white mt-3 leading-snug">{g.title}</h2>
-                <p className="text-white/60 leading-relaxed mt-3 flex-1">{g.description}</p>
-                <span className="inline-flex items-center gap-2 text-neon-blue text-sm mt-6">
+                <p className=" text-xs uppercase tracking-widest text-accent">{g.readMinutes} min read</p>
+                <h2 className="text-xl font-semibold tracking-tight text-ink mt-3 leading-snug">{g.title}</h2>
+                <p className="text-muted leading-relaxed mt-3 flex-1">{g.description}</p>
+                <span className="inline-flex items-center gap-2 text-accent text-sm mt-6">
                   Read <ArrowRight size={16} aria-hidden="true" />
                 </span>
               </Link>

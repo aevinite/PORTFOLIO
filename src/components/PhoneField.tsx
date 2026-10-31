@@ -32,8 +32,8 @@ export default function PhoneField({
       <label
         className={
           boxed
-            ? "text-xs uppercase tracking-widest text-white/50 font-bold"
-            : "text-[9px] uppercase tracking-[0.3em] text-white/28 font-mono"
+            ? "text-sm font-medium text-ink"
+            : "text-[9px] uppercase tracking-[0.3em] text-subtle"
         }
       >
         {label}
@@ -42,26 +42,26 @@ export default function PhoneField({
       <div
         className={
           boxed
-            ? "flex items-center gap-1 bg-white/5 border border-white/10 rounded-xl pl-2 pr-3 focus-within:border-neon-blue transition-colors"
-            : "flex items-center gap-1 border-b border-white/[0.09] focus-within:border-neon-blue/38 transition-colors"
+            ? "flex items-center gap-1 bg-bg border border-line-strong rounded-xl pl-2 pr-3 focus-within:border-accent focus-within:ring-4 focus-within:ring-accent-soft transition-all"
+            : "flex items-center gap-1 border-b border-line focus-within:border-accent transition-colors"
         }
       >
         <select
           value={country}
           onChange={(e) => setCountry(e.target.value as CountryCode)}
           aria-label="Country"
-          className={`bg-transparent text-white/70 focus:outline-none cursor-pointer ${
+          className={`bg-transparent text-muted focus:outline-none cursor-pointer ${
             boxed ? "py-3 text-sm" : "pb-2 text-[13px]"
           }`}
         >
           {COUNTRIES.map((c) => (
-            <option key={c.code} value={c.code} className="bg-[#06070d] text-white">
+            <option key={c.code} value={c.code} className="bg-surface text-ink">
               {flagEmoji(c.code)} {c.code} +{c.dial}
             </option>
           ))}
         </select>
 
-        <span className="text-white/40 text-sm select-none">+{dialCode(country)}</span>
+        <span className="text-subtle text-sm select-none">+{dialCode(country)}</span>
 
         <input
           type="tel"
@@ -69,8 +69,8 @@ export default function PhoneField({
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           placeholder="98765 43210"
-          className={`flex-1 min-w-0 bg-transparent text-white focus:outline-none placeholder:text-white/25 ${
-            boxed ? "py-3 text-sm" : "pb-2 text-[13px] text-white/90"
+          className={`flex-1 min-w-0 bg-transparent text-ink focus:outline-none placeholder:text-subtle ${
+            boxed ? "py-3 text-sm" : "pb-2 text-[13px] text-ink"
           }`}
         />
       </div>

@@ -1,150 +1,133 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { useRef, useState, useEffect } from "react";
-import * as THREE from "three";
+import dynamic from "next/dynamic";
+import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { Arrow, ButtonLink, Button, Magnetic } from "@/components/ui";
+import { useProjectModal } from "@/context/ProjectModalContext";
 
-function Logo3D() {
-  const meshRef = useRef<THREE.Group>(null!);
-  const [scale, setScale] = useState(1);
+// The 3D mark loads after the words have painted, and never on the server.
+const InfinityScene = dynamic(() => import("@/components/hero/InfinityScene"), { ssr: false });
 
-  useEffect(() => {
-    const handleResize = () => {
-      setScale(window.innerWidth < 768 ? 0.6 : 1);
-    };
-    handleResize(); // Initial check
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+// Who we have actually built for (see the Work section) — no invented industries.
+const FOR = ["restaurants", "hospitals", "brands", "events", "your business"];
 
-  useFrame((state) => {
-    const time = state.clock.getElapsedTime();
-    if (meshRef.current) {
-      meshRef.current.rotation.y = time * 0.5;
-      meshRef.current.rotation.x = Math.sin(time * 0.5) * 0.2;
-    }
-  });
-
-  return (
-    <group ref={meshRef} scale={scale}>
-      {/* Central Core */}
-      <mesh>
-        <octahedronGeometry args={[1, 0]} />
-        <meshStandardMaterial color="#000" metalness={0.9} roughness={0.1} />
-        <meshBasicMaterial color="#00f0ff" wireframe />
-      </mesh>
-      
-      {/* Outer Rings */}
-      <mesh rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[1.5, 0.02, 16, 100]} />
-        <meshBasicMaterial color="#00ffff" transparent opacity={0.5} />
-      </mesh>
-      <mesh rotation={[Math.PI / 2, Math.PI / 4, 0]}>
-        <torusGeometry args={[2, 0.01, 16, 100]} />
-        <meshBasicMaterial color="#00f0ff" transparent opacity={0.3} />
-      </mesh>
-    </group>
-  );
-}
+const ease = [0.16, 1, 0.3, 1] as const;
 
 export default function Hero() {
-  const { scrollYProgress } = useScroll();
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  // Text content slides up and fades out as user scrolls away from hero
-  const textOpacity = useTransform(scrollYProgress, [0, 0.38], [1, 0]);
-  const textY = useTransform(scrollYProgress, [0, 0.38], [0, -70]);
+  const { openModal } = useProjectModal();
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const sceneY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
+  const sceneScale = useTransform(scrollYProgress, [0, 1], [1, 0.85]);
+  const textY = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const fade = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setI((n) => (n + 1) % FOR.length), 2200);
+    return () => clearInterval(t);
+  }, []);
 
   return (
-    <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
-      {/* 3D Logo Background */}
-      <motion.div 
-        className="absolute inset-0 z-0 pointer-events-none"
-        style={{ y, opacity }}
-      >
-        <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
-          <ambientLight intensity={0.5} />
-          <pointLight position={[10, 10, 10]} color="#00f0ff" intensity={2} />
-          <Logo3D />
-        </Canvas>
+    <section ref={ref} className="relative min-h-[100svh] w-full overflow-hidden flex items-center">
+      {/* A soft horizon line behind everything; in dark mode it becomes a light source. */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <div className="absolute left-1/2 top-[62%] -translate-x-1/2 h-px w-[140%] bg-gradient-to-r from-transparent via-line-strong to-transparent" />
+        <div className="hidden dark:block absolute left-1/2 top-[62%] -translate-x-1/2 -translate-y-1/2 w-[70%] h-48 rounded-[100%] bg-accent/20 blur-[90px]" />
+      </div>
+
+      <motion.div style={{ y: sceneY, scale: sceneScale, opacity: fade }} className="absolute inset-x-0 top-[2%] h-[52%] lg:inset-y-0 lg:left-[46%] lg:right-0 lg:top-0 lg:h-full">
+        <InfinityScene />
       </motion.div>
 
-      {/* Content — scrolls out upward as user leaves hero */}
-      <motion.div
-        className="relative z-10 flex flex-col items-center text-center px-4"
-        style={{ opacity: textOpacity, y: textY }}
-      >
-        {/* Eyebrow — the key line, sitting on top */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-          className="flex items-center gap-4 mb-6 md:mb-8"
-        >
-          <span className="hidden sm:block h-px w-10 bg-neon-blue/60 box-glow" />
-          <span className="text-[11px] md:text-sm uppercase tracking-[0.35em] text-neon-cyan font-medium">
-            The beginning with no end.
-          </span>
-          <span className="hidden sm:block h-px w-10 bg-neon-blue/60 box-glow" />
-        </motion.div>
+      <motion.div style={{ y: textY, opacity: fade }} className="relative z-10 w-full max-w-7xl mx-auto px-5 md:px-10 pt-[50svh] lg:pt-24 pb-16 pointer-events-none">
+        <div className="max-w-3xl lg:max-w-[46rem] pointer-events-auto">
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease, delay: 0.1 }}
+            className="eyebrow mb-6 flex items-center gap-2.5"
+          >
+            <span className="relative flex w-2 h-2">
+              <span className="absolute inset-0 rounded-full bg-accent animate-ping opacity-60" />
+              <span className="relative w-2 h-2 rounded-full bg-accent" />
+            </span>
+            Aevinite · Ahmedabad, India
+          </motion.p>
 
-        {/* Wordmark */}
-        <motion.h1
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
-          className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-[0.2em] text-white text-glow"
-        >
-          AEVINITE
-          {/* Read by Google and screen readers, not shown: the page's main heading says what we do. */}
-          <span className="sr-only"> — we help businesses grow. Ahmedabad, India</span>
-        </motion.h1>
+          <h1 className="display text-[clamp(3.1rem,8.4vw,7rem)] text-ink">
+            {["We", "help", "businesses"].map((w, k) => (
+              <span key={w} className="inline-block overflow-hidden align-bottom pb-[0.06em] mr-[0.22em]">
+                <motion.span className="inline-block" initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ duration: 1, ease, delay: 0.15 + k * 0.08 }}>
+                  {w}
+                </motion.span>
+              </span>
+            ))}
+            <span className="inline-block overflow-hidden align-bottom pb-[0.12em] pr-[0.1em]">
+              <motion.span
+                className="inline-block serif-accent text-accent shine"
+                initial={{ y: "105%" }}
+                animate={{ y: 0 }}
+                transition={{ duration: 1.1, ease, delay: 0.45 }}
+              >
+                grow.
+              </motion.span>
+            </span>
+          </h1>
 
-        {/* Supporting subtitle — kept after the wordmark */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: "easeOut", delay: 0.6 }}
-          className="mt-6 text-sm md:text-base lg:text-lg text-white/55 font-light tracking-wide max-w-xl"
-        >
-          We help businesses grow.
-        </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, ease, delay: 0.7 }}
+          >
+            <p className="mt-7 text-lg md:text-xl text-muted max-w-[34rem] leading-relaxed">
+              Websites, software and automation built around how your business actually works, for{" "}
+              <span className="relative inline-flex overflow-hidden align-bottom h-[1.6em]">
+                <AnimatePresence mode="popLayout" initial={false}>
+                  <motion.span
+                    key={FOR[i]}
+                    className="text-ink font-medium whitespace-nowrap"
+                    initial={{ y: "100%", opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: "-100%", opacity: 0 }}
+                    transition={{ type: "spring", bounce: 0, duration: 0.5 }}
+                  >
+                    {FOR[i]}
+                  </motion.span>
+                </AnimatePresence>
+              </span>
+              .
+            </p>
 
-        <motion.button
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut", delay: 0.9 }}
-          onClick={() =>
-            document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
-          }
-          className="interactive group relative mt-10 px-8 py-4 bg-transparent border border-neon-blue rounded-full overflow-hidden hover:box-glow transition-all duration-300"
-        >
-          <div className="absolute inset-0 w-full h-full bg-neon-blue/20 translate-y-[100%] group-hover:translate-y-0 transition-transform duration-300 ease-in-out" />
-          <span className="relative z-10 text-white uppercase tracking-widest text-sm font-bold group-hover:text-glow">
-            View Our Work
-          </span>
-        </motion.button>
-      </motion.div>
-
-      {/* Scroll Indicator */}
-      <motion.div 
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 1 }}
-        style={{ opacity }}
-      >
-        <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center p-1">
-          <motion.div 
-            className="w-1.5 h-1.5 bg-neon-blue rounded-full box-glow"
-            animate={{ y: [0, 16, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          />
+            <div className="mt-10 flex flex-wrap items-center gap-3">
+              <Magnetic>
+                <Button size="lg" onClick={openModal}>
+                  Start a project <Arrow />
+                </Button>
+              </Magnetic>
+              <ButtonLink href="/#work" look="ghost" size="lg">
+                See our work
+              </ButtonLink>
+            </div>
+          </motion.div>
         </div>
-        <span className="text-[10px] text-white/50 uppercase tracking-widest font-mono">
-          Scroll
-        </span>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.4, duration: 1 }}
+          className="mt-16 lg:mt-24 flex flex-wrap items-center gap-x-8 gap-y-2 text-sm text-subtle pointer-events-auto"
+        >
+          <span>Since 2024</span>
+          <span>Founded by Rishi Nakrani &amp; Jenish Patel</span>
+          <span className="hidden lg:inline-flex items-center gap-2">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            Drag the infinity
+          </span>
+        </motion.div>
       </motion.div>
     </section>
   );

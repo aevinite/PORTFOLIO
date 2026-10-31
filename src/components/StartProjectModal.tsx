@@ -45,8 +45,8 @@ function Pill({ label, selected, onClick }: { label: string; selected: boolean; 
       whileTap={{ scale: 0.97 }}
       className={`px-4 py-[9px] rounded-full border text-[12.5px] leading-none transition-all duration-200 ${
         selected
-          ? "border-neon-blue/55 bg-neon-blue/[0.11] text-white shadow-[0_0_14px_rgba(51,187,255,0.18)]"
-          : "border-white/[0.09] bg-white/[0.025] text-white/45 hover:border-white/[0.16] hover:text-white/75 hover:bg-white/[0.05]"
+          ? "border-accent bg-accent-soft text-ink"
+          : "border-line bg-surface-2 text-subtle hover:border-line-strong hover:text-ink hover:bg-surface-2"
       }`}
     >
       {label}
@@ -98,13 +98,13 @@ function DescField({
           transition={{ duration: 0.28, ease }}
           className="overflow-hidden"
         >
-          <p className="text-[9px] uppercase tracking-[0.3em] font-mono mb-2.5"
-            style={{ color: error ? "rgba(251,191,36,0.6)" : "rgba(255,255,255,0.28)" }}>
+          <p className="text-xs uppercase tracking-[0.3em] mb-2.5"
+            style={{ color: error ? "#b45309" : "var(--subtle)" }}>
             {label}
             {required ? (
-              <span style={{ color: error ? "rgba(251,191,36,0.8)" : "rgba(51,187,255,0.55)" }} className="ml-1">*</span>
+              <span style={{ color: error ? "#b45309" : "var(--accent)" }} className="ml-1">*</span>
             ) : (
-              <span className="text-white/20 ml-1">— optional</span>
+              <span className="text-subtle ml-1">(optional)</span>
             )}
           </p>
 
@@ -116,10 +116,10 @@ function DescField({
             rows={3}
             // transition-colors, not transition-all: a CSS transition on `transform` re-eased every
             // frame framer wrote and flattened the error shake to almost nothing (measured 2026-10-08).
-            className="w-full text-white/85 text-[13px] p-3.5 rounded-xl resize-none leading-relaxed placeholder:text-white/18 focus:outline-none transition-colors duration-200"
+            className="w-full text-ink text-[13px] p-3.5 rounded-xl resize-none leading-relaxed placeholder:text-subtle focus:outline-none transition-colors duration-200"
             style={{
-              background: error ? "rgba(251,191,36,0.03)" : "rgba(255,255,255,0.025)",
-              border: `1px solid ${error ? "rgba(251,191,36,0.3)" : "rgba(255,255,255,0.07)"}`,
+              background: error ? "rgb(180 83 9 / 0.06)" : "var(--surface-2)",
+              border: `1px solid ${error ? "rgb(180 83 9 / 0.45)" : "var(--line)"}`,
             }}
           />
 
@@ -130,8 +130,8 @@ function DescField({
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -5 }}
                 transition={{ duration: 0.2 }}
-                className="mt-2 text-[10px] font-mono tracking-wide"
-                style={{ color: "rgba(251,191,36,0.65)" }}
+                className="mt-2 text-xs tracking-wide"
+                style={{ color: "#b45309" }}
               >
                 {errorMessage}
               </motion.p>
@@ -161,14 +161,14 @@ function Field({
 }) {
   return (
     <div>
-      <p className="text-[9px] uppercase tracking-[0.3em] text-white/28 font-mono mb-2">{label}</p>
+      <p className="text-xs uppercase tracking-[0.3em] text-subtle mb-2">{label}</p>
       <input
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         autoFocus={autoFocus}
-        className="w-full bg-transparent border-b border-white/[0.09] pb-2 text-white/90 text-[13px] placeholder:text-white/18 focus:outline-none focus:border-neon-blue/38 transition-colors duration-200"
+        className="w-full bg-transparent border-b border-line pb-2 text-ink text-[13px] placeholder:text-subtle focus:outline-none focus:border-accent transition-colors duration-200"
       />
     </div>
   );
@@ -189,11 +189,11 @@ function NavRow({
   accent?: boolean;
 }) {
   return (
-    <div className="flex items-center justify-between mt-7 pt-5 border-t border-white/[0.05]">
+    <div className="flex items-center justify-between mt-7 pt-5 border-t border-line">
       {onBack ? (
         <button
           onClick={onBack}
-          className="text-[9.5px] uppercase tracking-[0.22em] font-mono text-white/28 hover:text-white/55 transition-colors"
+          className="text-xs uppercase tracking-[0.22em] text-subtle hover:text-subtle transition-colors"
         >
           ← Back
         </button>
@@ -202,12 +202,12 @@ function NavRow({
       )}
       <button
         onClick={onNext}
-        className={`flex items-center gap-2 text-[10px] uppercase tracking-[0.18em] font-mono px-6 py-2.5 rounded-full transition-all duration-200 ${
+        className={`flex items-center gap-2 text-xs uppercase tracking-[0.18em] px-6 py-2.5 rounded-full transition-all duration-200 ${
           canNext
             ? accent
-              ? "bg-neon-blue text-[#04050c] font-bold shadow-[0_0_22px_rgba(51,187,255,0.5)] hover:shadow-[0_0_32px_rgba(51,187,255,0.65)] hover:bg-[#4dcfff]"
-              : "border border-neon-blue/42 text-neon-blue hover:bg-neon-blue/[0.09] hover:shadow-[0_0_18px_rgba(51,187,255,0.18)]"
-            : "border border-white/[0.06] text-white/18 cursor-not-allowed"
+              ? "bg-ink text-bg dark:bg-accent dark:text-accent-ink font-semibold hover:opacity-90"
+              : "border border-accent text-accent hover:bg-accent-soft"
+            : "border border-line text-subtle cursor-not-allowed"
         }`}
       >
         {label}
@@ -262,6 +262,15 @@ export default function StartProjectModal() {
   };
 
   const close = () => { closeModal(); reset(); };
+
+  // Escape closes the popup like every other dialog on the site. It keeps what was typed, so an
+  // accidental key press doesn't throw the answers away (the X button still starts fresh).
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && closeModal();
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [isOpen, closeModal]);
 
   // Step 1: button is clickable whenever a pill is selected; validation fires on click
   const handleStep1Next = () => {
@@ -347,7 +356,7 @@ export default function StartProjectModal() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.22 }}
-          className="fixed inset-0 z-[200] flex items-end sm:items-center justify-center sm:p-6 bg-black/[0.87] backdrop-blur-2xl"
+          className="fixed inset-0 z-[200] flex items-end sm:items-center justify-center sm:p-6 bg-black/40 backdrop-blur-md"
           onClick={(e) => { if (e.target === e.currentTarget) close(); }}
         >
           <motion.div
@@ -355,30 +364,28 @@ export default function StartProjectModal() {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 52, opacity: 0 }}
             transition={{ duration: 0.42, ease }}
-            className="relative w-full sm:max-w-[560px] bg-[#06070d] border border-white/[0.07] rounded-t-[26px] sm:rounded-[26px] overflow-hidden"
-            style={{ boxShadow: "0 0 70px rgba(51,187,255,0.06), 0 48px 96px rgba(0,0,0,0.75)" }}
+            className="relative w-full sm:max-w-[560px] bg-surface border border-line rounded-t-[26px] sm:rounded-[26px] overflow-hidden"
+            style={{ boxShadow: "var(--shadow-lg)" }}
           >
             {/* Progress bar */}
-            <div className="absolute top-0 left-0 right-0 h-[2px] bg-white/[0.045] z-20">
+            <div className="absolute top-0 left-0 right-0 h-[2px] bg-surface-2 z-20">
               <motion.div
                 className="h-full"
-                style={{ background: "rgba(51,187,255,0.75)" }}
+                style={{ background: "var(--accent)" }}
                 animate={{ width: fillPct }}
                 transition={{ duration: 0.38, ease: "easeOut" }}
               />
             </div>
 
-            {/* Ambient bottom glow */}
-            <div className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 w-[240px] h-px bg-neon-blue/15 blur-[6px]" />
-
             {/* Header row */}
             <div className="flex items-center justify-between px-7 pt-8 pb-0 sm:px-9 sm:pt-9">
-              <span className="font-mono text-[9px] tracking-[0.38em] text-white/22 uppercase">
+              <span className="text-xs tracking-[0.38em] text-subtle uppercase">
                 {step <= STEPS ? `${String(step).padStart(2, "0")} / ${String(STEPS).padStart(2, "0")}` : "Done"}
               </span>
               <button
                 onClick={close}
-                className="w-7 h-7 flex items-center justify-center rounded-full border border-white/[0.07] text-white/30 hover:text-white/65 hover:border-white/15 transition-all duration-200"
+                aria-label="Close"
+                className="w-9 h-9 flex items-center justify-center rounded-full border border-line text-subtle hover:text-muted hover:border-line-strong transition-all duration-200"
               >
                 <X size={13} strokeWidth={1.8} />
               </button>
@@ -392,7 +399,7 @@ export default function StartProjectModal() {
                 {step === 1 && (
                   <motion.div key="s1" variants={slide} initial="enter" animate="center" exit="exit"
                     transition={{ duration: 0.28, ease }}>
-                    <h2 className="text-[21px] sm:text-[25px] font-bold text-white leading-tight mb-6">
+                    <h2 className="text-[21px] sm:text-[25px] font-semibold tracking-tight text-ink leading-tight mb-6">
                       What are you looking<br />to achieve?
                     </h2>
 
@@ -432,7 +439,7 @@ export default function StartProjectModal() {
                 {step === 2 && (
                   <motion.div key="s2" variants={slide} initial="enter" animate="center" exit="exit"
                     transition={{ duration: 0.28, ease }}>
-                    <h2 className="text-[21px] sm:text-[25px] font-bold text-white leading-tight mb-6">
+                    <h2 className="text-[21px] sm:text-[25px] font-semibold tracking-tight text-ink leading-tight mb-6">
                       Where do you<br />need help?
                     </h2>
 
@@ -472,7 +479,7 @@ export default function StartProjectModal() {
                 {step === 3 && (
                   <motion.div key="s3" variants={slide} initial="enter" animate="center" exit="exit"
                     transition={{ duration: 0.28, ease }}>
-                    <h2 className="text-[21px] sm:text-[25px] font-bold text-white leading-tight mb-5">
+                    <h2 className="text-[21px] sm:text-[25px] font-semibold tracking-tight text-ink leading-tight mb-5">
                       Tell us about<br />your project
                     </h2>
                     <textarea
@@ -481,7 +488,7 @@ export default function StartProjectModal() {
                       autoFocus
                       rows={6}
                       placeholder={"e.g. \"I want more customers from my website.\"\n\"I want to automate manual work in my business.\"\n\"I need a custom system for my team.\"\n\"I have an idea and need help bringing it to life.\""}
-                      className="w-full bg-white/[0.025] border border-white/[0.07] rounded-xl text-white/85 text-[13px] p-4 focus:outline-none focus:border-neon-blue/28 focus:bg-white/[0.04] transition-all duration-200 resize-none placeholder:text-white/18 leading-relaxed"
+                      className="w-full bg-surface-2 border border-line rounded-xl text-ink text-[13px] p-4 focus:outline-none focus:border-accent focus:bg-surface-2 transition-all duration-200 resize-none placeholder:text-subtle leading-relaxed"
                     />
                     <NavRow canNext={step3CanNext} onNext={() => setStep(4)} onBack={() => setStep(2)} />
                   </motion.div>
@@ -491,7 +498,7 @@ export default function StartProjectModal() {
                 {step === 4 && (
                   <motion.div key="s4" variants={slide} initial="enter" animate="center" exit="exit"
                     transition={{ duration: 0.28, ease }}>
-                    <h2 className="text-[21px] sm:text-[25px] font-bold text-white leading-tight mb-6">
+                    <h2 className="text-[21px] sm:text-[25px] font-semibold tracking-tight text-ink leading-tight mb-6">
                       How can we<br />reach you?
                     </h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5">
@@ -510,7 +517,7 @@ export default function StartProjectModal() {
                       <Field label="Additional Info" value={extra} onChange={setExtra} placeholder="Optional" />
                     </div>
 
-                    <p className="mt-4 text-[10px] font-mono tracking-wide text-white/30">
+                    <p className="mt-4 text-xs tracking-wide text-subtle">
                       Add at least an email or phone so we can reach you.
                     </p>
 
@@ -520,8 +527,8 @@ export default function StartProjectModal() {
                           initial={{ opacity: 0, y: -5 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -5 }}
-                          className="mt-2 text-[10px] font-mono tracking-wide"
-                          style={{ color: "rgba(251,191,36,0.7)" }}
+                          className="mt-2 text-xs tracking-wide"
+                          style={{ color: "#b45309" }}
                         >
                           {submitError}
                         </motion.p>
@@ -550,13 +557,13 @@ export default function StartProjectModal() {
                       initial={{ scale: 0, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
                       transition={{ delay: 0.08, type: "spring", bounce: 0.42 }}
-                      className="w-[52px] h-[52px] rounded-full border border-neon-blue/32 bg-neon-blue/[0.09] flex items-center justify-center mb-7"
-                      style={{ boxShadow: "0 0 26px rgba(51,187,255,0.2)" }}
+                      className="w-[52px] h-[52px] rounded-full border border-accent bg-accent-soft flex items-center justify-center mb-7"
+                      style={{ boxShadow: "0 0 26px var(--glow)" }}
                     >
                       <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
                         <motion.path
                           d="M4.5 11l4 4L17.5 7.5"
-                          stroke="rgba(51,187,255,0.82)"
+                          stroke="var(--accent)"
                           strokeWidth="1.75"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -571,7 +578,7 @@ export default function StartProjectModal() {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.2 }}
-                      className="text-[22px] sm:text-[26px] font-bold text-white mb-2.5"
+                      className="text-[22px] sm:text-[26px] font-bold text-ink mb-2.5"
                     >
                       We&apos;re on it.
                     </motion.h2>
@@ -580,13 +587,13 @@ export default function StartProjectModal() {
                       initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.3 }}
-                      className="text-white/38 text-[13px] leading-relaxed mb-9 max-w-[260px]"
+                      className="text-subtle text-[13px] leading-relaxed mb-9 max-w-[260px]"
                     >
                       Expect to hear from us within 24 hours.
                       {email && (
                         <>
                           <br />
-                          <span className="text-white/55">{email}</span>
+                          <span className="text-subtle">{email}</span>
                         </>
                       )}
                     </motion.p>
@@ -596,7 +603,7 @@ export default function StartProjectModal() {
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.48 }}
                       onClick={close}
-                      className="text-[9px] uppercase tracking-[0.3em] font-mono text-white/22 hover:text-white/48 transition-colors"
+                      className="text-xs uppercase tracking-[0.3em] text-subtle hover:text-subtle transition-colors"
                     >
                       Close
                     </motion.button>

@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import SmoothScroll from "@/components/SmoothScroll";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ParticleBackground from "@/components/ParticleBackground";
+import FilmPlayer from "@/components/FilmPlayer";
+import { Arrow, Breadcrumb, ButtonLink, Eyebrow } from "@/components/ui";
+import { FILMS as FILM_DATA, FILM_CREDIT } from "@/data/films";
 import { SITE_URL } from "@/lib/site";
 import { COMPANY, FOUNDER_NAMES } from "@/lib/company";
 
@@ -114,32 +115,8 @@ const FAQ: { q: string; a: string }[] = [
   },
 ];
 
-// The product films (made from the real app; full 4K masters live in brag-output). Shown here while
-// there is no public live demo; each is also a VideoObject below so it can appear in video results.
-const FILMS = [
-  {
-    id: "one-platform",
-    title: "Aevidine: one platform for the whole restaurant",
-    length: "1 min 14 s",
-    duration: "PT1M14S",
-    uploadDate: "2026-10-08",
-    src: "/films/aevidine-one-platform.mp4",
-    poster: "/films/aevidine-one-platform.jpg",
-    description:
-      "From paper tickets to one system: the guest orders by QR code, the kitchen gets the KOT, every table shows its status live, and the owner sees the day.",
-  },
-  {
-    id: "guest-menu",
-    title: "Aevidine guest menu: from the QR code on the table to the kitchen",
-    length: "3 min 24 s",
-    duration: "PT3M24S",
-    uploadDate: "2026-10-03",
-    src: "/films/aevidine-guest-menu.mp4",
-    poster: "/films/aevidine-guest-menu.jpg",
-    description:
-      "The guest scans the QR sticker, browses the menu with search and filters, opens each dish with its allergens, sees it in 3D, and orders; the allergy note reaches the kitchen ticket. Six languages.",
-  },
-];
+// The product films live in src/data/films.ts (shared with the home page).
+const FILMS = [FILM_DATA.onePlatform, FILM_DATA.guestMenu];
 
 const JSON_LD = {
   "@context": "https://schema.org",
@@ -204,119 +181,102 @@ const JSON_LD = {
   ],
 };
 
-function Eyebrow({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="flex items-center gap-3 mb-6">
-      <span className="w-8 h-px bg-neon-blue/60" />
-      {/* /70 not /60: small mono text needs the stronger contrast. */}
-      <span className="text-[11px] uppercase tracking-[0.35em] text-neon-cyan/70 font-mono">{children}</span>
-    </div>
-  );
-}
-
 export default function AevidinePage() {
+  const one = FILM_DATA.onePlatform;
+  const guest = FILM_DATA.guestMenu;
   return (
     <SmoothScroll>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD).replace(/</g, "\\u003c") }}
       />
-      <ParticleBackground />
       <Navbar />
-      <main className="relative z-10 w-full pt-32 md:pt-40 pb-24">
+      <main className="relative w-full pt-32 md:pt-40 pb-12">
         {/* ── Intro ─────────────────────────────────────────────── */}
-        <section className="container mx-auto px-6 md:px-12">
-          <nav aria-label="Breadcrumb" className="text-xs font-mono uppercase tracking-widest text-white/50 mb-8">
-            <Link href="/" className="interactive inline-block py-1 hover:text-neon-blue transition-colors">Home</Link>
-            <span className="mx-2">/</span>
-            <span className="text-white/70">Aevidine</span>
-          </nav>
-          <Eyebrow>Our product</Eyebrow>
-          <h1 className="text-5xl md:text-7xl font-bold text-white leading-[1.05] max-w-4xl">
-            <span className="text-neon-blue text-glow">Aevidine</span>
-            <span className="block text-2xl md:text-4xl font-semibold text-white/85 mt-4 leading-snug">
+        <section className="max-w-7xl mx-auto px-5 md:px-10">
+          <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Aevidine" }]} />
+          <Eyebrow tone="gold">Our product</Eyebrow>
+          <h1 className="display text-[clamp(3.4rem,10vw,8rem)] text-ink">
+            Aevi<span className="serif-accent text-gold">dine</span>
+            <span className="block mt-5 text-[clamp(1.5rem,3.2vw,2.6rem)] font-medium tracking-tight leading-tight text-muted">
               Restaurant software for QR ordering, KOT and billing
             </span>
           </h1>
-          <p className="text-lg md:text-xl text-white/70 font-light leading-relaxed mt-8 max-w-3xl">
+          <p className="text-lg md:text-xl text-muted leading-relaxed mt-8 max-w-3xl">
             Aevidine is restaurant management software made by{" "}
-            <Link href="/about" className="interactive text-white hover:text-neon-blue transition-colors">Aevinite</Link>{" "}
+            <Link href="/about" className="text-ink underline decoration-line-strong underline-offset-4 hover:decoration-gold">Aevinite</Link>{" "}
             in {COMPANY.city}. Guests order from a QR code menu at the table, the kitchen gets every order as a
             KOT, and waiters, managers and the owner run tables, bills and reports from their own screens. It works
             on any phone, tablet or computer, and keeps working when the internet drops.
           </p>
           <div className="flex flex-wrap gap-3 mt-10">
-            <Link
-              href="/contact"
-              className="interactive inline-flex items-center gap-2 px-8 py-4 rounded-full border border-neon-blue/50 text-neon-blue uppercase tracking-widest text-sm hover:bg-neon-blue/10 hover:box-glow transition-all duration-300"
-            >
-              Book a free demo <ArrowRight size={18} aria-hidden="true" />
-            </Link>
+            <ButtonLink href="/contact" look="gold" size="lg">
+              Book a free demo <Arrow />
+            </ButtonLink>
+            <ButtonLink href="#film" look="ghost" size="lg">
+              Watch it work
+            </ButtonLink>
           </div>
 
-          <figure className="mt-16 rounded-3xl overflow-hidden border border-white/10 max-w-5xl">
-            {/* preload="none": nothing downloads until someone presses play (8 MB film). */}
-            <video
-              src={FILMS[0].src}
-              poster={FILMS[0].poster}
-              controls
-              preload="none"
-              playsInline
-              className="w-full h-auto block aspect-video bg-black"
-            >
-              {FILMS[0].title}
-            </video>
-            <figcaption className="text-sm text-white/55 px-6 py-4 bg-black/60">
-              {FILMS[0].title} ({FILMS[0].length}): {FILMS[0].description} Music by Sascha Ende at ende.app (CC BY 4.0).
+          <figure id="film" className="mt-16 scroll-mt-28">
+            <FilmPlayer preview={one.preview} src={one.src} poster={one.poster} title={one.title} chapters={[...one.chapters]} />
+            <figcaption className="text-sm text-subtle mt-4 max-w-3xl">
+              {one.title} ({one.length}): {one.description} {FILM_CREDIT}.
             </figcaption>
           </figure>
         </section>
 
         {/* ── Screens ───────────────────────────────────────────── */}
-        <section className="container mx-auto px-6 md:px-12 mt-28" aria-labelledby="screens">
-          <Eyebrow>How it works</Eyebrow>
-          <h2 id="screens" className="text-4xl md:text-5xl font-bold text-white">One system, a screen for everyone</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
-            {SCREENS.map((s) => (
-              <article key={s.title} className="glass-panel rounded-3xl p-8">
-                <p className="font-mono text-xs uppercase tracking-widest text-neon-cyan/70">{s.who}</p>
-                <h3 className="text-xl md:text-2xl font-bold text-white mt-3">{s.title}</h3>
-                <p className="text-white/65 leading-relaxed mt-3">{s.text}</p>
+        <section className="max-w-7xl mx-auto px-5 md:px-10 mt-32" aria-labelledby="screens">
+          <Eyebrow tone="gold">How it works</Eyebrow>
+          <h2 id="screens" className="display text-[clamp(2.4rem,5vw,4.2rem)] text-ink max-w-3xl">
+            One system, a screen for <span className="serif-accent text-gold">everyone.</span>
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-12">
+            {SCREENS.map((s, i) => (
+              <article key={s.title} className="rounded-[24px] bg-surface edge shadow-card p-8 flex flex-col">
+                <p className="flex items-center justify-between text-sm">
+                  <span className="text-gold font-medium">{s.who}</span>
+                  <span className="tabular-nums text-subtle">0{i + 1}</span>
+                </p>
+                <h3 className="text-2xl font-medium tracking-tight text-ink mt-6">{s.title}</h3>
+                <p className="text-muted leading-relaxed mt-3">{s.text}</p>
               </article>
             ))}
+            <article className="rounded-[24px] bg-gold-soft p-8 flex flex-col justify-between">
+              <p className="text-2xl font-medium tracking-tight text-ink">See it running in your restaurant.</p>
+              <ButtonLink href="/contact" look="gold" className="self-start mt-8">
+                Book a free demo <Arrow />
+              </ButtonLink>
+            </article>
           </div>
         </section>
 
         {/* ── Guest film ────────────────────────────────────────── */}
-        <section className="container mx-auto px-6 md:px-12 mt-28" aria-labelledby="guest-film">
-          <Eyebrow>Watch</Eyebrow>
-          <h2 id="guest-film" className="text-4xl md:text-5xl font-bold text-white">What the guest sees</h2>
-          <p className="text-white/65 leading-relaxed mt-4 max-w-3xl">{FILMS[1].description}</p>
-          <figure className="mt-10 rounded-3xl overflow-hidden border border-white/10 max-w-5xl">
-            <video
-              src={FILMS[1].src}
-              poster={FILMS[1].poster}
-              controls
-              preload="none"
-              playsInline
-              className="w-full h-auto block aspect-video bg-black"
-            >
-              {FILMS[1].title}
-            </video>
-            <figcaption className="text-sm text-white/55 px-6 py-4 bg-black/60">
-              {FILMS[1].title} ({FILMS[1].length}) · Music by Sascha Ende at ende.app (CC BY 4.0)
+        <section className="max-w-7xl mx-auto px-5 md:px-10 mt-32 grid lg:grid-cols-[0.8fr_1.2fr] gap-10 lg:gap-16 items-center" aria-labelledby="guest-film">
+          <div>
+            <Eyebrow tone="gold">Watch</Eyebrow>
+            <h2 id="guest-film" className="display text-[clamp(2.4rem,5vw,4.2rem)] text-ink">
+              What the <span className="serif-accent text-gold">guest</span> sees.
+            </h2>
+            <p className="text-muted text-lg leading-relaxed mt-6">{guest.description}</p>
+          </div>
+          <figure>
+            <FilmPlayer src={guest.src} poster={guest.poster} title={guest.title} />
+            <figcaption className="text-sm text-subtle mt-4">
+              {guest.title} ({guest.length}) · {FILM_CREDIT}
             </figcaption>
           </figure>
         </section>
 
         {/* ── Features ──────────────────────────────────────────── */}
-        <section className="container mx-auto px-6 md:px-12 mt-28" aria-labelledby="features">
-          <Eyebrow>Features</Eyebrow>
-          <h2 id="features" className="text-4xl md:text-5xl font-bold text-white">What Aevidine does</h2>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-4 mt-10 max-w-4xl">
-            {FEATURES.map((f) => (
-              <li key={f} className="flex gap-3 text-white/75 text-lg">
-                <span aria-hidden="true" className="mt-2.5 w-2 h-2 shrink-0 rounded-full bg-neon-blue shadow-[0_0_10px_rgba(51,187,255,0.7)]" />
+        <section className="max-w-7xl mx-auto px-5 md:px-10 mt-32" aria-labelledby="features">
+          <Eyebrow tone="gold">Features</Eyebrow>
+          <h2 id="features" className="display text-[clamp(2.4rem,5vw,4.2rem)] text-ink">What Aevidine does</h2>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 border-t border-line mt-12">
+            {FEATURES.map((f, i) => (
+              <li key={f} className={`flex items-baseline gap-4 py-5 border-b border-line text-lg text-ink ${i % 2 ? "sm:pl-8" : "sm:pr-8"}`}>
+                <span className="tabular-nums text-sm text-gold w-6 shrink-0">{String(i + 1).padStart(2, "0")}</span>
                 {f}
               </li>
             ))}
@@ -324,32 +284,31 @@ export default function AevidinePage() {
         </section>
 
         {/* ── FAQ ───────────────────────────────────────────────── */}
-        <section className="container mx-auto px-6 md:px-12 mt-28" aria-labelledby="faq">
-          <Eyebrow>Questions</Eyebrow>
-          <h2 id="faq" className="text-4xl md:text-5xl font-bold text-white">Frequently asked questions</h2>
-          <dl className="mt-10 max-w-4xl divide-y divide-white/10 border-y border-white/10">
+        <section className="max-w-7xl mx-auto px-5 md:px-10 mt-32 grid lg:grid-cols-[0.8fr_1.2fr] gap-10" aria-labelledby="faq">
+          <div>
+            <Eyebrow tone="gold">Questions</Eyebrow>
+            <h2 id="faq" className="display text-[clamp(2.4rem,5vw,4.2rem)] text-ink">Frequently asked questions</h2>
+          </div>
+          <dl className="border-t border-line">
             {FAQ.map(({ q, a }) => (
-              <div key={q} className="py-7">
-                <dt className="text-lg md:text-xl font-bold text-white">{q}</dt>
-                <dd className="text-white/65 leading-relaxed mt-2">{a}</dd>
+              <div key={q} className="py-7 border-b border-line">
+                <dt className="text-xl font-medium tracking-tight text-ink">{q}</dt>
+                <dd className="text-muted leading-relaxed mt-2 select-text">{a}</dd>
               </div>
             ))}
           </dl>
         </section>
 
         {/* ── CTA ───────────────────────────────────────────────── */}
-        <section className="container mx-auto px-6 md:px-12 mt-28">
-          <div className="glass-panel rounded-3xl p-10 md:p-14 flex flex-col md:flex-row md:items-center justify-between gap-8">
+        <section className="max-w-7xl mx-auto px-5 md:px-10 mt-32">
+          <div className="rounded-[32px] bg-surface edge shadow-float p-10 md:p-16 flex flex-col md:flex-row md:items-center justify-between gap-8">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white">See Aevidine in your restaurant</h2>
-              <p className="text-white/60 mt-3">Free demo: {COMPANY.email} · {COMPANY.phoneDisplay}</p>
+              <h2 className="display text-4xl md:text-5xl text-ink">See Aevidine in your restaurant</h2>
+              <p className="text-muted mt-4 select-text">Free demo: {COMPANY.email} · {COMPANY.phoneDisplay}</p>
             </div>
-            <Link
-              href="/contact"
-              className="interactive inline-flex items-center gap-2 self-start md:self-auto px-8 py-4 rounded-full border border-neon-blue/50 text-neon-blue uppercase tracking-widest text-sm hover:bg-neon-blue/10 hover:box-glow transition-all duration-300"
-            >
-              Contact us <ArrowRight size={18} aria-hidden="true" />
-            </Link>
+            <ButtonLink href="/contact" look="gold" size="lg" className="self-start md:self-auto">
+              Contact us <Arrow />
+            </ButtonLink>
           </div>
         </section>
       </main>

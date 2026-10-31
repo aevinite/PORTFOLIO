@@ -1,138 +1,115 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import { Monitor, Code, Box, Zap, X } from "lucide-react";
-import { useProjectModal } from "@/context/ProjectModalContext";
+import { Eyebrow, Reveal, useSpotlight } from "@/components/ui";
 
-const services = [
+const SERVICES = [
   {
-    title: "Web Design",
-    icon: Monitor,
-    description: "High-end, premium UI/UX design tailored for futuristic brands. We craft visually stunning interfaces that leave a lasting impression.",
+    title: "Websites & apps",
+    tag: "Concept to launch",
+    desc: "Fast, polished websites and web apps, built around your workflow and found on Google.",
+    items: ["Company websites", "Web apps", "Mobile-first", "Local SEO"],
   },
   {
-    title: "Interactive Websites",
-    icon: Zap,
-    description: "Scroll-based storytelling, 3D elements, and micro-interactions that turn a standard webpage into an immersive journey.",
+    title: "Custom software",
+    tag: "Shaped around you",
+    desc: "Software that fits how your business already runs: bookings, billing, dashboards and internal tools.",
+    items: ["Dashboards", "Billing", "Admin panels", "Multi-branch"],
   },
   {
-    title: "3D Modeling",
-    icon: Box,
-    description: "High-quality 3D assets, custom models, and environments designed to elevate your digital experiences.",
+    title: "Automation & AI",
+    tag: "Unblock your team",
+    desc: "We map your operations and hand the repetitive work to automation, with AI where it turns data into decisions.",
+    items: ["Workflow automation", "AI assistants", "Reports that write themselves", "Integrations"],
   },
   {
-    title: "Creative Development",
-    icon: Code,
-    description: "Next.js, Three.js, and WebGL combined to build lightning-fast, highly optimized digital platforms.",
-  }
+    title: "3D & immersive web",
+    tag: "Make it unforgettable",
+    desc: "Interactive 3D products, scroll stories and AR previews that people remember and share.",
+    items: ["3D product views", "AR", "Scroll stories", "WebGL"],
+  },
+  {
+    title: "Cloud & growth systems",
+    tag: "Built to scale",
+    desc: "Backends and cloud setup that stay fast and secure as you add customers, branches and staff.",
+    items: ["Databases", "Realtime", "Offline-ready", "Security"],
+  },
 ];
 
 export default function Services() {
-  const [selectedService, setSelectedService] = useState<number | null>(null);
-  const { openModal } = useProjectModal();
-
+  const [open, setOpen] = useState<number | null>(0);
+  const spot = useSpotlight();
   return (
-    <section id="services" className="relative pt-36 pb-32 bg-black min-h-screen flex items-start md:items-center">
-      <div className="container mx-auto px-6 md:px-12 relative z-10">
-        
-        <div className="text-center mb-20">
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-4">Our Expertise</h2>
-          <div className="w-24 h-1 bg-neon-blue mx-auto box-glow rounded-full" />
-        </div>
+    <section id="services" onPointerMove={spot} className="spotlight relative py-24 md:py-36 border-t border-line">
+      <div className="max-w-7xl mx-auto px-5 md:px-10 grid lg:grid-cols-[0.8fr_1.2fr] gap-12 lg:gap-20">
+        <Reveal className="lg:sticky lg:top-32 self-start">
+          <Eyebrow>Services</Eyebrow>
+          <h2 className="display text-[clamp(2.4rem,5vw,4.4rem)] text-ink">
+            What we <span className="serif-accent text-accent">build</span> for you.
+          </h2>
+          <p className="mt-6 text-lg text-muted leading-relaxed max-w-md">
+            Everything is made in-house in Ahmedabad by the people you talk to. No hand-offs, no templates.
+          </p>
+        </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
-          {services.map((service, idx) => {
-            const Icon = service.icon;
+        <ul className="border-t border-line">
+          {SERVICES.map((s, i) => {
+            const on = open === i;
             return (
-              <motion.div
-                key={idx}
-                layoutId={`card-${idx}`}
-                onClick={() => setSelectedService(idx)}
-                whileHover={{ y: -8 }}
-                style={{ opacity: selectedService === idx ? 0 : 1 }}
-                className="interactive glass-panel p-10 rounded-2xl cursor-pointer group relative overflow-hidden transition-colors duration-500 hover:border-neon-blue/50"
-              >
-                {/* Hover Glow Background */}
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-neon-blue/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                
-                <motion.div className="mb-6 relative z-10 text-white/50 group-hover:text-neon-cyan transition-colors">
-                  <Icon size={48} strokeWidth={1.5} />
-                </motion.div>
-                
-                <motion.h3 className="text-2xl font-bold text-white mb-4 relative z-10">
-                  {service.title}
-                </motion.h3>
-                
-                <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center group-hover:border-neon-blue group-hover:bg-neon-blue/10 transition-all absolute bottom-10 right-10">
-                  <div className="w-1.5 h-1.5 bg-white/50 rounded-full group-hover:bg-neon-blue" />
-                </div>
-              </motion.div>
+              <li key={s.title} className="border-b border-line">
+                <button
+                  type="button"
+                  onClick={() => setOpen(on ? null : i)}
+                  onPointerEnter={(e) => e.pointerType === "mouse" && setOpen(i)}
+                  aria-expanded={on}
+                  className="group w-full text-left py-7 md:py-8 flex items-start gap-5 md:gap-8"
+                >
+                  <span className={`tabular-nums text-sm pt-2.5 transition-colors ${on ? "text-accent" : "text-subtle"}`}>0{i + 1}</span>
+                  <span className="flex-1 min-w-0">
+                    <span className="flex items-baseline justify-between gap-4">
+                      <span className={`text-3xl md:text-[2.6rem] font-medium tracking-tight leading-tight transition-all duration-300 ${on ? "text-ink md:translate-x-2" : "text-ink/70 group-hover:text-ink"}`}>
+                        {s.title}
+                      </span>
+                      <span className="hidden sm:block text-sm text-subtle whitespace-nowrap">{s.tag}</span>
+                    </span>
+                    <AnimatePresence initial={false}>
+                      {on && (
+                        <motion.span
+                          className="block overflow-hidden"
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ type: "spring", bounce: 0, duration: 0.45 }}
+                        >
+                          <span className="block pt-4 md:pl-2 text-muted text-lg leading-relaxed max-w-xl">{s.desc}</span>
+                          <span className="flex flex-wrap gap-2 pt-5 md:pl-2">
+                            {s.items.map((t) => (
+                              <span key={t} className="rounded-full border border-line px-3 py-1 text-sm text-muted">
+                                {t}
+                              </span>
+                            ))}
+                          </span>
+                        </motion.span>
+                      )}
+                    </AnimatePresence>
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className={`mt-2 grid place-items-center w-9 h-9 shrink-0 rounded-full border transition-all duration-300 ${
+                      on ? "rotate-45 bg-accent border-accent text-accent-ink" : "border-line-strong text-ink"
+                    }`}
+                  >
+                    <svg width="12" height="12" viewBox="0 0 12 12">
+                      <path d="M6 1v10M1 6h10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                    </svg>
+                  </span>
+                </button>
+              </li>
             );
           })}
-        </div>
+        </ul>
       </div>
-
-      {/* Expanded View */}
-      <AnimatePresence>
-        {selectedService !== null && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-6 md:p-20 bg-black/80 backdrop-blur-xl"
-          >
-            <motion.div
-              layoutId={`card-${selectedService}`}
-              className="bg-[#0a0a0f] border border-neon-blue/30 rounded-3xl p-8 sm:p-10 md:p-20 w-full max-w-4xl max-h-[90vh] overflow-y-auto relative shadow-[0_0_50px_rgba(51,187,255,0.1)]"
-            >
-              <button 
-                onClick={() => setSelectedService(null)}
-                className="interactive absolute top-4 right-4 md:top-8 md:right-8 text-white/50 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-full bg-black/50 backdrop-blur-md z-50"
-              >
-                <X size={24} />
-              </button>
-
-              <div className="flex flex-col gap-8">
-                {(() => {
-                  const Icon = services[selectedService].icon;
-                  return (
-                    <motion.div className="text-neon-cyan">
-                      <Icon size={64} strokeWidth={1} />
-                    </motion.div>
-                  );
-                })()}
-
-                <motion.h3 className="text-4xl md:text-6xl font-bold text-white text-glow">
-                  {services[selectedService].title}
-                </motion.h3>
-
-                <motion.p 
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                  className="text-xl text-white/70 leading-relaxed font-light"
-                >
-                  {services[selectedService].description}
-                </motion.p>
-                
-                <motion.button 
-                  onClick={() => {
-                    setSelectedService(null);
-                    openModal();
-                  }}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.4 }}
-                  className="interactive mt-8 self-start px-8 py-3 bg-neon-blue/10 border border-neon-blue text-neon-blue uppercase tracking-widest text-sm font-bold rounded-full hover:bg-neon-blue hover:text-black transition-all"
-                >
-                  Start Project
-                </motion.button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   );
 }

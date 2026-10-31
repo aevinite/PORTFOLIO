@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import SmoothScroll from "@/components/SmoothScroll";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ParticleBackground from "@/components/ParticleBackground";
 import { Mail, Phone, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import PhoneField from "@/components/PhoneField";
@@ -79,11 +78,10 @@ export default function ContactPage() {
   return (
     <>
       <SmoothScroll>
-        <ParticleBackground />
         <Navbar />
         
         <main className="flex flex-col relative z-10 w-full min-h-screen pt-32 pb-20">
-          <div className="container mx-auto px-6 md:px-12 flex-1 flex flex-col justify-center">
+          <div className="max-w-7xl mx-auto px-5 md:px-10 flex-1 flex flex-col justify-center">
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
               
@@ -94,32 +92,32 @@ export default function ContactPage() {
                 transition={{ duration: 0.8, ease: "easeOut" }}
                 className="flex flex-col justify-center"
               >
-                <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-                  Let&apos;s create the <span className="text-neon-blue text-glow">future.</span>
+                <h1 className="display text-5xl md:text-7xl text-ink mb-6 leading-tight">
+                  Let&apos;s <span className="serif-accent text-accent">talk.</span>
                 </h1>
-                <p className="text-xl text-white/60 mb-12 max-w-lg font-light leading-relaxed">
-                  Whether you have a specific project in mind or just want to explore possibilities, we&apos;re ready to bring your vision to life.
+                <p className="text-xl text-muted mb-12 max-w-lg font-light leading-relaxed">
+                  Tell us what your business needs, or what slows it down. The founders read every message and reply themselves, usually the same day.
                 </p>
                 
                 <div className="flex flex-col gap-8">
                   <div className="flex items-start gap-4 group cursor-pointer">
-                    <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/60 group-hover:border-neon-blue group-hover:text-neon-blue group-hover:bg-neon-blue/10 transition-all duration-300">
+                    <div className="w-12 h-12 rounded-full border border-line-strong flex items-center justify-center text-muted group-hover:border-accent group-hover:text-accent group-hover:bg-accent-soft transition-all duration-300">
                       <Mail size={20} />
                     </div>
                     <div>
                       {/* h2 (not h3): it sits straight under the page's h1 — no skipped level. */}
-                      <h2 className="text-white uppercase tracking-widest text-sm font-bold mb-1">Email Us</h2>
-                      <a href="mailto:rishi@aevinite.com" className="interactive inline-block py-1 text-white/60 group-hover:text-white transition-colors">rishi@aevinite.com</a>
+                      <h2 className="text-sm text-subtle mb-0.5">Email Us</h2>
+                      <a href="mailto:rishi@aevinite.com" className="select-text  inline-block py-1 text-muted group-hover:text-ink transition-colors">rishi@aevinite.com</a>
                     </div>
                   </div>
                   
                   <div className="flex items-start gap-4 group cursor-pointer">
-                    <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/60 group-hover:border-neon-blue group-hover:text-neon-blue group-hover:bg-neon-blue/10 transition-all duration-300">
+                    <div className="w-12 h-12 rounded-full border border-line-strong flex items-center justify-center text-muted group-hover:border-accent group-hover:text-accent group-hover:bg-accent-soft transition-all duration-300">
                       <Phone size={20} />
                     </div>
                     <div>
-                      <h2 className="text-white uppercase tracking-widest text-sm font-bold mb-1">Call Us</h2>
-                      <a href="tel:+919099723703" className="interactive inline-block py-1 text-white/60 group-hover:text-white transition-colors">+91 90997 23703</a>
+                      <h2 className="text-sm text-subtle mb-0.5">Call Us</h2>
+                      <a href="tel:+919099723703" className="select-text  inline-block py-1 text-muted group-hover:text-ink transition-colors">+91 90997 23703</a>
                     </div>
                   </div>
                 </div>
@@ -130,10 +128,8 @@ export default function ContactPage() {
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-                className="glass-panel p-8 md:p-12 rounded-3xl relative overflow-hidden"
+                className="bg-surface edge shadow-card p-8 md:p-12 rounded-3xl relative overflow-hidden"
               >
-                {/* Form Background Glow */}
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-neon-blue/10 via-transparent to-transparent opacity-50" />
                 
                 <form onSubmit={handleSubmit} className="relative z-10 flex flex-col gap-6">
                   {/* Honeypot — hidden from people, irresistible to bots */}
@@ -149,25 +145,25 @@ export default function ContactPage() {
                   />
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="flex flex-col gap-2">
-                      <label htmlFor="name" className="text-xs uppercase tracking-widest text-white/50 font-bold">Name</label>
+                      <label htmlFor="name" className="text-sm font-medium text-ink">Name</label>
                       <input 
                         type="text" 
                         id="name"
                         required
                         value={formState.name}
                         onChange={(e) => setFormState({...formState, name: e.target.value})}
-                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-neon-blue focus:bg-white/10 transition-all"
+                        className="w-full bg-bg border border-line-strong rounded-xl px-4 py-3 text-ink placeholder:text-subtle/70 focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent-soft transition-all"
                         placeholder="John Doe"
                       />
                     </div>
                     <div className="flex flex-col gap-2">
-                      <label htmlFor="email" className="text-xs uppercase tracking-widest text-white/50 font-bold">Email</label>
+                      <label htmlFor="email" className="text-sm font-medium text-ink">Email</label>
                       <input
                         type="email"
                         id="email"
                         value={formState.email}
                         onChange={(e) => setFormState({...formState, email: e.target.value})}
-                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-neon-blue focus:bg-white/10 transition-all"
+                        className="w-full bg-bg border border-line-strong rounded-xl px-4 py-3 text-ink placeholder:text-subtle/70 focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent-soft transition-all"
                         placeholder="john@example.com"
                       />
                     </div>
@@ -181,30 +177,30 @@ export default function ContactPage() {
                     phone={phone}
                     setPhone={setPhone}
                   />
-                  <p className="-mt-3 text-xs text-white/35">Add at least an email or a phone number so we can reach you.</p>
+                  <p className="-mt-3 text-xs text-subtle">Add at least an email or a phone number so we can reach you.</p>
 
                   <div className="flex flex-col gap-2">
-                    <label htmlFor="subject" className="text-xs uppercase tracking-widest text-white/50 font-bold">Subject</label>
+                    <label htmlFor="subject" className="text-sm font-medium text-ink">Subject</label>
                     <input 
                       type="text" 
                       id="subject"
                       required
                       value={formState.subject}
                       onChange={(e) => setFormState({...formState, subject: e.target.value})}
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-neon-blue focus:bg-white/10 transition-all"
+                      className="w-full bg-bg border border-line-strong rounded-xl px-4 py-3 text-ink placeholder:text-subtle/70 focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent-soft transition-all"
                       placeholder="Project Inquiry"
                     />
                   </div>
 
                   <div className="flex flex-col gap-2">
-                    <label htmlFor="message" className="text-xs uppercase tracking-widest text-white/50 font-bold">Message</label>
+                    <label htmlFor="message" className="text-sm font-medium text-ink">Message</label>
                     <textarea 
                       id="message"
                       required
                       rows={5}
                       value={formState.message}
                       onChange={(e) => setFormState({...formState, message: e.target.value})}
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-neon-blue focus:bg-white/10 transition-all resize-none"
+                      className="w-full bg-bg border border-line-strong rounded-xl px-4 py-3 text-ink placeholder:text-subtle/70 focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent-soft transition-all resize-none"
                       placeholder="Tell us about your project..."
                     />
                   </div>
@@ -212,19 +208,19 @@ export default function ContactPage() {
                   <button 
                     type="submit" 
                     disabled={isSubmitting}
-                    className="interactive group relative w-full py-4 mt-4 rounded-xl overflow-hidden"
+                    className=" group relative w-full py-4 mt-4 rounded-xl overflow-hidden"
                   >
-                    <div className={`absolute inset-0 transition-transform duration-300 ${isSuccess ? "bg-green-500" : "bg-neon-blue group-hover:scale-[1.02]"}`} />
-                    <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
+                    <div className={`absolute inset-0 transition-transform duration-300 ${isSuccess ? "bg-green-600" : "bg-ink dark:bg-accent group-hover:scale-[1.02]"}`} />
+                    <div className="absolute inset-0 bg-surface-2 opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
                     
-                    <span className="relative z-10 flex items-center justify-center gap-2 text-black uppercase tracking-widest text-sm font-bold">
+                    <span className="relative z-10 flex items-center justify-center gap-2 text-bg dark:text-accent-ink text-base font-medium">
                       {isSubmitting ? "Sending..." : isSuccess ? "Message Sent!" : "Send Message"}
                       {!isSubmitting && !isSuccess && <ArrowRight size={16} />}
                     </span>
                   </button>
 
                   {error && (
-                    <p className="text-red-400 text-sm text-center" role="alert">
+                    <p className="text-red-600 dark:text-red-400 text-sm text-center" role="alert">
                       {error}
                     </p>
                   )}

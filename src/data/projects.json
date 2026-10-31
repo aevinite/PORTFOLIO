@@ -7,8 +7,6 @@
     "description": "A complete restaurant platform: a guest menu people order from at the table, plus the screens the kitchen, waiters, managers and owner work from.",
     "longDescription": "Aevidine is the software a restaurant runs on. Guests scan the QR code on their table and get a fast menu with live categories, search, veg / non-veg filters and a page for every dish with photos, ratings, nutrition and price. They order straight from their phone.\n\nBehind the menu are the panels the team uses. The kitchen sees each order the moment it is placed, waiters and managers run tables and bills, and the owner sees how the day is going. Every screen updates in real time and keeps working on a weak connection.\n\nIt is built on Next.js and Supabase as one system that serves many restaurants, each with its own branding. Aevidine is ready for its first restaurants.",
     "demoUrl": "/aevidine",
-    "colSpan": "col-span-1 md:col-span-2 row-span-2",
-    "interval": 4000,
     "images": [
       "/projects/aevidine/1-home.webp",
       "/projects/aevidine/2-grid.webp",
@@ -22,11 +20,9 @@
     "title": "Multispeciality Hospital Website",
     "category": "Healthcare Website",
     "tech": "Next.js, Supabase, Tailwind, SEO",
-    "description": "A polished, trust-first website for a multispeciality hospital — clear services, doctor profiles, OPD timings and frictionless appointment booking.",
-    "longDescription": "A multispeciality hospital needed a digital front door that feels as reassuring as the care it provides. The site leads with clarity: departments and specialities, doctor profiles, transparent OPD timings, and an always-visible path to book an appointment.\n\nEngineered on Next.js with Supabase powering appointment requests and content, and styled with Tailwind CSS, it loads fast on every device and is structured for strong local SEO — so patients searching for care actually find it.",
+    "description": "A polished, trust-first website for a multispeciality hospital: clear services, doctor profiles, OPD timings and frictionless appointment booking.",
+    "longDescription": "A multispeciality hospital needed a digital front door that feels as reassuring as the care it provides. The site leads with clarity: departments and specialities, doctor profiles, transparent OPD timings, and an always-visible path to book an appointment.\n\nEngineered on Next.js with Supabase powering appointment requests and content, and styled with Tailwind CSS, it loads fast on every device and is structured for strong local SEO, so patients searching for care actually find it.",
     "demoUrl": "",
-    "colSpan": "col-span-1",
-    "interval": 4000,
     "images": [
       "/projects/hospital/1-hero.webp",
       "/projects/hospital/2-section.webp",
@@ -38,11 +34,9 @@
     "title": "4D Dish Explorer",
     "category": "3D Web Experience",
     "tech": "Next.js, Three.js, model-viewer, WebGL, AR",
-    "description": "An interactive \"4D\" dish viewer where every signature dish becomes a real, explorable 3D model — rotate it, zoom in, and preview it in AR before you order.",
-    "longDescription": "The 4D Dish Explorer turns \"what does it look like?\" into \"I'll have that.\" Instead of flat photos, every signature dish is rendered as a true 3D model that guests can rotate, zoom, and even place into their own space with AR.\n\nEach dish is annotated in 3D — ingredients like the Belgian waffle, saffron-infused ice cream or buttery croissant are pinned directly onto the model with tasting notes, alongside calories, protein, carbs and price. One tap adds it to the order; one more opens the AR view.\n\nHigh-fidelity 3D assets stream through model-viewer and WebGL on a Next.js foundation, so the experience loads fast and runs smoothly on ordinary phones — no app install required.",
+    "description": "An interactive \"4D\" dish viewer where every signature dish becomes a real, explorable 3D model: rotate it, zoom in, and preview it in AR before you order.",
+    "longDescription": "The 4D Dish Explorer turns \"what does it look like?\" into \"I'll have that.\" Instead of flat photos, every signature dish is rendered as a true 3D model that guests can rotate, zoom, and even place into their own space with AR.\n\nEach dish is annotated in 3D: ingredients like the Belgian waffle, saffron-infused ice cream or buttery croissant are pinned directly onto the model with tasting notes, alongside calories, protein, carbs and price. One tap adds it to the order; one more opens the AR view.\n\nHigh-fidelity 3D assets stream through model-viewer and WebGL on a Next.js foundation, so the experience loads fast and runs smoothly on ordinary phones, with no app to install required.",
     "demoUrl": "/aevidine",
-    "colSpan": "col-span-1 md:col-span-2",
-    "interval": 4000,
     "images": [
       "/projects/aevidine-3d/3d-waffle.webp",
       "/projects/aevidine-3d/3d-croissant.webp"
@@ -53,11 +47,9 @@
     "title": "HackJudge",
     "category": "Hackathon Platform",
     "tech": "Next.js, Supabase, Tailwind",
-    "description": "An end-to-end hackathon management and judging platform — run events, manage teams and judges, score submissions and publish live leaderboards.",
-    "longDescription": "HackJudge is a complete operating system for running hackathons. Organisers create and schedule events, manage users and roles, onboard judges, register teams and collect project submissions — all from a single admin dashboard. Judges score against custom criteria, and results roll up into a controllable, publishable leaderboard.\n\nThe platform runs on Next.js, with Supabase handling authentication, the Postgres database and file / banner storage, and Tailwind CSS for a fast, consistent dark UI. Role-based access keeps admins, judges and participants each in their own tailored view.",
+    "description": "An end-to-end hackathon management and judging platform: run events, manage teams and judges, score submissions and publish live leaderboards.",
+    "longDescription": "HackJudge is a complete operating system for running hackathons. Organisers create and schedule events, manage users and roles, onboard judges, register teams and collect project submissions, all from a single admin dashboard. Judges score against custom criteria, and results roll up into a controllable, publishable leaderboard.\n\nThe platform runs on Next.js, with Supabase handling authentication, the Postgres database and file / banner storage, and Tailwind CSS for a fast, consistent dark UI. Role-based access keeps admins, judges and participants each in their own tailored view.",
     "demoUrl": "https://hacathon-1301.vercel.app/",
-    "colSpan": "col-span-1 md:col-span-2",
-    "interval": 4000,
     "images": [
       "/projects/hackathon/1-landing.webp",
       "/projects/hackathon/3-users.webp",
@@ -67,35 +59,15 @@
   },
   {
     "id": "sweet-bites",
-    "title": "Sweet Bites — Neon Bakery",
+    "title": "Sweet Bites: Neon Bakery",
     "category": "3D Scroll Experience",
     "tech": "Next.js, Three.js, GSAP, WebGL",
-    "description": "A cinematic scroll-driven 3D showcase — a neon bakery kiosk you orbit, zoom and explore as the story unfolds section by section.",
-    "longDescription": "Sweet Bites is a pocket-sized bakery glowing at the edge of the night market — and the entire website is built around its 3D model. As you scroll, the camera glides around the kiosk: leaning into the order window, framing the cupcake neon sign, then pulling back until the shop becomes a beacon in a sleeping street.\n\nEvery section pairs a camera move with a beat of storytelling — counter light and sugar, a sign you can taste, the glow of the night market, built for the midnight rush. Scroll is the only control; the experience does the rest.\n\nIt's a demonstration of what we do for product brands: take one hero object, model it in loving detail, and choreograph motion and copy around it so visitors don't just see the product — they feel it.",
+    "description": "A cinematic scroll-driven 3D showcase: a neon bakery kiosk you orbit, zoom and explore as the story unfolds section by section.",
+    "longDescription": "Sweet Bites is a pocket-sized bakery glowing at the edge of the night market, and the entire website is built around its 3D model. As you scroll, the camera glides around the kiosk, leaning into the order window, framing the cupcake neon sign, then pulling back until the shop becomes a beacon in a sleeping street.\n\nEvery section pairs a camera move with a beat of storytelling: counter light and sugar, a sign you can taste, the glow of the night market, built for the midnight rush. Scroll is the only control; the experience does the rest.\n\nIt's a demonstration of what we do for product brands: take one hero object, model it in loving detail, and choreograph motion and copy around it so visitors don't just see the product, they feel it.",
     "demoUrl": "https://3-d-demo-webiste.vercel.app/",
-    "colSpan": "col-span-1 md:col-span-2",
-    "interval": 4000,
     "video": "/projects/sweet-bites/scroll-demo.mp4",
     "images": [
       "/projects/sweet-bites/poster.webp"
-    ]
-  },
-  {
-    "id": "coming-soon",
-    "title": "Something New",
-    "category": "In Progress",
-    "comingSoon": true,
-    "tech": "Next.js, Supabase, Tailwind",
-    "description": "Our next experience is in the works.",
-    "longDescription": "",
-    "demoUrl": "#",
-    "colSpan": "col-span-1",
-    "interval": 2500,
-    "images": [
-      "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?q=80&w=1200&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop"
     ]
   }
 ]

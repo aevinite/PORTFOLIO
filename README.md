@@ -10,7 +10,8 @@ Source of **[aevinite.com](https://www.aevinite.com)**, the website of **Aevinit
 
 - **Next.js 16** (App Router) + **React 19** + **TypeScript**
 - **Tailwind CSS v4**
-- **Framer Motion** (animations), **Three.js / @react-three/fiber** (hero 3D), **Lenis** (smooth scroll), **GSAP**
+- **Framer Motion** (animations), **Three.js / @react-three/fiber / drei** (hero 3D), **Lenis** (smooth scroll)
+- Fonts: **Instrument Sans** + **Instrument Serif**, self-hosted at build time by `next/font`
 
 ## Getting started
 
@@ -23,14 +24,22 @@ npm run start    # serve the production build
 
 ## Editing content
 
-**Projects** are data-driven — edit one file:
+**Light and dark.** Light is the default for every visitor; the switch top-right saves the choice
+(`localStorage` key `aev-theme`). Every colour is a token in `src/app/globals.css` (`--bg`, `--ink`,
+`--muted`, `--accent`, `--gold`…), redefined under `[data-theme="dark"]`. Components use the token
+classes (`bg-bg`, `text-ink`, `text-muted`, `border-line`, `text-accent`), never raw colours.
+Dark-only flourishes (headline shimmer, cursor spotlight, grain) live in the same file.
 
-- `src/data/projects.json` — title, category, tech, descriptions, `demoUrl`, slide `interval`, and the `images` array per project. Set `"comingSoon": true` for the hype / placeholder card.
-- Project images live in `public/projects/<id>/` and are referenced as `/projects/<id>/<file>.webp`.
+**Projects** are data-driven: `src/data/projects.json` (title, category, tech, descriptions,
+`demoUrl`, `images`, optional `video`). Images live in `public/projects/<id>/`.
 
-Other key sections live in `src/components/sections/` (Hero, About, ServicesC,
-ProjectShowcase, TechStack, Stats) with shared pieces in `src/components/`
-(Navbar, Footer, StartProjectModal).
+**Aevidine films**: `src/data/films.ts` (sources, chapters with start times). Panel stills for the
+home page's "a screen for everyone" picker are in `public/films/screens/`, cut from the film.
+
+Home page sections, in order, in `src/components/sections/`: Hero (3D infinity:
+`src/components/hero/InfinityScene.tsx`), Marquee, AevidineSection, Process (scroll-drawn growth
+curve), Services, Work, Stats, CallToAction. Shared pieces: `src/components/ui.tsx`, Navbar,
+Footer, ThemeToggle, FilmPlayer, StartProjectModal.
 
 ## Deploy
 

@@ -1,147 +1,129 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { COMPANY, FOUNDERS } from "@/lib/company";
 
-const InstagramIcon = ({ size = 24 }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-  </svg>
-);
+const COLS = [
+  {
+    h: "Company",
+    links: [
+      ["Home", "/"],
+      ["Work", "/#work"],
+      ["Services", "/#services"],
+      ["About", "/about"],
+      ["Contact", "/contact"],
+    ],
+  },
+  {
+    h: "Product",
+    links: [
+      ["Aevidine", "/aevidine"],
+      ["Guides for restaurants", "/guides"],
+    ],
+  },
+  {
+    h: "Follow",
+    links: [
+      ["Instagram", COMPANY.instagram],
+      ["LinkedIn", COMPANY.linkedin],
+      ["Medium", COMPANY.medium],
+      ["GitHub", COMPANY.github],
+    ],
+  },
+] as const;
 
-const GmailIcon = ({ size = 24 }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="currentColor"
-  >
-    <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.943L12 11.668l8.073-8.153C21.691 2.28 24 3.434 24 5.457z" />
-  </svg>
-);
-
-const WhatsAppIcon = ({ size = 24 }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z" />
-  </svg>
-);
-
-// Opens Gmail's compose window directly (not the OS default mail app / Outlook),
-// with the recipient pre-filled.
-const GMAIL_COMPOSE =
-  "https://mail.google.com/mail/?view=cm&fs=1&to=rishi@aevinite.com&su=Project%20Inquiry";
-
-// WhatsApp Business — wa.me needs international format (no +). 9099723703 -> +91.
-const WHATSAPP_LINK =
-  "https://wa.me/919099723703?text=Hi%20AEVINITE%2C%20I%27d%20like%20to%20discuss%20a%20project.";
+// Each letter of the big wordmark hops when the pointer passes over it.
+function Wordmark() {
+  return (
+    <p aria-hidden="true" className="flex justify-between select-none font-semibold leading-[0.8] tracking-[-0.04em] text-[clamp(4rem,17.5vw,17rem)] text-ink/[0.07] dark:text-ink/[0.06]">
+      {"AEVINITE".split("").map((c, i) => (
+        <motion.span
+          key={i}
+          className="inline-block"
+          whileHover={{ y: "-12%", color: "var(--accent)" }}
+          transition={{ type: "spring", bounce: 0.4, duration: 0.5 }}
+        >
+          {c}
+        </motion.span>
+      ))}
+    </p>
+  );
+}
 
 export default function Footer() {
   return (
-    <footer className="relative py-20 px-6 md:px-12 bg-black border-t border-white/10 z-10 overflow-hidden">
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-[rgba(51,187,255,0.05)] via-transparent to-transparent" />
+    <footer className="relative border-t border-line overflow-hidden">
+      <div className="max-w-7xl mx-auto px-5 md:px-10 pt-20 pb-10">
+        <div className="grid gap-12 lg:grid-cols-[1.3fr_2fr]">
+          <div className="max-w-sm">
+            <Link href="/" className="inline-flex items-center gap-2.5" aria-label="Aevinite home">
+              <Image src="/aevinite-mark.webp" alt="" width={192} height={118} className="w-12 h-auto" />
+              <span className="text-lg font-semibold tracking-[0.14em] text-ink">AEVINITE</span>
+            </Link>
+            <p className="mt-6 text-muted leading-relaxed">
+              From <span className="text-ink">Aevum</span>, a dimension with a beginning but no end, and an echo of{" "}
+              <span className="text-ink">Infinite</span>, our first name. The beginning with no end.
+            </p>
+            <div className="mt-8 space-y-1.5 text-sm select-text">
+              <a href={`mailto:${COMPANY.email}`} className="block text-ink hover:text-accent transition-colors">
+                {COMPANY.email}
+              </a>
+              <a href="https://wa.me/919099723703" target="_blank" rel="noopener noreferrer" className="block text-muted hover:text-accent transition-colors">
+                WhatsApp {COMPANY.phoneDisplay}
+              </a>
+              <p className="text-subtle">
+                {COMPANY.city}, {COMPANY.region}, {COMPANY.country}
+              </p>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-10">
+            {COLS.map((c) => (
+              <div key={c.h}>
+                <h2 className="text-sm font-semibold text-ink">{c.h}</h2>
+                <ul className="mt-4 space-y-1">
+                  {c.links.map(([label, href]) => {
+                    const ext = href.startsWith("http");
+                    return (
+                      <li key={label}>
+                        {ext ? (
+                          <a href={href} target="_blank" rel="noopener noreferrer" className="inline-block py-1.5 text-muted hover:text-ink transition-colors">
+                            {label}
+                          </a>
+                        ) : (
+                          <Link href={href} className="inline-block py-1.5 text-muted hover:text-ink transition-colors">
+                            {label}
+                          </Link>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
 
-      <div className="container mx-auto max-w-7xl relative z-10 flex flex-col md:flex-row justify-between items-start gap-12">
-        {/* Wordmark + meaning */}
-        <div className="flex flex-col gap-4 max-w-sm">
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-none bg-gradient-to-br from-white via-[#5aa9ff] to-[#1f6fb2] bg-clip-text text-transparent">
-            AEVINITE
-          </h2>
-          {/* /55 not /45: /45 on black measured 4.42:1, just under the 4.5:1 readability floor. */}
-          <p className="text-white/55 text-sm md:text-base leading-relaxed">
-            Derived from <span className="text-white/70">Aevum</span> — a dimension of
-            existence with a beginning but no end. It also echoes <span className="text-white/70">Infinite</span>.
+        <div className="mt-20">
+          <Wordmark />
+        </div>
+
+        <div className="mt-8 pt-6 border-t border-line flex flex-col md:flex-row justify-between gap-3 text-sm text-subtle">
+          <p>&copy; {new Date().getFullYear()} Aevinite. All rights reserved.</p>
+          {/* Sitewide, in plain text: who founded the company (what Google and AI assistants look for). */}
+          <p>
+            Founded in {COMPANY.city}, 2024, by{" "}
+            {FOUNDERS.map((f, i) => (
+              <span key={f.id}>
+                {i > 0 && " & "}
+                <Link href={`/about#${f.id}`} className="hover:text-ink transition-colors">
+                  {f.name}
+                </Link>
+              </span>
+            ))}
           </p>
         </div>
-
-        <div className="flex flex-col md:flex-row gap-12 md:gap-24">
-          <div className="flex flex-col gap-4">
-            {/* h3 under the footer's h2 — h4 skipped a level. */}
-            <h3 className="text-white uppercase tracking-widest text-sm font-bold">Links</h3>
-            <div className="flex flex-col gap-1">
-              {["Home", "Projects", "Aevidine", "Guides", "Services", "About", "Contact"].map((link) => (
-                <Link
-                  key={link}
-                  href={["Contact", "About", "Aevidine", "Guides"].includes(link) ? `/${link.toLowerCase()}` : link === "Home" ? "/" : `/#${link.toLowerCase()}`}
-                  className="interactive inline-block py-1 text-white/50 hover:text-neon-blue transition-colors text-sm"
-                >
-                  {link}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-4">
-            <h3 className="text-white uppercase tracking-widest text-sm font-bold">Socials</h3>
-            <div className="flex gap-4">
-              {/* Instagram — brand color visible, gradient fill on hover */}
-              <a
-                href={COMPANY.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-                className="interactive w-11 h-11 rounded-full border border-white/15 flex items-center justify-center text-[#E1306C] hover:text-white hover:border-transparent hover:bg-[linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5)] hover:shadow-[0_0_18px_rgba(214,41,118,0.45)] transition-all duration-300"
-              >
-                <InstagramIcon size={19} />
-              </a>
-
-              {/* Gmail — opens Gmail compose with recipient pre-filled, red brand color */}
-              <a
-                href={GMAIL_COMPOSE}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Email us on Gmail"
-                className="interactive w-11 h-11 rounded-full border border-white/15 flex items-center justify-center text-[#EA4335] hover:text-white hover:border-transparent hover:bg-[#EA4335] hover:shadow-[0_0_18px_rgba(234,67,53,0.45)] transition-all duration-300"
-              >
-                <GmailIcon size={18} />
-              </a>
-
-              {/* WhatsApp Business — opens chat with the business number */}
-              <a
-                href={WHATSAPP_LINK}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Chat on WhatsApp"
-                className="interactive w-11 h-11 rounded-full border border-white/15 flex items-center justify-center text-[#25D366] hover:text-white hover:border-transparent hover:bg-[#25D366] hover:shadow-[0_0_18px_rgba(37,211,102,0.45)] transition-all duration-300"
-              >
-                <WhatsAppIcon size={19} />
-              </a>
-            </div>
-            <div className="mt-1 space-y-0.5">
-              {/* /50 not /30: /30 on black measured 2.44:1; /50 clears the 4.5:1 floor. */}
-              <p className="text-white/50 text-xs font-mono">{COMPANY.email}</p>
-              <p className="text-white/50 text-xs font-mono">WhatsApp: +91 90997 23703</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="container mx-auto max-w-7xl mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 relative z-10 text-xs font-mono text-white/50">
-        <p>&copy; {new Date().getFullYear()} AEVINITE. All rights reserved.</p>
-        {/* Sitewide, in plain text: who founded the company — the answer Google and AI assistants look for. */}
-        <p className="text-center md:text-right">
-          Founded in {COMPANY.city}, 2024, by{" "}
-          {FOUNDERS.map((f, i) => (
-            <span key={f.id}>
-              {i > 0 && " & "}
-              <Link href={`/about#${f.id}`} className="interactive inline-block py-1 hover:text-neon-blue transition-colors">
-                {f.name}
-              </Link>
-            </span>
-          ))}
-        </p>
       </div>
     </footer>
   );

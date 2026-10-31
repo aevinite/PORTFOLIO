@@ -1,72 +1,50 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { animate, useInView } from "framer-motion";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 const noSubscribe = () => () => {};
 
-// The server HTML carries the real number ("12+"), so Google and anyone without JavaScript read
-// the truth — it used to ship "0+". `hydrated` is false on the server and during hydration, then
-// flips before the first paint, so the browser shows `from` and the count-up runs when the
-// stat scrolls into view, exactly as before.
-function Counter({ from, to, duration = 2, suffix = "" }: { from: number; to: number; duration?: number; suffix?: string }) {
-  const [count, setCount] = useState(from);
+// The server HTML carries the real number, so Google and anyone without JavaScript read the
+// truth; after hydration it counts up once when it scrolls into view.
+function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
   const hydrated = useSyncExternalStore(noSubscribe, () => true, () => false);
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const [n, setN] = useState(0);
   useEffect(() => {
-    if (isInView) {
-      let startTime: number | null = null;
-
-      const animate = (timestamp: number) => {
-        if (!startTime) startTime = timestamp;
-        const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
-
-        setCount(Math.floor(progress * (to - from) + from));
-
-        if (progress < 1) {
-          window.requestAnimationFrame(animate);
-        }
-      };
-
-      window.requestAnimationFrame(animate);
-    }
-  }, [isInView, from, to, duration]);
-
-  return <span ref={ref}>{hydrated ? count : to}{suffix}</span>;
+    if (!inView) return;
+    const c = animate(0, to, { duration: 1.6, ease: [0.16, 1, 0.3, 1], onUpdate: (v) => setN(Math.round(v)) });
+    return () => c.stop();
+  }, [inView, to]);
+  return (
+    <span ref={ref} className="tabular-nums">
+      {hydrated ? n : to}
+      {suffix}
+    </span>
+  );
 }
 
-export default function Stats() {
-  const stats = [
-    { value: 12, suffix: "+", label: "Projects" },
-    { value: 10, suffix: "+", label: "Clients" },
-    { value: 2, suffix: "+", label: "Years" },
-    { value: 100, suffix: "%", label: "Creative" }
-  ];
+// The owner's numbers (unchanged from the old site). "100% Creative" was dropped: it isn't a count.
+const STATS = [
+  { value: 12, suffix: "+", label: "Projects delivered" },
+  { value: 10, suffix: "+", label: "Clients" },
+  { value: 2, suffix: "+", label: "Years building" },
+  { value: 6, suffix: "", label: "Screens in Aevidine" },
+];
 
+export default function Stats() {
   return (
-    <section className="py-32 bg-black relative">
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-white/10">
-          {stats.map((stat, i) => (
-            <motion.div 
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.8 }}
-              className="flex flex-col items-center justify-center p-6 group"
-            >
-              <h3 className="text-5xl md:text-7xl font-bold text-white mb-2 group-hover:text-neon-blue group-hover:text-glow transition-all duration-300">
-                <Counter from={0} to={stat.value} suffix={stat.suffix} />
-              </h3>
-              <p className="text-white/50 uppercase tracking-widest text-sm font-bold">
-                {stat.label}
-              </p>
-            </motion.div>
-          ))}
-        </div>
+    <section aria-label="Aevinite in numbers" className="border-y border-line">
+      <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4">
+        {STATS.map((s, i) => (
+          <div key={s.label} className={`px-5 md:px-10 py-12 md:py-16 border-line ${i % 2 ? "border-l" : ""} ${i > 1 ? "border-t md:border-t-0" : ""} ${i === 2 ? "md:border-l" : ""}`}>
+            <p className="display text-6xl md:text-7xl text-ink">
+              <Counter to={s.value} suffix={s.suffix} />
+            </p>
+            <p className="mt-3 text-muted">{s.label}</p>
+          </div>
+        ))}
       </div>
     </section>
   );

@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 import SmoothScroll from "@/components/SmoothScroll";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ParticleBackground from "@/components/ParticleBackground";
+import { Eyebrow } from "@/components/ui";
 import { SITE_URL } from "@/lib/site";
 import { COMPANY } from "@/lib/company";
 import { GUIDES, guidePath } from "@/data/guides";
@@ -47,16 +47,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       images: [{ url: "/twitter-image.jpg", alt: CARD_ALT }],
     },
   };
-}
-
-function Eyebrow({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="flex items-center gap-3 mb-6">
-      <span className="w-8 h-px bg-neon-blue/60" />
-      {/* /70 not /60: small mono text needs the stronger contrast. */}
-      <span className="text-[11px] uppercase tracking-[0.35em] text-neon-cyan/70 font-mono">{children}</span>
-    </div>
-  );
 }
 
 export default async function GuidePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -111,33 +101,32 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
-      <ParticleBackground />
       <Navbar />
       <main className="relative z-10 w-full pt-32 md:pt-40 pb-24">
-        <article className="container mx-auto px-6 md:px-12 max-w-4xl">
-          <nav aria-label="Breadcrumb" className="text-xs font-mono uppercase tracking-widest text-white/50 mb-8">
-            <Link href="/" className="interactive inline-block py-1 hover:text-neon-blue transition-colors">Home</Link>
+        <article className="max-w-7xl mx-auto px-5 md:px-10 max-w-4xl">
+          <nav aria-label="Breadcrumb" className="text-sm text-subtle mb-10">
+            <Link href="/" className=" inline-block py-1 hover:text-accent transition-colors">Home</Link>
             <span className="mx-2">/</span>
-            <Link href="/guides" className="interactive inline-block py-1 hover:text-neon-blue transition-colors">Guides</Link>
+            <Link href="/guides" className=" inline-block py-1 hover:text-accent transition-colors">Guides</Link>
           </nav>
           <Eyebrow>Guide · {g.readMinutes} min read</Eyebrow>
-          <h1 className="text-4xl md:text-6xl font-bold text-white leading-[1.1]">{g.title}</h1>
-          <p className="text-sm text-white/50 mt-6">
-            By <Link href="/about" className="interactive text-white/70 hover:text-neon-blue transition-colors">Aevinite</Link>, {COMPANY.city} · <time dateTime={g.published}>{date}</time>
+          <h1 className="text-4xl md:text-6xl font-semibold tracking-tight text-ink leading-[1.1]">{g.title}</h1>
+          <p className="text-sm text-subtle mt-6">
+            By <Link href="/about" className=" text-muted hover:text-accent transition-colors">Aevinite</Link>, {COMPANY.city} · <time dateTime={g.published}>{date}</time>
           </p>
-          <p className="text-lg md:text-xl text-white/80 font-light leading-relaxed mt-10">{g.answer}</p>
+          <p className="text-lg md:text-xl text-ink font-light leading-relaxed mt-10">{g.answer}</p>
 
           {g.sections.map((s) => (
             <section key={s.heading} className="mt-14">
-              <h2 className="text-2xl md:text-3xl font-bold text-white">{s.heading}</h2>
+              <h2 className="display text-2xl md:text-3xl text-ink">{s.heading}</h2>
               {s.paragraphs?.map((p) => (
-                <p key={p} className="text-white/70 text-lg leading-relaxed mt-5">{p}</p>
+                <p key={p} className="text-muted text-lg leading-relaxed mt-5">{p}</p>
               ))}
               {s.list && (
                 <ul className="mt-6 space-y-3">
                   {s.list.map((item) => (
-                    <li key={item} className="flex gap-3 text-white/75 text-lg leading-relaxed">
-                      <span aria-hidden="true" className="mt-3 w-1.5 h-1.5 shrink-0 rounded-full bg-neon-blue" />
+                    <li key={item} className="flex gap-3 text-ink text-lg leading-relaxed">
+                      <span aria-hidden="true" className="mt-3 w-1.5 h-1.5 shrink-0 rounded-full bg-accent" />
                       {item}
                     </li>
                   ))}
@@ -146,35 +135,35 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
             </section>
           ))}
 
-          <section className="glass-panel rounded-3xl p-8 md:p-10 mt-16">
-            <h2 className="text-xl md:text-2xl font-bold text-white">How Aevidine does it</h2>
-            <p className="text-white/70 leading-relaxed mt-3">{g.aevidine}</p>
+          <section className="bg-surface edge shadow-card rounded-3xl p-8 md:p-10 mt-16">
+            <h2 className="text-xl md:text-2xl font-semibold tracking-tight text-ink">How Aevidine does it</h2>
+            <p className="text-muted leading-relaxed mt-3">{g.aevidine}</p>
             <Link
               href="/aevidine"
-              className="interactive inline-flex items-center gap-2 mt-6 px-6 py-3 rounded-full border border-neon-blue/50 text-neon-blue uppercase tracking-widest text-xs hover:bg-neon-blue/10 transition-colors"
+              className=" inline-flex items-center gap-2 mt-6 px-6 py-3 rounded-full bg-ink text-bg dark:bg-accent dark:text-accent-ink font-medium hover:opacity-90 text-xs hover:bg-accent-soft transition-colors"
             >
               See Aevidine <ArrowRight size={16} aria-hidden="true" />
             </Link>
           </section>
 
           <section className="mt-16" aria-labelledby="faq">
-            <h2 id="faq" className="text-2xl md:text-3xl font-bold text-white">Questions</h2>
-            <dl className="mt-6 divide-y divide-white/10 border-y border-white/10">
+            <h2 id="faq" className="display text-2xl md:text-3xl text-ink">Questions</h2>
+            <dl className="mt-6 divide-y divide-line border-y border-line">
               {g.faq.map(({ q, a }) => (
                 <div key={q} className="py-6">
-                  <dt className="text-lg font-bold text-white">{q}</dt>
-                  <dd className="text-white/65 leading-relaxed mt-2">{a}</dd>
+                  <dt className="text-lg font-semibold tracking-tight text-ink">{q}</dt>
+                  <dd className="text-muted leading-relaxed mt-2">{a}</dd>
                 </div>
               ))}
             </dl>
           </section>
 
-          <p className="text-sm text-white/50 mt-12">
+          <p className="text-sm text-subtle mt-12">
             More guides: {" "}
             {GUIDES.filter((x) => x.slug !== g.slug).map((x, i) => (
               <span key={x.slug}>
                 {i > 0 && " · "}
-                <Link href={guidePath(x)} className="interactive text-white/70 hover:text-neon-blue transition-colors">{x.title}</Link>
+                <Link href={guidePath(x)} className=" text-muted hover:text-accent transition-colors">{x.title}</Link>
               </span>
             ))}
           </p>

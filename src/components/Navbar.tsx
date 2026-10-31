@@ -1,108 +1,149 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import InteractiveLogo from "./InteractiveLogo";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import ThemeToggle from "./ThemeToggle";
+import { useProjectModal } from "@/context/ProjectModalContext";
+
+const LINKS = [
+  { label: "Work", href: "/#work" },
+  { label: "Aevidine", href: "/aevidine" },
+  { label: "Services", href: "/#services" },
+  { label: "About", href: "/about" },
+  { label: "Guides", href: "/guides" },
+];
 
 export default function Navbar() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const { scrollY } = useScroll();
+  const pathname = usePathname();
+  const { openModal } = useProjectModal();
+
+  // The bar becomes a floating pill once you scroll, slips away while you read downward,
+  // and comes back the moment you scroll up.
+  useMotionValueEvent(scrollY, "change", (y) => {
+    const prev = scrollY.getPrevious() ?? 0;
+    setScrolled(y > 24);
+    setHidden(y > 400 && y > prev + 2);
+    if (y < prev - 2) setHidden(false);
+  });
+
+  useEffect(() => {
+    document.documentElement.style.overflow = open ? "hidden" : "";
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
 
   return (
-    <motion.nav
-      className="fixed top-0 left-0 right-0 z-[90] py-1.5 bg-transparent"
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.8, ease: "easeOut", delay: 0.5 }}
-    >
-      <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
-        <Link href="/" aria-label="Aevinite home" className="interactive group flex items-center gap-3">
-          <InteractiveLogo imageClass="w-20 h-20 drop-shadow-[0_0_10px_rgba(51,187,255,0.3)]" />
-        </Link>
-
-        <div className="hidden md:flex items-center gap-8">
-          {["Projects", "Services", "About"].map((item) => (
-            <Link
-              key={item}
-              href={item === "About" ? "/about" : `/#${item.toLowerCase()}`}
-              className="interactive py-2 text-sm uppercase tracking-widest text-white/70 hover:text-white hover:text-glow transition-all duration-300"
-            >
-              {item}
-            </Link>
-          ))}
-          <Link href="/contact" className="interactive px-6 py-2 rounded-full border border-neon-blue/50 text-neon-blue text-sm uppercase tracking-widest hover:bg-neon-blue/10 hover:box-glow transition-all duration-300">
-            Contact Us
-          </Link>
-        </div>
-
-        {/* Mobile Menu Button */}
-        <button 
-          className="interactive md:hidden flex flex-col gap-1.5 p-2 relative z-[100]"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          // Three drawn bars have no text, so a screen reader would only say "button".
-          aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-          aria-expanded={isMobileMenuOpen}
+    <>
+      <motion.header
+        className="fixed inset-x-0 top-0 z-[90] px-3 md:px-6 pt-3"
+        animate={{ y: hidden && !open ? -110 : 0 }}
+        transition={{ type: "spring", bounce: 0, duration: 0.45 }}
+      >
+        <nav
+          aria-label="Main"
+          className={`mx-auto flex items-center justify-between gap-4 rounded-full transition-[max-width,background-color,border-color,box-shadow,padding] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            scrolled || open
+              ? "max-w-5xl bg-[var(--nav-bg)] backdrop-blur-xl backdrop-saturate-150 border border-line shadow-card pl-4 pr-2 py-2"
+              : "max-w-7xl border border-transparent px-3 py-3"
+          }`}
         >
-          <motion.div 
-            animate={isMobileMenuOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
-            className="w-6 h-[2px] bg-white transition-all"
-          ></motion.div>
-          <motion.div 
-            animate={isMobileMenuOpen ? { opacity: 0 } : { opacity: 1 }}
-            className="w-6 h-[2px] bg-white transition-all"
-          ></motion.div>
-          <motion.div 
-            animate={isMobileMenuOpen ? { rotate: -45, y: -8, width: 24 } : { rotate: 0, y: 0, width: 16 }}
-            className="h-[2px] bg-white self-end transition-all"
-          ></motion.div>
-        </button>
-      </div>
+          <Link href="/" aria-label="Aevinite home" className="flex items-center gap-2.5 shrink-0" onClick={() => setOpen(false)}>
+            <Image src="/aevinite-mark.webp" alt="" width={192} height={118} loading="eager" className="w-11 h-auto dark:drop-shadow-[0_0_14px_var(--glow)]" />
+            <span className="text-[17px] font-semibold tracking-[0.14em] text-ink">AEVINITE</span>
+          </Link>
 
-      {/* Mobile Menu Overlay */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: "-100%" }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: "-100%" }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="fixed inset-0 z-[95] bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center min-h-screen"
-          >
-            <div className="flex flex-col items-center gap-8">
-              {["Projects", "Services", "About"].map((item, i) => (
-                <motion.div
-                  key={item}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 + i * 0.1 }}
-                >
+          <ul className="hidden lg:flex items-center gap-1">
+            {LINKS.map((l) => {
+              const active = pathname === l.href;
+              return (
+                <li key={l.label}>
                   <Link
-                    href={item === "About" ? "/about" : `/#${item.toLowerCase()}`}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="text-3xl uppercase tracking-widest text-white/70 hover:text-white hover:text-glow transition-all duration-300"
+                    href={l.href}
+                    className={`px-3.5 py-2 rounded-full text-[15px] transition-colors ${
+                      active ? "text-ink bg-surface-2" : "text-muted hover:text-ink"
+                    }`}
                   >
-                    {item}
+                    {l.label}
                   </Link>
-                </motion.div>
-              ))}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className="mt-8"
-              >
-                <Link 
-                  href="/contact" 
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="px-8 py-4 rounded-full border border-neon-blue/50 text-neon-blue text-lg uppercase tracking-widest hover:bg-neon-blue/10 hover:box-glow transition-all duration-300"
+                </li>
+              );
+            })}
+          </ul>
+
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={openModal}
+              className="hidden sm:inline-flex h-10 items-center px-4 rounded-full text-[15px] font-medium bg-ink text-bg hover:bg-accent hover:text-accent-ink dark:bg-accent dark:text-accent-ink transition-colors active:scale-[0.97]"
+            >
+              Start a project
+            </button>
+            <ThemeToggle />
+            <button
+              type="button"
+              className="lg:hidden grid place-items-center w-10 h-10 rounded-full border border-line text-ink"
+              onClick={() => setOpen((o) => !o)}
+              aria-label={open ? "Close menu" : "Open menu"}
+              aria-expanded={open}
+            >
+              <span className="relative block w-4 h-3">
+                <span className={`absolute left-0 h-[1.5px] w-4 bg-current transition-transform duration-300 ${open ? "top-1.5 rotate-45" : "top-0"}`} />
+                <span className={`absolute left-0 h-[1.5px] w-4 bg-current transition-transform duration-300 ${open ? "top-1.5 -rotate-45" : "top-3"}`} />
+              </span>
+            </button>
+          </div>
+        </nav>
+      </motion.header>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            className="fixed inset-0 z-[85] bg-bg/95 backdrop-blur-xl lg:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+          >
+            <ul className="flex flex-col gap-1 px-6 pt-28">
+              {LINKS.map((l, i) => (
+                <motion.li
+                  key={l.label}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.04 * i, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  Contact Us
+                  <Link href={l.href} onClick={() => setOpen(false)} className="block py-3 text-4xl font-semibold tracking-tight text-ink display">
+                    {l.label}
+                  </Link>
+                </motion.li>
+              ))}
+              <motion.li initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }} className="mt-8 flex flex-col gap-3">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setOpen(false);
+                    openModal();
+                  }}
+                  className="h-14 rounded-full bg-ink text-bg dark:bg-accent dark:text-accent-ink text-base font-medium"
+                >
+                  Start a project
+                </button>
+                <Link href="/contact" onClick={() => setOpen(false)} className="h-14 grid place-items-center rounded-full border border-line-strong text-ink text-base">
+                  Contact us
                 </Link>
-              </motion.div>
-            </div>
+              </motion.li>
+            </ul>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.nav>
+    </>
   );
 }
