@@ -40,6 +40,7 @@
   - [QR code ordering for restaurants in India](https://www.aevinite.com/guides/qr-code-ordering-for-restaurants-india): how it works and what to check.
   - [What is a KOT (kitchen order ticket)](https://www.aevinite.com/guides/what-is-a-kot-kitchen-order-ticket): and when to move to a kitchen screen.
   - [What a restaurant GST bill in India must show](https://www.aevinite.com/guides/restaurant-gst-bill-checklist-india): a checklist.
+  - [Restaurant QR ordering and KOT billing software in Ahmedabad](https://www.aevinite.com/guides/restaurant-qr-ordering-kot-billing-software-ahmedabad): what to look for and what to ask.
 - [About](https://www.aevinite.com/about): founders, company story and frequently asked questions.
 - [Contact](https://www.aevinite.com/contact): contact form, email and phone.
 

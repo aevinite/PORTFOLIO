@@ -207,6 +207,66 @@ export const GUIDES: Guide[] = [
       },
     ],
   },
+  {
+    // Google, 31 Oct 2026: "restaurant QR code ordering software Ahmedabad" and "restaurant KOT
+    // billing software Ahmedabad" return only pages written for exactly that search, and we had none.
+    slug: "restaurant-qr-ordering-kot-billing-software-ahmedabad",
+    title: "Restaurant QR Ordering and KOT Billing Software in Ahmedabad: What to Look For",
+    description:
+      "Choosing restaurant software in Ahmedabad: what QR code ordering, KOT printing and GST billing should do, the questions to ask before you pay, and why a local team helps on a busy night.",
+    published: "2026-10-31",
+    readMinutes: 5,
+    answer:
+      "Restaurant software for an Ahmedabad restaurant, café or bakery should do four things on one system: let guests order from a QR code at the table without an app, send every order to the kitchen as a KOT on a screen or printer, print bills and GST invoices from those same orders, and show the owner the day's sales. Ask for a free demo at your own counter before you pay, and check who answers the phone when something stops on a Saturday night.",
+    sections: [
+      {
+        heading: "What restaurants in Ahmedabad need from it",
+        list: [
+          "QR code ordering at the table, opening straight in the phone's browser.",
+          "KOTs on a kitchen screen and a kitchen printer, with the guest's notes (\"less spicy\", \"Jain\", \"no onion\") on the ticket.",
+          "Waiters taking orders on a tablet for guests who prefer to order by talking, on the same table and the same bill.",
+          "Dine-in and takeaway orders side by side.",
+          "Bills and GST invoices printed from the orders the kitchen cooked, with discounts shown apart from the total.",
+          "Daily sales and reports the owner can open from anywhere.",
+          "Screens that keep working when the internet drops for a minute during a rush.",
+        ],
+      },
+      {
+        heading: "Questions to ask before you pay",
+        list: [
+          "Can I try it at my own counter, with my own menu, before paying?",
+          "What happens to an order if the internet goes down mid-rush?",
+          "Can one person change the menu and prices in seconds, and hide a dish that has run out?",
+          "Can a waiter or manager only see what their job needs, and nothing more?",
+          "Is a cancelled bill kept on record, or can it be deleted? (It should be kept: a deleted sale is a GST problem.)",
+          "Is the price yearly or monthly, what exactly is included, and what costs extra?",
+          "Who sets it up, who trains the staff, and who do I call when something stops?",
+        ],
+      },
+      {
+        heading: "Why a local team helps",
+        paragraphs: [
+          "Most problems with restaurant software show up on the busiest night of the week, not during the demo. A team in the same city can come to the restaurant to set up the printers and the QR codes, train the staff on the floor, and understand how orders actually move between the tables and the kitchen. When you compare options, weigh that alongside the price.",
+        ],
+      },
+    ],
+    aevidine:
+      "Aevidine is made in Ahmedabad by Aevinite. It runs the guest's QR menu, the kitchen screen and KOT printer, the waiter's tablet, bills and GST invoices, and the owner's reports on one system, and keeps working when the internet drops. Ask for a free demo with your own menu.",
+    faq: [
+      {
+        q: "Which restaurant software is made in Ahmedabad?",
+        a: "Aevidine is restaurant software made in Ahmedabad by Aevinite, a software company founded by Rishi Nakrani and Jenish Patel. It covers QR code ordering, KOT printing, waiter tablets, GST billing and owner reports.",
+      },
+      {
+        q: "Does QR ordering work for takeaway as well as dine-in?",
+        a: "In a good system, yes: dine-in tables and takeaway orders appear side by side, go to the same kitchen screen and are billed the same way.",
+      },
+      {
+        q: "Can I see restaurant software working before I buy it?",
+        a: "You should. Ask for a free demo with your own menu, ideally at your own counter, and place a few orders through to the kitchen and the bill.",
+      },
+    ],
+  },
 ];
 
 export const guidePath = (g: Guide) => `/guides/${g.slug}`;

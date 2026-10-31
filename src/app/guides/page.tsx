@@ -10,7 +10,7 @@ import { GUIDES, guidePath } from "@/data/guides";
 
 const TITLE = "Restaurant Guides: QR Ordering, KOT and GST Bills | Aevinite";
 const DESCRIPTION =
-  "Plain guides for restaurant owners in India: how QR code ordering works, what a KOT is, and what a GST bill must show.";
+  "Plain guides for restaurant owners in India: how QR code ordering works, what a KOT is, what a GST bill must show, and choosing restaurant software in Ahmedabad.";
 const CARD_ALT =
   "Aevinite: Software that runs real businesses. SaaS products, business software and automation.";
 
@@ -77,7 +77,7 @@ export default function GuidesPage() {
           </nav>
           <h1 className="text-5xl md:text-7xl font-bold text-white leading-[1.05]">Guides for restaurant owners</h1>
           <p className="text-lg md:text-xl text-white/70 font-light leading-relaxed mt-8 max-w-3xl">{DESCRIPTION}</p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-14">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-14">
             {GUIDES.map((g) => (
               <Link
                 key={g.slug}
