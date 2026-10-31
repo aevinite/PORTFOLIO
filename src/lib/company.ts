@@ -64,7 +64,7 @@ export const FOUNDER_NAMES = FOUNDERS.map((f) => f.name).join(" and ");
 export const FAQ: { q: string; a: string }[] = [
   {
     q: "What is Aevinite?",
-    a: "Aevinite is a company based in Ahmedabad, Gujarat, India that helps businesses grow, with websites, software and automation built around how each business works. It also makes Aevidine, restaurant software.",
+    a: "Aevinite is a company based in Ahmedabad, Gujarat, India that helps businesses grow, with websites, software and automation built around how each business works. It also makes two products of its own: Aevidine, restaurant software, and Campus Conveyance, a student transport app.",
   },
   {
     q: "Who founded Aevinite?",
@@ -84,7 +84,7 @@ export const FAQ: { q: string; a: string }[] = [
   },
   {
     q: "What has Aevinite built?",
-    a: "Aevinite's work includes Aevidine, a complete restaurant platform with QR ordering, kitchen screens, billing and owner reports; a multispeciality hospital website; the 4D Dish Explorer, an interactive 3D dish viewer; HackJudge, a hackathon judging platform; and scroll-driven 3D brand showcases.",
+    a: "Aevinite's work includes its two products, Aevidine, a complete restaurant platform with QR ordering, kitchen screens, billing and owner reports, and Campus Conveyance, a student transport app with seat booking, UPI payment, a live bus map and QR boarding; a multispeciality hospital website; the 4D Dish Explorer, an interactive 3D dish viewer; HackJudge, a hackathon judging platform; and scroll-driven 3D brand showcases.",
   },
   {
     q: "How can I contact Aevinite?",

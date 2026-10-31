@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { TONES, type Tone } from "@/components/ui";
 
 export type Chapter = { label: string; t: number };
 
@@ -20,7 +21,7 @@ export default function FilmPlayer({
   poster: string;
   title: string;
   chapters?: Chapter[];
-  tone?: "gold" | "accent";
+  tone?: Tone;
 }) {
   const ref = useRef<HTMLVideoElement>(null);
   const [full, setFull] = useState(false);
@@ -49,8 +50,8 @@ export default function FilmPlayer({
   };
 
   const active = chapters.reduce((a, c, i) => (now >= c.t - 0.2 ? i : a), -1);
-  const toneText = tone === "gold" ? "text-gold" : "text-accent";
-  const toneBg = tone === "gold" ? "bg-gold" : "bg-accent";
+  const toneText = TONES[tone].text;
+  const toneBg = TONES[tone].bg;
 
   return (
     <div>

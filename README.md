@@ -33,11 +33,17 @@ Dark-only flourishes (headline shimmer, cursor spotlight, grain) live in the sam
 **Projects** are data-driven: `src/data/projects.json` (title, category, tech, descriptions,
 `demoUrl`, `images`, optional `video`). Images live in `public/projects/<id>/`.
 
-**Aevidine films**: `src/data/films.ts` (sources, chapters with start times). Panel stills for the
-home page's "a screen for everyone" picker are in `public/films/screens/`, cut from the film.
+**Our two products** (Aevidine = gold, Campus Conveyance = amber) are described once in
+`src/data/products.ts`: name, colour, film, the people and their screens. The home page cards, each
+product's story, the Products menu and the footer read it. Each product also has its own page
+(`src/app/aevidine/page.tsx`, `src/app/campus/page.tsx`) with the long text search engines read.
+
+**Films**: `src/data/films.ts` (sources, chapters with start times). The web copies in `public/films/`
+are made from the 4K masters in `~/Documents/Projects/brag-output/` (1280x720, about 6 to 8 MB, plus
+a 12-second silent loop each). Screen stills: `public/films/aevidine-screens/`, `public/films/campus-screens/`.
 
 Home page sections, in order, in `src/components/sections/`: Hero (3D infinity:
-`src/components/hero/InfinityScene.tsx`), Marquee, AevidineSection, Process (scroll-drawn growth
+`src/components/hero/InfinityScene.tsx`), Marquee, ProductsIntro, ProductStory (once per product), Process (scroll-drawn growth
 curve), Services, Work, Stats, CallToAction. Shared pieces: `src/components/ui.tsx`, Navbar,
 Footer, ThemeToggle, FilmPlayer, StartProjectModal.
 

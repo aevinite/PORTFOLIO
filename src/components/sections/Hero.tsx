@@ -10,7 +10,7 @@ import { useProjectModal } from "@/context/ProjectModalContext";
 const InfinityScene = dynamic(() => import("@/components/hero/InfinityScene"), { ssr: false });
 
 // Who we have actually built for (see the Work section) — no invented industries.
-const FOR = ["restaurants", "hospitals", "brands", "events", "your business"];
+const FOR = ["restaurants", "schools", "hospitals", "brands", "events", "your business"];
 
 const ease = [0.16, 1, 0.3, 1] as const;
 

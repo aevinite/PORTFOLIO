@@ -6,10 +6,19 @@ import { useRef } from "react";
 
 // Small shared pieces every page uses, so the whole site speaks one visual language.
 
-export function Eyebrow({ children, tone = "accent" }: { children: React.ReactNode; tone?: "accent" | "gold" }) {
+// Each product has its own colour: Aevinite blue (accent), Aevidine gold, Campus amber.
+// Full class names spelled out so Tailwind keeps them.
+export type Tone = "accent" | "gold" | "amber";
+export const TONES: Record<Tone, { text: string; bg: string; soft: string; border: string; fill: string }> = {
+  accent: { text: "text-accent", bg: "bg-accent", soft: "bg-accent-soft", border: "border-accent", fill: "bg-accent text-accent-ink" },
+  gold: { text: "text-gold", bg: "bg-gold", soft: "bg-gold-soft", border: "border-gold", fill: "bg-gold text-bg" },
+  amber: { text: "text-amber", bg: "bg-amber", soft: "bg-amber-soft", border: "border-amber", fill: "bg-amber text-bg" },
+};
+
+export function Eyebrow({ children, tone = "accent" }: { children: React.ReactNode; tone?: Tone }) {
   return (
     <p className="eyebrow flex items-center gap-3 mb-5">
-      <span aria-hidden="true" className={`h-px w-8 ${tone === "gold" ? "bg-gold" : "bg-accent"}`} />
+      <span aria-hidden="true" className={`h-px w-8 ${TONES[tone].bg}`} />
       {children}
     </p>
   );
@@ -52,6 +61,7 @@ const looks = {
     "bg-ink text-bg hover:bg-accent hover:text-accent-ink dark:bg-accent dark:text-accent-ink dark:hover:bg-accent-2 dark:shadow-[0_0_0_1px_rgb(255_255_255/0.12)_inset,0_10px_40px_-10px_var(--glow)]",
   ghost: "border border-line-strong text-ink hover:border-ink hover:bg-surface",
   gold: "bg-gold text-bg hover:brightness-110",
+  amber: "bg-amber text-bg hover:brightness-110",
 };
 
 type BtnProps = {

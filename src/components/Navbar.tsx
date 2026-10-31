@@ -4,13 +4,14 @@ import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ThemeToggle from "./ThemeToggle";
 import { useProjectModal } from "@/context/ProjectModalContext";
+import { PRODUCTS } from "@/data/products";
+import { TONES } from "@/components/ui";
 
 const LINKS = [
   { label: "Work", href: "/#work" },
-  { label: "Aevidine", href: "/aevidine" },
   { label: "Services", href: "/#services" },
   { label: "About", href: "/about" },
   { label: "Guides", href: "/guides" },
@@ -20,6 +21,18 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const [menu, setMenu] = useState(false); // the Products panel (desktop)
+  const menuRef = useRef<HTMLLIElement>(null);
+
+  // A tap or click anywhere outside the Products panel closes it.
+  useEffect(() => {
+    if (!menu) return;
+    const away = (e: PointerEvent) => {
+      if (!menuRef.current?.contains(e.target as Node)) setMenu(false);
+    };
+    document.addEventListener("pointerdown", away);
+    return () => document.removeEventListener("pointerdown", away);
+  }, [menu]);
   const { scrollY } = useScroll();
   const pathname = usePathname();
   const { openModal } = useProjectModal();
@@ -35,7 +48,11 @@ export default function Navbar() {
 
   useEffect(() => {
     document.documentElement.style.overflow = open ? "hidden" : "";
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      setOpen(false);
+      setMenu(false);
+    };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
@@ -61,6 +78,57 @@ export default function Navbar() {
           </Link>
 
           <ul className="hidden lg:flex items-center gap-1">
+            <li ref={menuRef} className="relative" onPointerEnter={(e) => e.pointerType === "mouse" && setMenu(true)} onPointerLeave={(e) => e.pointerType === "mouse" && setMenu(false)}>
+              <button
+                type="button"
+                // Mouse: hovering already opened it, so a click keeps it open. Keyboard (detail 0)
+                // toggles. Touch: a tap opens; tapping elsewhere closes.
+                onClick={(e) => setMenu((m) => (e.detail === 0 ? !m : true))}
+                aria-expanded={menu}
+                className={`flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[15px] transition-colors ${
+                  menu || pathname === "/aevidine" || pathname === "/campus" ? "text-ink bg-surface-2" : "text-muted hover:text-ink"
+                }`}
+              >
+                Products
+                <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true" className={`transition-transform duration-200 ${menu ? "rotate-180" : ""}`}>
+                  <path d="M2 3.5 5 6.5 8 3.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+              <AnimatePresence>
+                {menu && (
+                  <motion.div
+                    className="absolute left-1/2 top-full pt-3 -translate-x-1/2"
+                    initial={{ opacity: 0, y: -6, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -6, scale: 0.98 }}
+                    transition={{ type: "spring", bounce: 0, duration: 0.3 }}
+                    style={{ transformOrigin: "top center" }}
+                  >
+                    <div className="w-[560px] grid grid-cols-2 gap-2 p-2 rounded-[22px] bg-surface edge shadow-float">
+                      {PRODUCTS.map((p) => (
+                        <Link
+                          key={p.id}
+                          href={p.href}
+                          onClick={() => setMenu(false)}
+                          className="group rounded-2xl p-4 hover:bg-surface-2 transition-colors"
+                        >
+                          <span className="flex items-center gap-2.5">
+                            {p.mark ? (
+                              <Image src={p.mark} alt="" width={28} height={28} className="w-7 h-7 rounded-lg" />
+                            ) : (
+                              <span className={`grid place-items-center w-7 h-7 rounded-lg text-sm font-semibold ${TONES[p.tone].soft} ${TONES[p.tone].text}`}>A</span>
+                            )}
+                            <span className="text-ink font-medium">{p.name}</span>
+                          </span>
+                          <span className={`block mt-3 text-xs font-medium ${TONES[p.tone].text}`}>{p.kind}</span>
+                          <span className="block mt-1 text-sm text-muted leading-snug">{p.line}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </li>
             {LINKS.map((l) => {
               const active = pathname === l.href;
               return (
@@ -112,7 +180,15 @@ export default function Navbar() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
           >
-            <ul className="flex flex-col gap-1 px-6 pt-28">
+            <ul className="flex flex-col gap-1 px-6 pt-28 h-full overflow-y-auto pb-10">
+              <li className="grid grid-cols-2 gap-3 mb-4">
+                {PRODUCTS.map((p) => (
+                  <Link key={p.id} href={p.href} onClick={() => setOpen(false)} className="rounded-2xl edge bg-surface p-4">
+                    <span className={`block text-xs font-medium ${TONES[p.tone].text}`}>{p.kind}</span>
+                    <span className="block mt-1 text-lg font-semibold tracking-tight text-ink leading-tight">{p.name}</span>
+                  </Link>
+                ))}
+              </li>
               {LINKS.map((l, i) => (
                 <motion.li
                   key={l.label}

@@ -59,6 +59,8 @@ const KEYWORDS = [
   "AI automation",
   "AI integration",
   "restaurant software",
+  "student transport app",
+  "school bus tracking app",
   "QR code menu",
   "3D menu",
   "3D web experiences",
@@ -149,6 +151,7 @@ const JSON_LD = {
         "AI integration",
         "3D web experiences",
         "Restaurant technology",
+        "Student transport software",
       ],
       sameAs: [COMPANY.linkedin, COMPANY.crunchbase, COMPANY.instagram, COMPANY.github, COMPANY.medium, COMPANY.facebook],
       contactPoint: {

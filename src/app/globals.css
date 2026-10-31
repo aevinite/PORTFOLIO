@@ -23,6 +23,8 @@
   --accent-soft: rgb(29 78 216 / 0.08);
   --gold: #8a5d10;        /* Aevidine (the restaurant product) — its films are gold on black; 6.1:1 */
   --gold-soft: rgb(176 125 32 / 0.1);
+  --amber: #9a5800;       /* Campus Conveyance — its app icon is amber on charcoal; 5.5:1 */
+  --amber-soft: rgb(244 164 37 / 0.14);
   --glow: transparent;    /* light mode has no glow */
   --shadow: 0 1px 2px rgb(11 13 19 / 0.04), 0 8px 24px -8px rgb(11 13 19 / 0.1);
   --shadow-lg: 0 2px 4px rgb(11 13 19 / 0.04), 0 24px 60px -20px rgb(11 13 19 / 0.22);
@@ -45,6 +47,8 @@
   --accent-soft: rgb(91 157 255 / 0.1);
   --gold: #e6bd6a;
   --gold-soft: rgb(230 189 106 / 0.1);
+  --amber: #f4a425;
+  --amber-soft: rgb(244 164 37 / 0.12);
   --glow: rgb(91 157 255 / 0.45);
   --shadow: 0 1px 0 rgb(255 255 255 / 0.04) inset, 0 10px 30px -10px rgb(0 0 0 / 0.6);
   --shadow-lg: 0 1px 0 rgb(255 255 255 / 0.05) inset, 0 30px 80px -20px rgb(0 0 0 / 0.8);
@@ -67,6 +71,8 @@
   --color-accent-soft: var(--accent-soft);
   --color-gold: var(--gold);
   --color-gold-soft: var(--gold-soft);
+  --color-amber: var(--amber);
+  --color-amber-soft: var(--amber-soft);
   --font-sans: var(--font-instrument-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
   --shadow-card: var(--shadow);

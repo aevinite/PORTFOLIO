@@ -17,9 +17,10 @@ const COLS = [
     ],
   },
   {
-    h: "Product",
+    h: "Products",
     links: [
       ["Aevidine", "/aevidine"],
+      ["Campus Conveyance", "/campus"],
       ["Guides for restaurants", "/guides"],
     ],
   },

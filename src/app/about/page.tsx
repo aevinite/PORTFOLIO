@@ -95,7 +95,7 @@ const TIMELINE = [
   {
     date: "Today",
     title: "We help businesses grow",
-    text: "Aevinite helps businesses across India grow, with websites, software and automation built around how each one works. Our own product, Aevidine, runs restaurants.",
+    text: "Aevinite helps businesses across India grow, with websites, software and automation built around how each one works. Our own products, Aevidine and Campus Conveyance, run restaurants and school transport.",
   },
 ];
 
@@ -127,7 +127,7 @@ export default function AboutPage() {
             <a href={`#${FOUNDERS[1].id}`} className=" text-ink hover:text-accent transition-colors">{FOUNDERS[1].name}</a>{" "}
             ({FOUNDERS[1].role}) under the name {COMPANY.formerName}, and became Aevinite on {COMPANY.renamedLabel}.
             We help businesses grow, with websites, software and automation built around how each
-            business works. Our own product, Aevidine, is restaurant software.
+            business works. We also run two products of our own: Aevidine, restaurant software, and Campus Conveyance, a student transport app.
           </p>
 
           <dl className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px mt-14 rounded-2xl overflow-hidden border border-line bg-surface-2">
