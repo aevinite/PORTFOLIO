@@ -6,13 +6,15 @@ import StartProjectModal from "@/components/StartProjectModal";
 import { SITE_URL } from "@/lib/site";
 import { COMPANY, FOUNDERS } from "@/lib/company";
 
-// Search title (Google result + browser tab): what we are + where, brand first. ~55 chars.
-const SEARCH_TITLE = "Aevinite | Custom Software & SaaS Company in Ahmedabad";
+// Search title (Google result + browser tab): brand, then the line we stand for, then where.
+// Owner, 31 Oct 2026: Aevinite is the company that helps businesses grow, not a "software/SaaS
+// company"; Aevidine (our SaaS product) is a separate thing and says so on its own page.
+const SEARCH_TITLE = "Aevinite | We Help Businesses Grow | Ahmedabad";
 // Share title (WhatsApp / LinkedIn / X cards) keeps the tagline the preview image also says.
-const SHARE_TITLE = "Aevinite | Software that runs real businesses";
+const SHARE_TITLE = "Aevinite | We help businesses grow";
 // Names the founders: "who founded Aevinite" is the question people and AI assistants ask most.
 const DESCRIPTION =
-  "Aevinite is an Ahmedabad software company founded by Rishi Nakrani and Jenish Patel, building custom software, SaaS, websites, 3D web and AI automation.";
+  "Aevinite helps businesses grow, with websites, software and automation built around how each business works. Ahmedabad, India; founded by Rishi Nakrani and Jenish Patel.";
 
 // Google ignores the keywords tag for ranking (since 2009); it's kept as an honest list of
 // what we do. What actually ranks is the title, description, page text and the JSON-LD below.
@@ -21,10 +23,10 @@ const KEYWORDS = [
   "Aevinite founders",
   "Rishi Nakrani",
   "Jenish Patel",
+  "help businesses grow",
+  "business growth company Ahmedabad",
   "software company in Ahmedabad",
-  "software development company Ahmedabad",
   "custom software development",
-  "SaaS development company India",
   "website development Ahmedabad",
   "web and app development",
   "business automation",
@@ -95,7 +97,7 @@ const JSON_LD = {
       url: SITE_URL,
       logo: { "@type": "ImageObject", url: `${SITE_URL}/logo.png` },
       image: `${SITE_URL}/opengraph-image.jpg`,
-      slogan: "Software that runs real businesses",
+      slogan: "We help businesses grow",
       description: DESCRIPTION,
       foundingDate: COMPANY.foundingDate,
       foundingLocation: {
@@ -114,9 +116,9 @@ const JSON_LD = {
       },
       areaServed: "IN",
       knowsAbout: [
-        "Custom software development",
-        "SaaS products",
+        "Business growth",
         "Website and app development",
+        "Custom software development",
         "Business process automation",
         "AI integration",
         "3D web experiences",

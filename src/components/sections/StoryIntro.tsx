@@ -5,7 +5,7 @@ import { motion, useScroll, useMotionValueEvent, useTransform, AnimatePresence }
 
 const steps = [
   { n: "01", title: "We Identify", desc: "We identify bottlenecks, inefficiencies and missed opportunities." },
-  { n: "02", title: "We Build",    desc: "We create systems designed around real business needs." },
+  { n: "02", title: "We Improve",  desc: "We fix what slows you down, with systems designed around real business needs." },
   { n: "03", title: "We Automate", desc: "We eliminate repetitive work through intelligent automation." },
   { n: "04", title: "We Scale",    desc: "We help businesses grow with systems built to last." },
 ];

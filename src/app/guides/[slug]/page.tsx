@@ -14,7 +14,7 @@ import { GUIDES, guidePath } from "@/data/guides";
 // AI crawlers read the HTML and do not run JavaScript. The first paragraph is the direct answer —
 // the part an assistant quotes.
 const CARD_ALT =
-  "Aevinite: Software that runs real businesses. SaaS products, business software and automation.";
+  "Aevinite: We help businesses grow. Websites, software and automation built around how each business works.";
 
 export function generateStaticParams() {
   return GUIDES.map((g) => ({ slug: g.slug }));

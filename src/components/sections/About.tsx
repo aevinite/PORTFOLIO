@@ -64,8 +64,8 @@ export default function About() {
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.05]"
             >
-              <span className="text-white">We build </span>
-              <span className="text-neon-blue text-glow">systems.</span>
+              <span className="text-white">We help businesses </span>
+              <span className="text-neon-blue text-glow">grow.</span>
             </motion.h2>
 
             <motion.p

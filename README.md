@@ -1,6 +1,6 @@
 # aevinite.com
 
-Source of **[aevinite.com](https://www.aevinite.com)**, the website of **Aevinite**: a software company based in Ahmedabad, Gujarat, India, founded on 28 July 2024 by **Rishi Nakrani** (Founder) and **Jenish Patel** (Co-Founder). Aevinite started as *Infinite* and was renamed on 16 June 2026. It builds custom business software, SaaS products, websites and apps, 3D web experiences and AI automation.
+Source of **[aevinite.com](https://www.aevinite.com)**, the website of **Aevinite**: a company that helps businesses grow, based in Ahmedabad, Gujarat, India, founded on 28 July 2024 by **Rishi Nakrani** (Founder) and **Jenish Patel** (Co-Founder). Aevinite started as *Infinite* and was renamed on 16 June 2026. It builds custom business software, SaaS products, websites and apps, 3D web experiences and AI automation.
 
 - About & founders: https://www.aevinite.com/about
 - Contact: https://www.aevinite.com/contact · rishi@aevinite.com

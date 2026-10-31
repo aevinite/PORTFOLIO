@@ -17,7 +17,7 @@ const TITLE = "Aevidine: Restaurant Software for QR Ordering, KOT & Billing";
 const DESCRIPTION =
   "Aevidine is restaurant management software by Aevinite, Ahmedabad: QR code ordering at the table, a kitchen screen and KOT printing, waiter and manager screens, GST bills and owner reports.";
 const CARD_ALT =
-  "Aevinite: Software that runs real businesses. SaaS products, business software and automation.";
+  "Aevinite: We help businesses grow. Websites, software and automation built around how each business works.";
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -90,7 +90,7 @@ const FAQ: { q: string; a: string }[] = [
   },
   {
     q: "Who makes Aevidine?",
-    a: `Aevidine is made by Aevinite, a software company in ${COMPANY.city}, ${COMPANY.region}, India, founded by ${FOUNDER_NAMES}.`,
+    a: `Aevidine is made by Aevinite, a company that helps businesses grow, based in ${COMPANY.city}, ${COMPANY.region}, India, founded by ${FOUNDER_NAMES}.`,
   },
   {
     q: "Do guests need to download an app?",

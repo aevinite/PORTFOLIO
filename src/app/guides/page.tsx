@@ -12,7 +12,7 @@ const TITLE = "Restaurant Guides: QR Ordering, KOT and GST Bills | Aevinite";
 const DESCRIPTION =
   "Plain guides for restaurant owners in India: how QR code ordering works, what a KOT is, what a GST bill must show, and choosing restaurant software in Ahmedabad.";
 const CARD_ALT =
-  "Aevinite: Software that runs real businesses. SaaS products, business software and automation.";
+  "Aevinite: We help businesses grow. Websites, software and automation built around how each business works.";
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },

@@ -98,7 +98,7 @@ export default function Hero() {
         >
           AEVINITE
           {/* Read by Google and screen readers, not shown: the page's main heading says what we do. */}
-          <span className="sr-only"> — custom software, SaaS and automation company in Ahmedabad</span>
+          <span className="sr-only"> — we help businesses grow. Ahmedabad, India</span>
         </motion.h1>
 
         {/* Supporting subtitle — kept after the wordmark */}
@@ -108,7 +108,7 @@ export default function Hero() {
           transition={{ duration: 0.9, ease: "easeOut", delay: 0.6 }}
           className="mt-6 text-sm md:text-base lg:text-lg text-white/55 font-light tracking-wide max-w-xl"
         >
-          We build systems that move businesses forward.
+          We help businesses grow.
         </motion.p>
 
         <motion.button

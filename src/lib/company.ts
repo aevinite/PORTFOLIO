@@ -49,7 +49,7 @@ export const FOUNDERS: Founder[] = [
     id: "jenish-patel",
     name: "Jenish Patel",
     role: "Co-Founder",
-    bio: "Jenish co-founded Aevinite and works alongside Rishi building the software, SaaS products and web experiences the company delivers to its clients.",
+    bio: "Jenish co-founded Aevinite and works alongside Rishi helping the businesses they work with grow, through the websites, software and automation the company delivers.",
     linkedin: "https://www.linkedin.com/in/jenish-patel-a5608a398/",
     instagram: "https://www.instagram.com/jenish.16/",
     crunchbase: "https://www.crunchbase.com/person/jenish-patel-6ea2",
@@ -64,7 +64,7 @@ export const FOUNDER_NAMES = FOUNDERS.map((f) => f.name).join(" and ");
 export const FAQ: { q: string; a: string }[] = [
   {
     q: "What is Aevinite?",
-    a: "Aevinite is a software company based in Ahmedabad, Gujarat, India. It builds custom business software, SaaS products, websites and apps, 3D web experiences and AI automation for businesses.",
+    a: "Aevinite is a company based in Ahmedabad, Gujarat, India that helps businesses grow, with websites, software and automation built around how each business works. It also makes Aevidine, restaurant software.",
   },
   {
     q: "Who founded Aevinite?",
@@ -80,7 +80,7 @@ export const FAQ: { q: string; a: string }[] = [
   },
   {
     q: "What does the name Aevinite mean?",
-    a: "Aevinite is derived from Aevum, a dimension of existence with a beginning but no end, and echoes the word Infinite, the company's original name. Its tagline is \"The beginning with no end.\"",
+    a: "Aevinite is derived from Aevum, a dimension of existence with a beginning but no end, and echoes the word Infinite, the company's original name. The name means \"the beginning with no end\"; the company's line is \"We help businesses grow.\"",
   },
   {
     q: "What has Aevinite built?",

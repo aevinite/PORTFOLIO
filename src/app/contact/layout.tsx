@@ -4,15 +4,15 @@ import type { Metadata } from "next";
 // own title, description and canonical address live here. Without this it repeated the home
 // page's title and told Google it *was* the home page.
 const DESCRIPTION =
-  "Contact Aevinite in Ahmedabad to discuss custom software, a SaaS product, a website or business automation. Email, call or WhatsApp us.";
+  "Contact Aevinite in Ahmedabad to talk about growing your business: a website, software or automation built around how you work. Email, call or WhatsApp us.";
 // The root opengraph-image.jpg / twitter-image.jpg are dropped once a page sets its own
 // openGraph/twitter, so they are named again here (seen in the built HTML, 2026-10-08).
 const CARD_ALT =
-  "Aevinite: Software that runs real businesses. SaaS products, business software and automation.";
+  "Aevinite: We help businesses grow. Websites, software and automation built around how each business works.";
 
 export const metadata: Metadata = {
   // Absolute: the "%s | Aevinite" template made a 21-character title, too thin for a search result.
-  title: { absolute: "Contact Aevinite | Software Company in Ahmedabad" },
+  title: { absolute: "Contact Aevinite | We Help Businesses Grow | Ahmedabad" },
   description: DESCRIPTION,
   alternates: { canonical: "/contact" },
   // A page's openGraph REPLACES the layout's (no deep merge), so the shared fields are repeated.

@@ -255,7 +255,7 @@ export const GUIDES: Guide[] = [
     faq: [
       {
         q: "Which restaurant software is made in Ahmedabad?",
-        a: "Aevidine is restaurant software made in Ahmedabad by Aevinite, a software company founded by Rishi Nakrani and Jenish Patel. It covers QR code ordering, KOT printing, waiter tablets, GST billing and owner reports.",
+        a: "Aevidine is restaurant software made in Ahmedabad by Aevinite, a company that helps businesses grow, founded by Rishi Nakrani and Jenish Patel. It covers QR code ordering, KOT printing, waiter tablets, GST billing and owner reports.",
       },
       {
         q: "Does QR ordering work for takeaway as well as dine-in?",

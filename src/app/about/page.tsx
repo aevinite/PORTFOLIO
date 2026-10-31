@@ -11,9 +11,9 @@ import { COMPANY, FOUNDERS, FOUNDER_NAMES, FAQ } from "@/lib/company";
 // The page that answers "who is Aevinite, who founded it, since when" — for people, for Google
 // and for AI assistants (which read the HTML and do not run JavaScript, so everything here is
 // plain server-rendered text: no fade-ins that start invisible).
-const DESCRIPTION = `Aevinite is a software company in Ahmedabad, founded on 28 July 2024 by ${FOUNDER_NAMES}. Meet the founders and read the company story.`;
+const DESCRIPTION = `Aevinite helps businesses grow. Based in Ahmedabad, founded on 28 July 2024 by ${FOUNDER_NAMES}. Meet the founders and read the company story.`;
 const CARD_ALT =
-  "Aevinite: Software that runs real businesses. SaaS products, business software and automation.";
+  "Aevinite: We help businesses grow. Websites, software and automation built around how each business works.";
 
 export const metadata: Metadata = {
   title: "About Aevinite: Founders & Story",
@@ -77,7 +77,7 @@ const FACTS: { label: string; value: string }[] = [
   { label: "Founders", value: FOUNDER_NAMES },
   { label: "Headquarters", value: `${COMPANY.city}, ${COMPANY.region}, ${COMPANY.country}` },
   { label: "Renamed to Aevinite", value: COMPANY.renamedLabel },
-  { label: "What we do", value: "Custom software, SaaS, websites & apps, 3D web, AI automation" },
+  { label: "What we do", value: "We help businesses grow: websites, software and automation" },
   { label: "Contact", value: COMPANY.email },
 ];
 
@@ -94,8 +94,8 @@ const TIMELINE = [
   },
   {
     date: "Today",
-    title: "Software that runs real businesses",
-    text: "Aevinite builds SaaS products, business software, websites, 3D web experiences and AI automation for clients across India.",
+    title: "We help businesses grow",
+    text: "Aevinite helps businesses across India grow, with websites, software and automation built around how each one works. Our own product, Aevidine, runs restaurants.",
   },
 ];
 
@@ -131,14 +131,14 @@ export default function AboutPage() {
             About <span className="text-neon-blue text-glow">Aevinite</span>
           </h1>
           <p className="text-lg md:text-xl text-white/70 font-light leading-relaxed mt-8 max-w-3xl">
-            Aevinite is a software company based in {COMPANY.city}, {COMPANY.region}, {COMPANY.country}.
+            Aevinite is a company based in {COMPANY.city}, {COMPANY.region}, {COMPANY.country}.
             It was founded on {COMPANY.foundedLabel} by{" "}
             <a href={`#${FOUNDERS[0].id}`} className="interactive text-white hover:text-neon-blue transition-colors">{FOUNDERS[0].name}</a>{" "}
             ({FOUNDERS[0].role}) and{" "}
             <a href={`#${FOUNDERS[1].id}`} className="interactive text-white hover:text-neon-blue transition-colors">{FOUNDERS[1].name}</a>{" "}
             ({FOUNDERS[1].role}) under the name {COMPANY.formerName}, and became Aevinite on {COMPANY.renamedLabel}.
-            We build custom business software, SaaS products, websites and apps, 3D web experiences and
-            AI automation: software that runs real businesses.
+            We help businesses grow, with websites, software and automation built around how each
+            business works. Our own product, Aevidine, is restaurant software.
           </p>
 
           <dl className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px mt-14 rounded-2xl overflow-hidden border border-white/10 bg-white/10">
